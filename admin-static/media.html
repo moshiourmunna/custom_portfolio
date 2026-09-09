@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Gallery | Islam Textile Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
+        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+      </div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="product-form.html">Add Product</a>
+        <a href="media.html" class="is-active">Media Gallery</a>
+        <a href="settings.html">Settings / Logos</a>
+        <a href="login.html">Log out</a>
+      </nav>
+    </aside>
+    <div class="admin-main">
+      <header class="admin-top">
+        <h1>Media Gallery</h1>
+        <button class="btn btn-primary" type="button">Upload images</button>
+      </header>
+      <div class="admin-content">
+        <div class="dropzone">
+          <p><strong>Drag &amp; drop</strong> images here (UI only — uploads in Prompt 3)</p>
+          <p class="hint">JPG, PNG, WebP · max size enforced later</p>
+        </div>
+        <div class="media-grid">
+          <figure><img src="assets/images/media/gallery-0.jpg" alt=""><figcaption>gallery-0 · Factory</figcaption></figure>
+          <figure><img src="assets/images/media/gallery-1.jpg" alt=""><figcaption>gallery-1 · Production</figcaption></figure>
+          <figure><img src="assets/images/media/gallery-2.jpg" alt=""><figcaption>gallery-2 · Yarn</figcaption></figure>
+          <figure><img src="assets/images/media/gallery-3.jpg" alt=""><figcaption>gallery-3 · Weaving</figcaption></figure>
+          <figure><img src="assets/images/media/gallery-4.jpg" alt=""><figcaption>gallery-4 · Finishing</figcaption></figure>
+          <figure><img src="assets/images/media/gallery-5.jpg" alt=""><figcaption>gallery-5 · QC</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | Islam Textile Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
+        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+      </div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html" class="is-active">Products</a>
+        <a href="product-form.html">Add Product</a>
+        <a href="media.html">Media Gallery</a>
+        <a href="settings.html">Settings / Logos</a>
+        <a href="login.html">Log out</a>
+      </nav>
+    </aside>
+    <div class="admin-main">
+      <header class="admin-top">
+        <h1>Products</h1>
+        <a class="btn btn-primary" href="product-form.html">Add product</a>
+      </header>
+      <div class="admin-content">
+        <div class="toolbar">
+          <input type="search" placeholder="Search products…" style="min-height:2.4rem;padding:.4rem .75rem;border:1px solid var(--line);min-width:220px">
+          <select style="min-height:2.4rem;border:1px solid var(--line);padding:.4rem">
+            <option>All categories</option>
+            <option>Yarn</option>
+            <option>Woven Fabric</option>
+            <option>Finished Fabric</option>
+          </select>
+        </div>
+        <div class="panel">
+          <table class="table">
+            <thead>
+              <tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Updated</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="assets/images/media/gallery-2.jpg" alt="" width="48" height="48" style="object-fit:cover"></td>
+                <td>Combed Cotton Poplin</td>
+                <td>Woven Fabric</td>
+                <td><span class="badge">Published</span></td>
+                <td>08 Sep 2026</td>
+                <td><a href="product-form.html">Edit</a> · <a href="#">Delete</a></td>
+              </tr>
+              <tr>
+                <td><img src="assets/images/media/gallery-3.jpg" alt="" width="48" height="48" style="object-fit:cover"></td>
+                <td>Carded OE Yarn 20s</td>
+                <td>Yarn</td>
+                <td><span class="badge">Published</span></td>
+                <td>05 Sep 2026</td>
+                <td><a href="product-form.html">Edit</a> · <a href="#">Delete</a></td>
+              </tr>
+              <tr>
+                <td><img src="assets/images/media/gallery-4.jpg" alt="" width="48" height="48" style="object-fit:cover"></td>
+                <td>Piece-dyed Twill</td>
+                <td>Finished Fabric</td>
+                <td><span class="badge badge-new">Draft</span></td>
+                <td>01 Sep 2026</td>
+                <td><a href="product-form.html">Edit</a> · <a href="#">Delete</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

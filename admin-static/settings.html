@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings &amp; Logo Picker | Islam Textile Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
+        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+      </div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="product-form.html">Add Product</a>
+        <a href="media.html">Media Gallery</a>
+        <a href="settings.html" class="is-active">Settings / Logos</a>
+        <a href="login.html">Log out</a>
+      </nav>
+    </aside>
+    <div class="admin-main">
+      <header class="admin-top">
+        <h1>Site Settings</h1>
+        <button class="btn btn-primary" type="button" id="save-settings">Save settings</button>
+      </header>
+      <div class="admin-content">
+        <div class="tabs" role="tablist">
+          <button type="button" class="is-active" data-tab="general">General</button>
+          <button type="button" data-tab="logos">Logo picker</button>
+          <button type="button" data-tab="contact">Contact</button>
+          <button type="button" data-tab="seo">SEO defaults</button>
+        </div>
+
+        <div class="panel" data-panel="general">
+          <h2>General</h2>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="site_name">Site name</label>
+              <input id="site_name" value="Islam Textile">
+            </div>
+            <div class="field">
+              <label for="tagline">Tagline</label>
+              <input id="tagline" value="Weaving Tradition, Ensuring Quality">
+            </div>
+          </div>
+          <p class="hint">In Prompt 3, the selected logo below becomes the global site logo for header/footer.</p>
+        </div>
+
+        <div class="panel" data-panel="logos">
+          <h2>Choose primary brand logo</h2>
+          <p class="hint">HTML demo currently uses different logos per page for exploration. Pick your preferred global mark here — Laravel admin will apply it site-wide later.</p>
+          <div class="logo-picker" id="logo-picker">
+            <label class="logo-option"><input type="radio" name="logo" value="01"><img src="assets/images/brand/logo-01-monogram-it-ribbon.png" alt="">01 Monogram</label>
+            <label class="logo-option"><input type="radio" name="logo" value="02" checked><img src="assets/images/brand/logo-02-wordmark-woven.png" alt="">02 Wordmark</label>
+            <label class="logo-option"><input type="radio" name="logo" value="03"><img src="assets/images/brand/logo-03-loom-abstract.png" alt="">03 Loom</label>
+            <label class="logo-option"><input type="radio" name="logo" value="04"><img src="assets/images/brand/logo-04-thread-spool.png" alt="">04 Spool</label>
+            <label class="logo-option"><input type="radio" name="logo" value="05"><img src="assets/images/brand/logo-05-shield-quality.png" alt="">05 Shield</label>
+            <label class="logo-option"><input type="radio" name="logo" value="06"><img src="assets/images/brand/logo-06-hex-textile.png" alt="">06 Hex</label>
+            <label class="logo-option"><input type="radio" name="logo" value="07"><img src="assets/images/brand/logo-07-leaf-fiber.png" alt="">07 Leaf</label>
+            <label class="logo-option"><input type="radio" name="logo" value="08"><img src="assets/images/brand/logo-08-stacked-lockup.png" alt="">08 Stacked</label>
+            <label class="logo-option"><input type="radio" name="logo" value="09"><img src="assets/images/brand/logo-09-horizontal-lockup.png" alt="">09 Horizontal</label>
+            <label class="logo-option"><input type="radio" name="logo" value="10"><img src="assets/images/brand/logo-10-dark-premium.png" alt="">10 Dark</label>
+            <label class="logo-option"><input type="radio" name="logo" value="11"><img src="assets/images/brand/logo-11-light-clean.png" alt="">11 Light</label>
+            <label class="logo-option"><input type="radio" name="logo" value="12"><img src="assets/images/brand/logo-12-seal-circular.png" alt="">12 Seal</label>
+            <label class="logo-option"><input type="radio" name="logo" value="13"><img src="assets/images/brand/logo-13-minimal-initial.png" alt="">13 Minimal</label>
+            <label class="logo-option"><input type="radio" name="logo" value="14"><img src="assets/images/brand/logo-14-fabric-fold.png" alt="">14 Fabric fold</label>
+            <label class="logo-option"><input type="radio" name="logo" value="15"><img src="assets/images/brand/logo-15-yarn-to-cloth.png" alt="">15 Yarn→cloth</label>
+          </div>
+        </div>
+
+        <div class="panel" data-panel="contact" hidden>
+          <h2>Contact</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Office address</label><input value="Dhaka, Bangladesh"></div>
+            <div class="field"><label>Factory address</label><input value="Narayanganj, Bangladesh"></div>
+            <div class="field"><label>Phone</label><input value="+880 1XXX-XXXXXX"></div>
+            <div class="field"><label>Email</label><input value="info@islamtextile.com"></div>
+          </div>
+        </div>
+
+        <div class="panel" data-panel="seo" hidden>
+          <h2>SEO defaults</h2>
+          <div class="field"><label>Default meta title</label><input value="Islam Textile | Premium Cotton Woven Textiles"></div>
+          <div class="field"><label>Default meta description</label><textarea rows="3">Cotton yarn, woven fabric, and dyeing &amp; finishing from Bangladesh.</textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.tabs button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const tab = btn.getAttribute('data-tab');
+        document.querySelectorAll('[data-panel]').forEach((panel) => {
+          panel.hidden = panel.getAttribute('data-panel') !== tab;
+        });
+      });
+    });
+    document.getElementById('save-settings').addEventListener('click', () => {
+      const selected = document.querySelector('input[name="logo"]:checked')?.value || '02';
+      alert('Demo only: would save logo #' + selected + ' as global brand (Prompt 3).');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product | Islam Textile Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
+        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+      </div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="product-form.html" class="is-active">Add Product</a>
+        <a href="media.html">Media Gallery</a>
+        <a href="settings.html">Settings / Logos</a>
+        <a href="login.html">Log out</a>
+      </nav>
+    </aside>
+    <div class="admin-main">
+      <header class="admin-top">
+        <h1>Create / Edit Product</h1>
+        <a class="btn btn-outline" href="products.html">Back to list</a>
+      </header>
+      <div class="admin-content">
+        <form class="panel form-grid" action="products.html" method="get">
+          <div class="form-grid two">
+            <div class="field">
+              <label for="title">Title</label>
+              <input id="title" name="title" value="Combed Cotton Poplin">
+            </div>
+            <div class="field">
+              <label for="slug">Slug</label>
+              <input id="slug" name="slug" value="combed-cotton-poplin">
+            </div>
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category">
+                <option>Yarn</option>
+                <option selected>Woven Fabric</option>
+                <option>Finished Fabric</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="status">Status</label>
+              <select id="status" name="status">
+                <option selected>Published</option>
+                <option>Draft</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="summary">Summary</label>
+            <textarea id="summary" name="summary" rows="2">Soft combed cotton poplin for shirts and light apparel programs.</textarea>
+          </div>
+          <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="5">Full product description editable from admin (Prompt 3).</textarea>
+          </div>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="meta_title">SEO meta title</label>
+              <input id="meta_title" name="meta_title" value="Combed Cotton Poplin | Islam Textile">
+            </div>
+            <div class="field">
+              <label for="meta_desc">SEO meta description</label>
+              <input id="meta_desc" name="meta_desc" value="Combed cotton poplin woven fabric from Islam Textile.">
+            </div>
+          </div>
+          <div class="field">
+            <label>Images</label>
+            <p class="hint">Select from media library (wired in Prompt 3).</p>
+            <button type="button" class="btn btn-outline">Choose from gallery</button>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary" style="width:auto">Save product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
