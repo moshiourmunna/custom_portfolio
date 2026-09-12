@@ -48,14 +48,7 @@
         <nav class="nav" aria-label="Main">
           <a href="index.html">Home</a>
           <a href="about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="products/index.html#yarn">Yarn</a>
-              <a href="products/woven-fabric.html">Woven Fabric</a>
-              <a href="products/index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="products/index.html">Products</a>
           <a href="facilities.html">Facilities &amp; Capacity</a>
           <a href="quality.html">Quality</a>
           <a href="sustainability.html">Sustainability</a>
@@ -68,9 +61,6 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="products/index.html">Products</a>
-      <a class="mobile-nav__sub" href="products/index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="products/woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="products/index.html#finishing">Finished Fabric</a>
       <a href="facilities.html">Facilities &amp; Capacity</a>
       <a href="quality.html">Quality</a>
       <a href="sustainability.html">Sustainability</a>
@@ -79,53 +69,156 @@
   </header>
 
   <main id="main">
-    <section class="page-hero" data-cms-field="page-hero">
-      <div class="container page-hero__content">
-        <p class="page-hero__crumb"><a href="index.html">Home</a> / Contact</p>
+    <section class="contact-hero" data-cms-field="page-hero">
+      <img class="contact-hero__bg" src="assets/images/gallery/gallery-2.jpg" alt="">
+      <div class="container contact-hero__content">
+        <p class="contact-hero__crumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> Contact</p>
         <h1 data-cms-field="page-title">Contact &amp; Request Quote</h1>
         <p data-cms-field="page-lead">Tell us about your yarn or woven fabric program — constructions, finishes, volumes, and target markets.</p>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container contact-grid">
-        <div class="contact-meta" data-cms-field="contact-info">
-          <div>
-            <h3>Corporate Office</h3>
-            <p>[Street / Area], Dhaka, Bangladesh</p>
-            <p><a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a></p>
-            <p><a href="mailto:info@islamtextile.com">info@islamtextile.com</a></p>
-            <p>Sunday–Thursday, 9:00–18:00 (BST)</p>
-          </div>
-          <div>
-            <h3>Mill / Factory</h3>
-            <p>[Factory Road], Narayanganj, Bangladesh</p>
-            <p>Spinning, weaving, dyeing &amp; finishing</p>
-            <p>Visits by appointment for buyers and auditors</p>
-          </div>
-        </div>
+    <section class="section contact-board">
+      <div class="container contact-board__grid">
+        <aside class="contact-card" data-cms-field="contact-info">
+          <header class="contact-card__head">
+            <h2>Reach the mill</h2>
+            <p>The Dhaka desk handles buyer programs. Mill visits in Narayanganj are by appointment.</p>
+          </header>
 
-        <form class="form" data-validate data-success="quote-success.html" data-cms-field="quote-form" action="#" method="post" enctype="multipart/form-data">
+          <div class="contact-places">
+            <article class="contact-place">
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-10a7 7 0 10-14 0c0 4.8 7 10 7 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+              </div>
+              <div>
+                <h3>Office</h3>
+                <p data-cms-field="office-address">[Street / Area], Dhaka, Bangladesh</p>
+              </div>
+            </article>
+            <article class="contact-place">
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V9l6-5 6 5v11"/><path d="M10 20v-5h4v5"/></svg>
+              </div>
+              <div>
+                <h3>Mill</h3>
+                <p data-cms-field="mill-address">[Factory Road], Narayanganj, Bangladesh</p>
+                <p class="contact-place__note">Spinning, weaving, dyeing &amp; finishing</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="contact-map" data-cms-field="contact-map" data-office-pin="" data-mill-pin="">
+            <div class="contact-map__stage">
+              <div class="contact-map__art" data-map-fallback aria-hidden="true">
+                <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice">
+                  <g fill="#c5dfd8">
+                    <rect x="36" y="28" width="118" height="72" rx="8"/>
+                    <rect x="36" y="148" width="118" height="58" rx="8"/>
+                    <rect x="36" y="248" width="118" height="78" rx="8"/>
+                    <rect x="214" y="28" width="150" height="72" rx="8"/>
+                    <rect x="214" y="248" width="72" height="78" rx="8"/>
+                    <rect x="302" y="248" width="62" height="78" rx="8"/>
+                    <rect x="430" y="28" width="174" height="72" rx="8"/>
+                    <rect x="430" y="148" width="78" height="58" rx="8"/>
+                    <rect x="524" y="148" width="80" height="58" rx="8"/>
+                    <rect x="430" y="248" width="174" height="78" rx="8"/>
+                  </g>
+                  <g fill="none" stroke="#f7fbfa" stroke-width="16" stroke-linecap="round">
+                    <path d="M0 124H640"/>
+                    <path d="M0 228H640"/>
+                    <path d="M188 0V360"/>
+                    <path d="M400 0V360"/>
+                  </g>
+                  <g fill="none" stroke="#a9ccc4" stroke-width="5" stroke-linecap="round">
+                    <path d="M188 124H400"/>
+                    <path d="M188 228H400"/>
+                    <path d="M294 124V228"/>
+                  </g>
+                </svg>
+                <span class="contact-map__pin">
+                  <svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-10a7 7 0 10-14 0c0 4.8 7 10 7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+                </span>
+              </div>
+              <div class="contact-map__live" data-map-live>
+                <div class="contact-map__switch" data-map-switch role="tablist" aria-label="Pinned locations"></div>
+                <div class="contact-map__frame" data-map-canvas>
+                  <iframe data-map-frame title="Pinned location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+              </div>
+            </div>
+            <a class="contact-map__cta" data-map-open href="https://www.google.com/maps/search/?api=1&amp;query=Narayanganj%2C+Bangladesh" target="_blank" rel="noopener">
+              View on Google Maps
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"/><path d="M19 5l-9 9"/><path d="M17 13.5V19a1 1 0 01-1 1H5a1 1 0 01-1-1V8a1 1 0 011-1h5.5"/></svg>
+              <span class="sr-only" data-map-note>Opens a district search until a pin is set.</span>
+            </a>
+          </div>
+
+          <ul class="contact-lines">
+            <li>
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 4h3l1.2 3.2-1.8 1.1a12 12 0 006.3 6.3l1.1-1.8L20 14v3a2 2 0 01-2.2 2A15 15 0 015 6.2 2 2 0 017 4z"/></svg>
+              </div>
+              <div>
+                <h3>Phone</h3>
+                <p><a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a></p>
+              </div>
+            </li>
+            <li>
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M4 7l8 6 8-6"/></svg>
+              </div>
+              <div>
+                <h3>Email</h3>
+                <p><a href="mailto:info@islamtextile.com">info@islamtextile.com</a></p>
+              </div>
+            </li>
+            <li>
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+              </div>
+              <div>
+                <h3>Website</h3>
+                <p><a href="https://www.islamtextile.com/">www.islamtextile.com</a></p>
+              </div>
+            </li>
+            <li>
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5l3 1.5"/></svg>
+              </div>
+              <div>
+                <h3>Business hours</h3>
+                <p>Sunday–Thursday<br>9:00–18:00 (BST)</p>
+              </div>
+            </li>
+          </ul>
+        </aside>
+
+        <form class="form quote-card" data-validate data-success="quote-success.html" data-cms-field="quote-form" action="#" method="post" enctype="multipart/form-data">
+          <header class="quote-card__head">
+            <h2>Request a quote</h2>
+            <p>Share the program details and the Dhaka desk will reply with next steps.</p>
+          </header>
           <div class="form-row form-row--2">
             <div class="field">
-              <label for="name">Full name</label>
-              <input id="name" name="name" required autocomplete="name">
+              <label for="name">Full name <span class="req">*</span></label>
+              <input id="name" name="name" required autocomplete="name" placeholder="Your name">
               <p class="error">Name is required.</p>
             </div>
             <div class="field">
-              <label for="company">Company</label>
-              <input id="company" name="company" required>
+              <label for="company">Company <span class="req">*</span></label>
+              <input id="company" name="company" required placeholder="Company name">
               <p class="error">Company is required.</p>
             </div>
           </div>
           <div class="form-row form-row--2">
             <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required autocomplete="email">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" required autocomplete="email" placeholder="name@company.com">
               <p class="error">Valid email is required.</p>
             </div>
             <div class="field">
-              <label for="phone">Phone</label>
+              <label for="phone">Phone <span class="req">*</span></label>
               <input id="phone" name="phone" required autocomplete="tel" placeholder="+880…">
               <p class="error">Phone is required.</p>
             </div>
@@ -133,10 +226,10 @@
           <div class="form-row form-row--2">
             <div class="field">
               <label for="country">Country</label>
-              <input id="country" name="country" autocomplete="country-name">
+              <input id="country" name="country" autocomplete="country-name" placeholder="Country">
             </div>
             <div class="field">
-              <label for="interest">Product interest</label>
+              <label for="interest">Product interest <span class="req">*</span></label>
               <select id="interest" name="interest" required>
                 <option value="">Select…</option>
                 <option>Yarn / Spinning</option>
@@ -148,45 +241,53 @@
             </div>
           </div>
           <div class="field">
-            <label for="message">Message / specifications</label>
+            <label for="message">Message / specifications <span class="req">*</span></label>
             <textarea id="message" name="message" required placeholder="Counts, constructions, finishes, quantity, target delivery…"></textarea>
             <p class="error">Message is required.</p>
           </div>
           <div class="field">
-            <span class="label" id="attach-label">Attachment (optional)</span>
+            <span class="label" id="attach-label">Attachment <span class="req">optional</span></span>
             <label class="file-drop" data-max-mb="10" for="attach">
               <input id="attach" name="attachment" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" aria-labelledby="attach-label">
               <strong>Drop a file here</strong> or click to browse
               <span class="file-drop__name">PDF, Office, or image · max 10MB</span>
             </label>
           </div>
-          <button type="submit" class="btn btn--primary">Submit Inquiry</button>
+          <button type="submit" class="btn btn--primary">Submit inquiry</button>
         </form>
       </div>
     </section>
 
-    <section class="trust-bar trust-bar--surface" data-cms-field="trust-bar">
-      <div class="container grid-4">
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <h3>Fast Response</h3>
-          <p>Dhaka team replies within one business day</p>
-        </div>
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg></div>
-          <h3>Sample Support</h3>
-          <p>Swatches and lab dips for approved programs</p>
-        </div>
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg></div>
-          <h3>Export Ready</h3>
-          <p>Docs and packing to buyer specs</p>
-        </div>
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 19V9l6-5 6 5v10"/></svg></div>
-          <h3>Mill Access</h3>
-          <p>Narayanganj visits by appointment</p>
-        </div>
+    <section class="contact-trust" data-cms-field="trust-bar">
+      <div class="container contact-trust__grid">
+        <article class="contact-trust__item">
+          <div class="contact-trust__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5l3 1.5"/></svg></div>
+          <div>
+            <h2>Fast response</h2>
+            <p>The Dhaka desk replies within one business day.</p>
+          </div>
+        </article>
+        <article class="contact-trust__item">
+          <div class="contact-trust__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 12.5l3.2 3.2L18 7.5"/></svg></div>
+          <div>
+            <h2>Sample support</h2>
+            <p>Swatches and lab dips for approved programs.</p>
+          </div>
+        </article>
+        <article class="contact-trust__item">
+          <div class="contact-trust__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div>
+            <h2>Export ready</h2>
+            <p>Documents and packing held to buyer specification.</p>
+          </div>
+        </article>
+        <article class="contact-trust__item">
+          <div class="contact-trust__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V9l6-5 6 5v11"/><path d="M10 20v-5h4v5"/></svg></div>
+          <div>
+            <h2>Mill access</h2>
+            <p>Narayanganj visits by appointment for buyers and auditors.</p>
+          </div>
+        </article>
       </div>
     </section>
   </main>

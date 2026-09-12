@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Islam Textile Admin</title>
+  <title>News | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,20 +25,14 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Dashboard</h1><a class="btn btn-outline" href="../public-site/index.html" target="_blank" rel="noopener">View site</a></header>
+      <header class="admin-top"><h1>News</h1><a class="btn btn-primary" href="news-form.html">Add article</a></header>
       <div class="admin-content">
-        <div data-dashboard>
-          <div class="stats-row">
-            <div class="stat-card"><strong data-count="products">0</strong><span>Products</span></div>
-            <div class="stat-card"><strong data-count="inquiries">0</strong><span>New inquiries</span></div>
-            <div class="stat-card"><strong data-count="news">0</strong><span>News</span></div>
-            <div class="stat-card"><strong data-count="gallery">0</strong><span>Gallery items</span></div>
-          </div>
-          <div class="panel">
-            <div class="panel-head"><h2>Recent inquiries</h2><a href="inquiries.html">Open inbox</a></div>
-            <table class="table"><thead><tr><th>Image</th><th>Date</th><th>Company</th><th>Interest</th><th>Status</th></tr></thead><tbody data-list="inquiries"></tbody></table>
-          </div>
+        <div class="toolbar">
+          <input type="search" data-list-search="news" placeholder="Search news…" aria-label="Search news">
+          <select data-list-status="news" aria-label="Status"><option value="">All statuses</option><option>Published</option><option>Draft</option></select>
         </div>
+        <p class="list-meta" data-list-count="news"></p>
+        <div class="panel"><table class="table"><thead><tr><th>Image</th><th>Date</th><th>Title</th><th>Status</th><th>Actions</th></tr></thead><tbody data-list="news"></tbody></table></div>
       </div>
     </div>
   </div>

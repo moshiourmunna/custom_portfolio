@@ -3,111 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings &amp; Logo Picker | Islam Textile Admin</title>
+  <title>Settings | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
+  <div class="admin-backdrop" data-nav-backdrop hidden></div>
   <div class="admin-shell">
-    <aside class="sidebar">
-      <div class="sidebar__brand">
-        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
-        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+    <header class="admin-nav">
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="admin-sidebar" aria-label="Open menu"><span></span></button>
+      <a class="admin-nav__brand" href="dashboard.html" aria-label="Islam Textile admin home">
+        <span class="admin-nav__mark" aria-hidden="true"></span>
+        <span class="admin-nav__word"><strong>Islam Textile</strong><small>Weaving Tradition, Ensuring Quality</small></span>
+      </a>
+      <div class="admin-nav__tools">
+        <a class="admin-nav__bell" href="inquiries.html" aria-label="Inquiries"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 4.2 1.2 5.5 1.2 5.5H5.3S6.5 13.7 6.5 9.5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg><span class="admin-nav__badge">0</span></a>
+        <div class="admin-nav__user"><span class="admin-nav__user-text"><strong>Admin</strong><small>Super Admin</small></span><span class="admin-nav__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="9" r="3"/><path d="M6 19v-.5A4.5 4.5 0 0 1 10.5 14h3A4.5 4.5 0 0 1 18 18.5V19"/></svg></span></div>
       </div>
-      <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="products.html">Products</a>
-        <a href="product-form.html">Add Product</a>
-        <a href="media.html">Media Gallery</a>
-        <a href="settings.html" class="is-active">Settings / Logos</a>
-        <a href="login.html">Log out</a>
-      </nav>
-    </aside>
+    </header>
+    <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top">
-        <h1>Site Settings</h1>
-        <button class="btn btn-primary" type="button" id="save-settings">Save settings</button>
-      </header>
+      <header class="admin-top"><h1>Site settings</h1><button class="btn btn-primary" type="submit" form="settings-form">Save settings</button></header>
       <div class="admin-content">
         <div class="tabs" role="tablist">
           <button type="button" class="is-active" data-tab="general">General</button>
-          <button type="button" data-tab="logos">Logo picker</button>
+          <button type="button" data-tab="theme">Theme</button>
+          <button type="button" data-tab="logos">Logo</button>
           <button type="button" data-tab="contact">Contact</button>
-          <button type="button" data-tab="seo">SEO defaults</button>
+          <button type="button" data-tab="footer">Footer</button>
+          <button type="button" data-tab="seo">SEO</button>
+          <button type="button" data-tab="social">Social</button>
+          <button type="button" data-tab="tracking">Tracking</button>
         </div>
-
-        <div class="panel" data-panel="general">
-          <h2>General</h2>
-          <div class="form-grid two">
-            <div class="field">
-              <label for="site_name">Site name</label>
-              <input id="site_name" value="Islam Textile">
+        <form id="settings-form" data-store="settings">
+          <div class="panel" data-panel="general">
+            <h2>General</h2>
+            <div class="form-grid two">
+              <div class="field"><label for="site_name">Site name</label><input id="site_name" name="siteName"></div>
+              <div class="field"><label for="tagline">Tagline</label><input id="tagline" name="tagline"></div>
+              <div class="field"><label>Website</label><input name="website"></div>
+              <div class="field"><label>Favicon</label><select name="favicon"><option value="favicon.png">favicon.png</option><option value="logo-01-monogram-it-ribbon.png">01 Monogram</option><option value="logo-02-wordmark-woven.png">02 Wordmark</option><option value="logo-03-loom-abstract.png">03 Loom</option><option value="logo-04-thread-spool.png">04 Spool</option><option value="logo-05-shield-quality.png">05 Shield</option><option value="logo-06-hex-textile.png">06 Hex</option><option value="logo-07-leaf-fiber.png">07 Leaf</option><option value="logo-08-stacked-lockup.png">08 Stacked</option><option value="logo-09-horizontal-lockup.png">09 Horizontal</option><option value="logo-10-dark-premium.png">10 Dark</option><option value="logo-11-light-clean.png">11 Light</option><option value="logo-12-seal-circular.png">12 Seal</option><option value="logo-13-minimal-initial.png">13 Minimal</option><option value="logo-14-fabric-fold.png">14 Fabric fold</option><option value="logo-15-yarn-to-cloth.png">15 Yarn to cloth</option></select></div>
             </div>
-            <div class="field">
-              <label for="tagline">Tagline</label>
-              <input id="tagline" value="Weaving Tradition, Ensuring Quality">
+            <label class="field"><input type="checkbox" name="maintenance"> Maintenance mode stored only — it does not hide the public site in this phase.</label>
+          </div>
+          <div class="panel" data-panel="theme" hidden>
+            <h2>Theme</h2>
+            <p class="hint">Updates this panel immediately. It does not rewrite the public CSS.</p>
+            <div class="form-grid two">
+              <div class="field"><label>Primary — header, buttons, links</label><div class="color-row"><input type="color" data-color value="#004d40"><input name="theme.primary" data-hex value="#004d40"></div></div>
+              <div class="field"><label>Deep — footer and dark bands</label><div class="color-row"><input type="color" data-color value="#003d33"><input name="theme.deep" data-hex value="#003d33"></div></div>
+              <div class="field"><label>Accent — secondary buttons and labels</label><div class="color-row"><input type="color" data-color value="#548c84"><input name="theme.accent" data-hex value="#548c84"></div></div>
+              <div class="field"><label>Surface — page background</label><div class="color-row"><input type="color" data-color value="#f4f7f6"><input name="theme.surface" data-hex value="#f4f7f6"></div></div>
+            </div>
+            <div class="theme-preview" data-theme-preview><button type="button" class="swatch-btn">Button</button><span class="swatch-link">Link</span><span class="swatch-band">Dark band</span></div>
+            <p><button type="button" class="btn btn-outline" data-reset-theme>Reset to mill defaults</button></p>
+          </div>
+          <div class="panel" data-panel="logos" hidden>
+            <h2>Logo</h2>
+            <p class="hint">Pick the mark. Applying it on the public header is a later step.</p>
+            <div class="logo-picker"><label class="logo-option"><input type="radio" name="logo" value="01" checked><img src="assets/images/brand/logo-01-monogram-it-ribbon.png" alt="">01 Monogram</label><label class="logo-option"><input type="radio" name="logo" value="02"><img src="assets/images/brand/logo-02-wordmark-woven.png" alt="">02 Wordmark</label><label class="logo-option"><input type="radio" name="logo" value="03"><img src="assets/images/brand/logo-03-loom-abstract.png" alt="">03 Loom</label><label class="logo-option"><input type="radio" name="logo" value="04"><img src="assets/images/brand/logo-04-thread-spool.png" alt="">04 Spool</label><label class="logo-option"><input type="radio" name="logo" value="05"><img src="assets/images/brand/logo-05-shield-quality.png" alt="">05 Shield</label><label class="logo-option"><input type="radio" name="logo" value="06"><img src="assets/images/brand/logo-06-hex-textile.png" alt="">06 Hex</label><label class="logo-option"><input type="radio" name="logo" value="07"><img src="assets/images/brand/logo-07-leaf-fiber.png" alt="">07 Leaf</label><label class="logo-option"><input type="radio" name="logo" value="08"><img src="assets/images/brand/logo-08-stacked-lockup.png" alt="">08 Stacked</label><label class="logo-option"><input type="radio" name="logo" value="09"><img src="assets/images/brand/logo-09-horizontal-lockup.png" alt="">09 Horizontal</label><label class="logo-option"><input type="radio" name="logo" value="10"><img src="assets/images/brand/logo-10-dark-premium.png" alt="">10 Dark</label><label class="logo-option"><input type="radio" name="logo" value="11"><img src="assets/images/brand/logo-11-light-clean.png" alt="">11 Light</label><label class="logo-option"><input type="radio" name="logo" value="12"><img src="assets/images/brand/logo-12-seal-circular.png" alt="">12 Seal</label><label class="logo-option"><input type="radio" name="logo" value="13"><img src="assets/images/brand/logo-13-minimal-initial.png" alt="">13 Minimal</label><label class="logo-option"><input type="radio" name="logo" value="14"><img src="assets/images/brand/logo-14-fabric-fold.png" alt="">14 Fabric fold</label><label class="logo-option"><input type="radio" name="logo" value="15"><img src="assets/images/brand/logo-15-yarn-to-cloth.png" alt="">15 Yarn to cloth</label></div>
+          </div>
+          <div class="panel" data-panel="contact" hidden>
+            <h2>Contact</h2>
+            <div class="form-grid two">
+              <div class="field"><label for="office_address">Office address</label><input id="office_address" name="officeAddress"></div>
+              <div class="field"><label for="factory_address">Mill address</label><input id="factory_address" name="millAddress"></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" name="phone"></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email"></div>
+            </div>
+            <h3>Map pins</h3>
+            <p class="hint">Paste a Google Maps link, embed URL, or coordinates. A short maps.app.goo.gl link opens in Maps but does not embed. Leave a field blank and the public contact card will not plot a pin for that place.</p>
+            <div class="form-grid two">
+              <div class="field"><label for="office_pin">Office map pin</label><input id="office_pin" name="officePin" placeholder="Maps link, embed URL, or 23.8103, 90.4125" autocomplete="off"></div>
+              <div class="field"><label for="mill_pin">Mill map pin</label><input id="mill_pin" name="millPin" placeholder="Maps link, embed URL, or 23.6238, 90.5000" autocomplete="off"></div>
+            </div>
+            <p class="hint"><a id="map-preview" href="../public-site/contact.html">Preview the contact card</a></p>
+          </div>
+          <div class="panel" data-panel="footer" hidden>
+            <h2>Footer</h2>
+            <div class="field"><label>Footer blurb</label><textarea name="footerBlurb" rows="3"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Hours</label><input name="hours"></div>
+          </div>
+          <div class="panel" data-panel="seo" hidden>
+            <h2>SEO defaults</h2>
+            <div class="field"><label>Default title</label><input name="metaTitle"></div>
+            <div class="field"><label>Default description</label><textarea name="metaDescription" rows="3"></textarea></div>
+                        <div class="field"><label>Open Graph image</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="ogImage"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div></div>
+            <div class="field"><label>Canonical base URL</label><input name="canonicalBase"></div>
+          </div>
+          <div class="panel" data-panel="social" hidden>
+            <h2>Social links</h2>
+            <p class="hint">Leave a URL blank until the account exists. Empty rows are not shown.</p>
+            <div class="form-grid two">
+                          <div class="field"><label>Facebook</label><input name="social.facebook" placeholder="https://"><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>Instagram</label><input name="social.instagram" placeholder="https://"><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>LinkedIn</label><input name="social.linkedin" placeholder="https://"><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>YouTube</label><input name="social.youtube" placeholder="https://"><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>WhatsApp</label><input name="social.whatsapp" placeholder="https://"><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>X</label><input name="social.x" placeholder="https://"><span class="hide-note">Hidden on the site when empty</span></div>
+            </div>
+            <ul data-social-preview></ul>
+          </div>
+          <div class="panel" data-panel="tracking" hidden>
+            <h2>Tracking and verification</h2>
+            <p class="hint">Leave blank until you have the ID. Nothing is invented here.</p>
+            <div class="form-grid two">
+                          <div class="field"><label>Google Analytics measurement ID</label><input name="tracking.ga" autocomplete="off"><span class="hint">Loads the Analytics snippet when an ID is saved later.</span><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>Google Tag Manager container ID</label><input name="tracking.gtm" autocomplete="off"><span class="hint">Container such as GTM-XXXX. Empty means no snippet.</span><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>Meta Pixel ID</label><input name="tracking.metaPixel" autocomplete="off"><span class="hint">Meta events snippet. Empty means no pixel.</span><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>Meta domain verification</label><input name="tracking.metaDomain" autocomplete="off"><span class="hint">Verification token for the Meta domain check.</span><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>Google Search Console verification</label><input name="tracking.gsc" autocomplete="off"><span class="hint">HTML tag content for Search Console.</span><span class="hide-note">Hidden on the site when empty</span></div>
+                          <div class="field"><label>Bing Webmaster verification</label><input name="tracking.bing" autocomplete="off"><span class="hint">HTML tag content for Bing Webmaster.</span><span class="hide-note">Hidden on the site when empty</span></div>
             </div>
           </div>
-          <p class="hint">In Prompt 3, the selected logo below becomes the global site logo for header/footer.</p>
-        </div>
-
-        <div class="panel" data-panel="logos">
-          <h2>Choose primary brand logo</h2>
-          <p class="hint">HTML demo currently uses different logos per page for exploration. Pick your preferred global mark here — Laravel admin will apply it site-wide later.</p>
-          <div class="logo-picker" id="logo-picker">
-            <label class="logo-option"><input type="radio" name="logo" value="01"><img src="assets/images/brand/logo-01-monogram-it-ribbon.png" alt="">01 Monogram</label>
-            <label class="logo-option"><input type="radio" name="logo" value="02" checked><img src="assets/images/brand/logo-02-wordmark-woven.png" alt="">02 Wordmark</label>
-            <label class="logo-option"><input type="radio" name="logo" value="03"><img src="assets/images/brand/logo-03-loom-abstract.png" alt="">03 Loom</label>
-            <label class="logo-option"><input type="radio" name="logo" value="04"><img src="assets/images/brand/logo-04-thread-spool.png" alt="">04 Spool</label>
-            <label class="logo-option"><input type="radio" name="logo" value="05"><img src="assets/images/brand/logo-05-shield-quality.png" alt="">05 Shield</label>
-            <label class="logo-option"><input type="radio" name="logo" value="06"><img src="assets/images/brand/logo-06-hex-textile.png" alt="">06 Hex</label>
-            <label class="logo-option"><input type="radio" name="logo" value="07"><img src="assets/images/brand/logo-07-leaf-fiber.png" alt="">07 Leaf</label>
-            <label class="logo-option"><input type="radio" name="logo" value="08"><img src="assets/images/brand/logo-08-stacked-lockup.png" alt="">08 Stacked</label>
-            <label class="logo-option"><input type="radio" name="logo" value="09"><img src="assets/images/brand/logo-09-horizontal-lockup.png" alt="">09 Horizontal</label>
-            <label class="logo-option"><input type="radio" name="logo" value="10"><img src="assets/images/brand/logo-10-dark-premium.png" alt="">10 Dark</label>
-            <label class="logo-option"><input type="radio" name="logo" value="11"><img src="assets/images/brand/logo-11-light-clean.png" alt="">11 Light</label>
-            <label class="logo-option"><input type="radio" name="logo" value="12"><img src="assets/images/brand/logo-12-seal-circular.png" alt="">12 Seal</label>
-            <label class="logo-option"><input type="radio" name="logo" value="13"><img src="assets/images/brand/logo-13-minimal-initial.png" alt="">13 Minimal</label>
-            <label class="logo-option"><input type="radio" name="logo" value="14"><img src="assets/images/brand/logo-14-fabric-fold.png" alt="">14 Fabric fold</label>
-            <label class="logo-option"><input type="radio" name="logo" value="15"><img src="assets/images/brand/logo-15-yarn-to-cloth.png" alt="">15 Yarn→cloth</label>
-          </div>
-        </div>
-
-        <div class="panel" data-panel="contact" hidden>
-          <h2>Contact</h2>
-          <div class="form-grid two">
-            <div class="field"><label>Office address</label><input value="Dhaka, Bangladesh"></div>
-            <div class="field"><label>Factory address</label><input value="Narayanganj, Bangladesh"></div>
-            <div class="field"><label>Phone</label><input value="+880 1XXX-XXXXXX"></div>
-            <div class="field"><label>Email</label><input value="info@islamtextile.com"></div>
-          </div>
-        </div>
-
-        <div class="panel" data-panel="seo" hidden>
-          <h2>SEO defaults</h2>
-          <div class="field"><label>Default meta title</label><input value="Islam Textile | Premium Cotton Woven Textiles"></div>
-          <div class="field"><label>Default meta description</label><textarea rows="3">Cotton yarn, woven fabric, and dyeing &amp; finishing from Bangladesh.</textarea></div>
-        </div>
+                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
       </div>
     </div>
   </div>
-  <script>
-    document.querySelectorAll('.tabs button').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tabs button').forEach((b) => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        const tab = btn.getAttribute('data-tab');
-        document.querySelectorAll('[data-panel]').forEach((panel) => {
-          panel.hidden = panel.getAttribute('data-panel') !== tab;
-        });
-      });
-    });
-    document.getElementById('save-settings').addEventListener('click', () => {
-      const selected = document.querySelector('input[name="logo"]:checked')?.value || '02';
-      alert('Demo only: would save logo #' + selected + ' as global brand (Prompt 3).');
-    });
-  </script>
+  <script src="assets/js/admin-store.js"></script>
+  <script src="assets/js/admin-ui.js"></script>
+  <script src="assets/js/admin.js"></script>
 </body>
 </html>

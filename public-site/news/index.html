@@ -35,14 +35,7 @@
         <nav class="nav" aria-label="Main">
           <a href="../index.html">Home</a>
           <a href="../about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="../products/index.html#yarn">Yarn</a>
-              <a href="../products/woven-fabric.html">Woven Fabric</a>
-              <a href="../products/index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="../products/index.html">Products</a>
           <a href="../facilities.html">Facilities &amp; Capacity</a>
           <a href="../quality.html">Quality</a>
           <a href="../sustainability.html">Sustainability</a>
@@ -55,9 +48,6 @@
       <a href="../index.html">Home</a>
       <a href="../about.html">About Us</a>
       <a href="../products/index.html">Products</a>
-      <a class="mobile-nav__sub" href="../products/index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="../products/woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="../products/index.html#finishing">Finished Fabric</a>
       <a href="../facilities.html">Facilities &amp; Capacity</a>
       <a href="../quality.html">Quality</a>
       <a href="../sustainability.html">Sustainability</a>
@@ -66,149 +56,151 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container page-hero__content">
-        <nav class="breadcrumb page-hero__crumb" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a> <span aria-hidden="true">/</span> <span>News</span>
-        </nav>
+    <section class="news-hero" data-cms-field="page-hero">
+      <img class="news-hero__bg" src="../assets/images/gallery/gallery-2.jpg" alt="">
+      <div class="container news-hero__content">
+        <p class="news-hero__crumb"><a href="../index.html">Home</a> <span aria-hidden="true">/</span> News</p>
         <h1 data-cms-field="page-title">News &amp; Updates</h1>
-        <p data-cms-field="page-lead">Operational updates, quality milestones, and export news from our Bangladesh mill.</p>
+        <p data-cms-field="page-lead">Operational updates, quality milestones, and export news from the Narayanganj mill.</p>
       </div>
     </section>
 
-    <section class="section" data-news data-page-size="6">
-      <div class="container news-layout">
-        <aside class="filters-panel">
-          <div class="filters-panel__head">
+    <section class="section news-board" data-news data-page-size="6">
+      <div class="container news-board__grid">
+        <aside class="news-side">
+          <div class="news-panel">
             <h2>Categories</h2>
-            <button type="button" class="filter-clear" data-search-open aria-label="Search news">Search</button>
+            <div class="news-cats" role="group" aria-label="News categories">
+              <button type="button" class="is-active" data-news-cat="all">All news</button>
+              <button type="button" data-news-cat="operations">Operations</button>
+              <button type="button" data-news-cat="quality">Quality</button>
+              <button type="button" data-news-cat="sustainability">Sustainability</button>
+              <button type="button" data-news-cat="export">Export</button>
+            </div>
           </div>
-          <div class="cat-list" role="group" aria-label="News categories">
-            <button type="button" class="is-active" data-news-cat="all">All <span></span></button>
-            <button type="button" data-news-cat="operations">Operations</button>
-            <button type="button" data-news-cat="quality">Quality</button>
-            <button type="button" data-news-cat="sustainability">Sustainability</button>
-            <button type="button" data-news-cat="export">Export</button>
-          </div>
-          <div style="margin-top:1.25rem">
-            <label for="news-year" class="section__eyebrow" style="display:block;margin-bottom:0.5rem">Year</label>
-            <select id="news-year" data-news-year aria-label="Filter by year">
+          <div class="news-panel">
+            <label for="news-year">Filter by year</label>
+            <select id="news-year" data-news-year>
               <option value="all">All years</option>
               <option value="2026">2026</option>
               <option value="2025">2025</option>
               <option value="2024">2024</option>
             </select>
           </div>
+          <div class="news-panel">
+            <label for="news-search">Search</label>
+            <input id="news-search" type="search" data-news-query placeholder="Search updates" autocomplete="off">
+          </div>
         </aside>
 
-        <div>
-          <div class="gallery-toolbar">
+        <div class="news-main">
+          <div class="news-toolbar">
             <p data-news-status>Showing 1–6 of 9 results</p>
-            <label>
-              Sort
+            <label class="news-sort">
+              <span class="sr-only">Sort</span>
               <select data-news-sort aria-label="Sort news">
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
               </select>
             </label>
           </div>
 
           <div class="news-grid" data-cms-field="news-grid">
             <article class="news-card" data-news-card data-category="operations" data-year="2026" data-date="2026-08-12" data-search="mill efficiency upgrade loom monitoring narayanganj">
-              <a href="mill-efficiency-upgrade.html" class="news-card__img">
-                <img src="../assets/images/news/news-0.jpg" alt="Mill efficiency upgrade equipment">
+              <a href="mill-efficiency-upgrade.html" class="news-card__media">
+                <img src="../assets/images/products/product-0.jpg" alt="Weaving looms on the mill floor">
               </a>
               <div class="news-card__body">
-                <p class="news-card__date">12 Aug 2026 · Operations</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 12 Aug 2026 · Operations</p>
                 <h3><a href="mill-efficiency-upgrade.html">Mill Efficiency Upgrade Completes Phase One</a></h3>
                 <p>Loom monitoring and inspection checkpoints for more consistent woven cotton lots.</p>
-                <a href="mill-efficiency-upgrade.html" class="link-more">Read more →</a>
+                <a href="mill-efficiency-upgrade.html" class="news-card__more">Read more →</a>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="sustainability" data-year="2026" data-date="2026-06-04" data-search="responsible cotton sourcing bangladesh">
-              <div class="news-card__img">
-                <img src="../assets/images/news/news-1.jpg" alt="Responsible cotton fabric rolls">
+              <div class="news-card__media">
+                <img src="../assets/images/news/news-0.jpg" alt="Effluent treatment tanks at the mill">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">4 Jun 2026 · Sustainability</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 4 Jun 2026 · Sustainability</p>
                 <h3>Responsible Cotton Sourcing Update</h3>
                 <p>Traceable cotton inputs and dyehouse water stewardship for export programs.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="export" data-year="2026" data-date="2026-03-18" data-search="export milestone woven fabric markets">
-              <div class="news-card__img">
-                <img src="../assets/images/news/news-2.jpg" alt="Export-ready fabric packing">
+              <div class="news-card__media">
+                <img src="../assets/images/news/news-2.jpg" alt="Printed fabric on an inspection line">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">18 Mar 2026 · Export</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 18 Mar 2026 · Export</p>
                 <h3>Export Milestone Across 18 Markets</h3>
                 <p>Woven cotton shipments expand with consistent greige and finished programs.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="quality" data-year="2025" data-date="2025-11-22" data-search="lab upgrade shade matching quality">
-              <div class="news-card__img">
-                <img src="../assets/images/gallery/gallery-3.jpg" alt="Quality lab fabric inspection">
+              <div class="news-card__media">
+                <img src="../assets/images/gallery/gallery-3.jpg" alt="Sample washing machines used for fabric testing">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">22 Nov 2025 · Quality</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 22 Nov 2025 · Quality</p>
                 <h3>In-House Lab Shade Matching Upgrade</h3>
                 <p>Expanded physical and chemical testing for yarn, greige, and finished fabric.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="operations" data-year="2025" data-date="2025-09-09" data-search="air-jet loom capacity weaving">
-              <div class="news-card__img">
-                <img src="../assets/images/gallery/gallery-2.jpg" alt="Air-jet loom hall">
+              <div class="news-card__media">
+                <img src="../assets/images/products/product-1.jpg" alt="Weaving looms">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">9 Sep 2025 · Operations</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 9 Sep 2025 · Operations</p>
                 <h3>Additional Air-Jet Capacity Online</h3>
                 <p>New weaving capacity supports wider greige widths for apparel buyers.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="export" data-year="2025" data-date="2025-05-15" data-search="buyer visit mill tour dhaka">
-              <div class="news-card__img">
-                <img src="../assets/images/gallery/gallery-0.jpg" alt="Mill campus exterior">
+              <div class="news-card__media">
+                <img src="../assets/images/news/news-1.jpg" alt="Printing and inspection line">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">15 May 2025 · Export</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 15 May 2025 · Export</p>
                 <h3>Spring Buyer Visits at Narayanganj Mill</h3>
                 <p>Facility tours focused on spinning-to-finishing traceability for woven cotton.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="sustainability" data-year="2024" data-date="2024-12-02" data-search="etp effluent treatment dyehouse">
-              <div class="news-card__img">
-                <img src="../assets/images/hero/hero-2.jpg" alt="Mill utilities and campus">
+              <div class="news-card__media">
+                <img src="../assets/images/gallery/gallery-1.jpg" alt="Effluent treatment plant">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">2 Dec 2024 · Sustainability</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 2 Dec 2024 · Sustainability</p>
                 <h3>ETP Capacity Reinforcement Complete</h3>
                 <p>Effluent treatment upgrades sized for continuous dyehouse operation.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="quality" data-year="2024" data-date="2024-08-21" data-search="poplin shirting quality program">
-              <div class="news-card__img">
-                <img src="../assets/images/products/product-0.jpg" alt="Combed cotton poplin fabric">
+              <div class="news-card__media">
+                <img src="../assets/images/gallery/gallery-2.jpg" alt="Finished fabric">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">21 Aug 2024 · Quality</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 21 Aug 2024 · Quality</p>
                 <h3>Shirting Poplin Spec Tightening</h3>
                 <p>Closer reed/pick tolerances for corporate shirting and uniform programs.</p>
               </div>
             </article>
 
             <article class="news-card" data-news-card data-category="operations" data-year="2024" data-date="2024-02-10" data-search="spinning combed yarn ring frame">
-              <div class="news-card__img">
-                <img src="../assets/images/gallery/gallery-1.jpg" alt="Spinning floor">
+              <div class="news-card__media">
+                <img src="../assets/images/products/product-0.jpg" alt="Weaving looms used for yarn programs">
               </div>
               <div class="news-card__body">
-                <p class="news-card__date">10 Feb 2024 · Operations</p>
+                <p class="news-card__meta"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg> 10 Feb 2024 · Operations</p>
                 <h3>Combed Yarn Count Range Expanded</h3>
                 <p>Ring-spun combed counts Ne 20–40 for weaving and downstream finishing.</p>
               </div>
@@ -220,13 +212,6 @@
       </div>
     </section>
   </main>
-
-  <div class="search-overlay" role="dialog" aria-label="Search news" aria-modal="true">
-    <div class="search-overlay__box">
-      <input type="search" placeholder="Search news…" aria-label="Search news">
-      <button type="button" class="search-overlay__close" aria-label="Close search">&times;</button>
-    </div>
-  </div>
 
   <footer class="site-footer">
     <div class="container">

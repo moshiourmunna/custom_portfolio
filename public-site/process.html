@@ -46,14 +46,7 @@
         <nav class="nav" aria-label="Main">
           <a href="index.html">Home</a>
           <a href="about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="products/index.html#yarn">Yarn</a>
-              <a href="products/woven-fabric.html">Woven Fabric</a>
-              <a href="products/index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="products/index.html">Products</a>
           <a href="facilities.html">Facilities &amp; Capacity</a>
           <a href="quality.html">Quality</a>
           <a href="sustainability.html">Sustainability</a>
@@ -66,9 +59,6 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="products/index.html">Products</a>
-      <a class="mobile-nav__sub" href="products/index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="products/woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="products/index.html#finishing">Finished Fabric</a>
       <a href="facilities.html">Facilities &amp; Capacity</a>
       <a href="quality.html">Quality</a>
       <a href="sustainability.html">Sustainability</a>
@@ -77,131 +67,147 @@
   </header>
 
   <main id="main">
-    <section class="page-hero page-hero--split" data-cms-field="page-hero">
-      <div class="page-hero__content">
-        <p class="page-hero__crumb"><a href="index.html">Home</a> / Process</p>
-        <p class="section__eyebrow">How We Make</p>
-        <h1 data-cms-field="page-title">Manufacturing Process</h1>
-        <p data-cms-field="page-lead">Six integrated stages — from raw cotton fiber to inspected, export-ready woven fabric at our Narayanganj mill.</p>
+    <section class="process-hero" data-cms-field="page-hero">
+      <div class="process-hero__media">
+        <img class="process-hero__bg" src="assets/images/process/step-05.jpg" alt="">
       </div>
-      <div class="page-hero__media-wrap">
-        <img src="assets/images/process/step-03.jpg" alt="Weaving process on air-jet looms" onerror="this.src='assets/images/gallery/gallery-2.jpg'">
+      <div class="container process-hero__copy">
+        <div class="process-hero__text">
+          <p class="section__eyebrow">How we make</p>
+          <h1 data-cms-field="page-title">Our manufacturing<br> process</h1>
+          <p data-cms-field="page-lead">Six integrated stages — from yarn on the rack to inspected, export-ready woven fabric at our Narayanganj mill. Every lot keeps its batch identity through to the packed roll.</p>
+        </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section process-flow">
       <div class="container">
-        <header class="section__head section__head--center reveal">
-          <p class="section__eyebrow">End to End</p>
-          <h2 class="section__title">Six Stages of Cotton Textiles</h2>
-          <p class="section__lead">Every lot moves through controlled gates with batch identity from fiber to dispatch.</p>
-        </header>
-        <div class="process-steps reveal" data-cms-field="process-steps">
-          <article class="process-step">
-            <div class="process-step__head">
+        <ol class="process-steps reveal" data-cms-field="process-steps">
+          <li class="process-step">
+            <div class="process-step__mark">
               <span class="process-step__num">01</span>
               <div class="process-step__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 19h16M6 19V9l6-5 6 5v10"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 4c3 0 5 1.6 5 3.5S15 11 12 11 7 9.4 7 7.5 9 4 12 4z"/><path d="M8 10.5v6.2c0 1.6 1.8 2.8 4 2.8s4-1.2 4-2.8v-6.2"/></svg>
               </div>
             </div>
-            <h3>Fiber Preparation</h3>
+            <h2>Yarn preparation</h2>
             <div class="process-step__img">
-              <img src="assets/images/process/step-01.jpg" alt="Cotton bale opening and blending" onerror="this.src='assets/images/gallery/gallery-0.jpg'">
+              <img src="assets/images/process/step-06.jpg" alt="Yarn rolls on racking at the mill">
             </div>
-            <p>Bale opening, blending, and carding for consistent fiber length and cleanliness before spinning.</p>
-          </article>
-          <article class="process-step">
-            <div class="process-step__head">
+            <p>Ring-spun yarn is racked by lot and checked for count and cleanliness before it is beamed.</p>
+          </li>
+          <li class="process-step">
+            <div class="process-step__mark">
               <span class="process-step__num">02</span>
               <div class="process-step__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+                <svg viewBox="0 0 24 24"><ellipse cx="8" cy="12" rx="3.2" ry="5"/><ellipse cx="16" cy="12" rx="3.2" ry="5"/><path d="M8 7h8M8 17h8"/></svg>
               </div>
             </div>
-            <h3>Spinning</h3>
+            <h2>Warping</h2>
             <div class="process-step__img">
-              <img src="assets/images/process/step-02.jpg" alt="Ring spinning frames" onerror="this.src='assets/images/gallery/gallery-1.jpg'">
+              <img src="assets/images/products/product-1.jpg" alt="Warp beams feeding a weaving loom">
             </div>
-            <p>Ring spinning of combed and carded yarn with controlled twist, U%, and strength for loom efficiency.</p>
-          </article>
-          <article class="process-step">
-            <div class="process-step__head">
+            <p>Yarn is wound onto warp beams and sized before it goes on the loom.</p>
+          </li>
+          <li class="process-step">
+            <div class="process-step__mark">
               <span class="process-step__num">03</span>
               <div class="process-step__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18M6 3v18M12 3v18M18 3v18"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M8 4v16M16 4v16"/></svg>
               </div>
             </div>
-            <h3>Weaving</h3>
+            <h2>Weaving</h2>
             <div class="process-step__img">
-              <img src="assets/images/process/step-03.jpg" alt="Air-jet and rapier weaving" onerror="this.src='assets/images/gallery/gallery-2.jpg'">
+              <img src="assets/images/products/product-0.jpg" alt="Weaving loom at the Islam Textile mill in Narayanganj">
             </div>
             <p>Warping, sizing, and weaving on air-jet and rapier looms — poplin, twill, oxford, and plain.</p>
-          </article>
-          <article class="process-step">
-            <div class="process-step__head">
+          </li>
+          <li class="process-step">
+            <div class="process-step__mark">
               <span class="process-step__num">04</span>
               <div class="process-step__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg>
               </div>
             </div>
-            <h3>Inspection</h3>
+            <h2>Inspection</h2>
             <div class="process-step__img">
-              <img src="assets/images/process/step-04.jpg" alt="Greige fabric inspection" onerror="this.src='assets/images/gallery/gallery-3.jpg'">
+              <img src="assets/images/news/news-2.jpg" alt="Fabric checked on a lighted inspection table">
             </div>
-            <p>Greige fabric inspection for defects, width consistency, and construction verification against spec.</p>
-          </article>
-          <article class="process-step">
-            <div class="process-step__head">
+            <p>Fabric is checked on the inspection line for defects, width, and construction against the buyer spec.</p>
+          </li>
+          <li class="process-step">
+            <div class="process-step__mark">
               <span class="process-step__num">05</span>
               <div class="process-step__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 3c2.8 3.4 4.2 6 4.2 8.4a4.2 4.2 0 11-8.4 0C7.8 9 9.2 6.4 12 3z"/></svg>
               </div>
             </div>
-            <h3>Dyeing &amp; Finishing</h3>
+            <h2>Dyeing &amp; finishing</h2>
             <div class="process-step__img">
-              <img src="assets/images/process/step-05.jpg" alt="Dyeing and finishing lines" onerror="this.src='assets/images/gallery/gallery-4.jpg'">
+              <img src="assets/images/gallery/gallery-8.jpg" alt="White fabric running through a finishing range">
             </div>
-            <p>Pre-treatment, reactive or pigment dyeing, mercerization, sanforizing, and soft finishes as required.</p>
-          </article>
-          <article class="process-step">
-            <div class="process-step__head">
+            <p>Fabric is dyed and finished on the range — including mercerizing and soft finishes when the spec calls for them.</p>
+          </li>
+          <li class="process-step">
+            <div class="process-step__mark">
               <span class="process-step__num">06</span>
               <div class="process-step__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M3 8h12v8H3z"/><path d="M15 11h3.2L21 14v2h-6"/><circle cx="7" cy="17.2" r="1.3"/><circle cx="17.2" cy="17.2" r="1.3"/></svg>
               </div>
             </div>
-            <h3>Final QA &amp; Dispatch</h3>
+            <h2>Final QA &amp; dispatch</h2>
             <div class="process-step__img">
-              <img src="assets/images/process/step-06.jpg" alt="Finished rolls ready for dispatch" onerror="this.src='assets/images/gallery/gallery-5.jpg'">
+              <img src="assets/images/gallery/gallery-13.jpg" alt="Folded finished fabric beside the finishing line">
             </div>
-            <p>Laboratory testing, shade approval, roll packing, and batch documentation for export shipment.</p>
-          </article>
-        </div>
+            <p>Finished fabric is folded, shade-checked, and held with its lot documents before shipment.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <section class="section section--flush">
-      <div class="container process-foot reveal" data-cms-field="process-foot">
-        <div class="process-quote">
-          <p>“Quality is not a final gate — it is built into every stage from fiber blend to packed roll.”</p>
-        </div>
-        <div class="process-stats" aria-label="Process highlights">
-          <div class="stat">
-            <div class="stat__value" data-count="6">0</div>
-            <div class="stat__label">Process Stages</div>
-          </div>
-          <div class="stat">
-            <div class="stat__value" data-count="100" data-suffix="%">0</div>
-            <div class="stat__label">Lot Traceability</div>
-          </div>
-          <div class="stat">
-            <div class="stat__value" data-count="24" data-suffix="/7">0</div>
-            <div class="stat__label">Mill Operations</div>
-          </div>
-          <div class="stat">
-            <div class="stat__value" data-count="4">0</div>
-            <div class="stat__label">QA Checkpoints</div>
-          </div>
-        </div>
+    <section class="process-band" data-cms-field="process-foot">
+      <div class="container process-band__inner reveal">
+        <blockquote class="process-quote">
+          <p>Quality is not a final gate — it is built into every stage from fiber blend to packed roll.</p>
+        </blockquote>
+        <ul class="process-stats" aria-label="Process highlights">
+          <li>
+            <div class="process-stats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 4h8v16H8z"/><path d="M8 9h8M8 14h8"/></svg>
+            </div>
+            <div>
+              <strong data-count="6">6</strong>
+              <span>Process stages</span>
+            </div>
+          </li>
+          <li>
+            <div class="process-stats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 7h8v10H8z"/><path d="M10 7V5h4v2"/><path d="M12 11v3"/></svg>
+            </div>
+            <div>
+              <strong data-count="100" data-suffix="%">100%</strong>
+              <span>Lot traceability</span>
+            </div>
+          </li>
+          <li>
+            <div class="process-stats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+            </div>
+            <div>
+              <strong data-count="24" data-suffix="/7">24/7</strong>
+              <span>Mill operations</span>
+            </div>
+          </li>
+          <li>
+            <div class="process-stats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 4h8v16H8z"/><path d="M10 9h4M10 13h4M10 17h2"/></svg>
+            </div>
+            <div>
+              <strong data-count="4">4</strong>
+              <span>QA checkpoints</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 

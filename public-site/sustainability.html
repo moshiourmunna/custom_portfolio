@@ -46,14 +46,7 @@
         <nav class="nav" aria-label="Main">
           <a href="index.html">Home</a>
           <a href="about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="products/index.html#yarn">Yarn</a>
-              <a href="products/woven-fabric.html">Woven Fabric</a>
-              <a href="products/index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="products/index.html">Products</a>
           <a href="facilities.html">Facilities &amp; Capacity</a>
           <a href="quality.html">Quality</a>
           <a href="sustainability.html" class="is-active">Sustainability</a>
@@ -66,9 +59,6 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="products/index.html">Products</a>
-      <a class="mobile-nav__sub" href="products/index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="products/woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="products/index.html#finishing">Finished Fabric</a>
       <a href="facilities.html">Facilities &amp; Capacity</a>
       <a href="quality.html">Quality</a>
       <a href="sustainability.html" class="is-active">Sustainability</a>
@@ -77,15 +67,16 @@
   </header>
 
   <main id="main">
-    <section class="page-hero page-hero--split" data-cms-field="page-hero">
-      <div class="page-hero__content">
-        <p class="page-hero__crumb"><a href="index.html">Home</a> / Sustainability</p>
+    <section class="sustain-hero" data-cms-field="page-hero">
+      <div class="sustain-hero__copy">
+        <p class="sustain-hero__crumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> Sustainability</p>
         <p class="section__eyebrow">Responsibility</p>
         <h1 data-cms-field="page-title">Sustainability</h1>
-        <p data-cms-field="page-lead">Responsible manufacturing across spinning, weaving, and finishing — with measurable targets at our Narayanganj campus.</p>
+        <p class="sustain-hero__line">Responsible operations. Measured at the mill.</p>
+        <p data-cms-field="page-lead">Spinning, weaving, and finishing in Narayanganj — with targets for water, energy, chemistry, and waste that buyers can request in writing.</p>
       </div>
-      <div class="page-hero__media-wrap">
-        <img src="assets/images/hero/hero-2.jpg" alt="Effluent and utilities at Islam Textile mill">
+      <div class="sustain-hero__media">
+        <img src="assets/images/gallery/gallery-1.jpg" alt="Effluent treatment plant at the Narayanganj campus">
       </div>
     </section>
 
@@ -96,31 +87,27 @@
             <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 018 0 4 4 0 018 0c0 5.5-7 10-7 10z"/></svg>
           </div>
           <div>
-            <strong>Scope of Commitment</strong>
-            <p style="margin:0.25rem 0 0;font-size:0.9rem;color:var(--color-muted)">Our program covers wet processing chemistry, utilities, waste streams, and associate safety across the integrated mill — aligned with buyer audit frameworks.</p>
+            <strong>Our scope</strong>
+            <p>Wet processing, utilities, waste streams, and associate safety across the integrated mill. Spinning. Weaving. Finishing.</p>
           </div>
         </div>
-        <a href="contact.html" class="btn btn--outline">Request Profile</a>
+        <p class="scope-bar__note">Annual targets are set for water, energy, and chemical compliance. Progress is shared with buyers who request the profile.</p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section sustain-pillars">
       <div class="container">
-        <header class="section__head section__head--center reveal">
-          <p class="section__eyebrow">Pillars</p>
-          <h2 class="section__title">Four Focus Areas</h2>
-        </header>
         <div class="pillars reveal" data-cms-field="pillars">
           <article class="pillar">
             <div class="pillar__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 3c4 4 6 7 6 10a6 6 0 11-12 0c0-3 2-6 6-10z"/></svg>
             </div>
-            <h3>Water</h3>
-            <p>ETP-treated effluent, counter-flow rinsing, and low liquor-ratio dyeing to reduce freshwater use per meter.</p>
+            <h2>Water care</h2>
+            <p>Effluent is treated before discharge. Rinsing and liquor ratio are managed to cut freshwater use per meter.</p>
             <ul>
-              <li>Primary &amp; secondary ETP</li>
+              <li>Primary and secondary ETP</li>
               <li>Metered process water</li>
-              <li>Reuse where feasible</li>
+              <li>Reuse where it is feasible</li>
             </ul>
             <a href="contact.html" class="link-more">Ask about water data →</a>
           </article>
@@ -128,37 +115,37 @@
             <div class="pillar__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
             </div>
-            <h3>Energy</h3>
-            <p>Heat recovery on stenters, LED retrofit across production blocks, and loom efficiency programs.</p>
+            <h2>Energy</h2>
+            <p>Heat is recovered on the finishing line, and loom and utility loads are tracked by shift.</p>
             <ul>
-              <li>Heat recovery loops</li>
+              <li>Heat recovery on stenters</li>
+              <li>LED retrofit on the floor</li>
               <li>Compressed-air leak audits</li>
-              <li>Shift energy tracking</li>
             </ul>
             <a href="contact.html" class="link-more">Energy overview →</a>
           </article>
           <article class="pillar">
             <div class="pillar__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5.5L6.2 17.2A2.2 2.2 0 008.2 20.5h7.6a2.2 2.2 0 002-3.3L14 8.5V3"/><path d="M8.2 14.5h7.6"/></svg>
             </div>
-            <h3>Chemistry</h3>
-            <p>Positive list of dyestuffs and auxiliaries with MRSL screening and safe-handling training.</p>
+            <h2>Chemistry</h2>
+            <p>Dyestuffs and auxiliaries are held to an approved list, with MRSL screening and safe-handling practice.</p>
             <ul>
               <li>Approved chemical inventory</li>
-              <li>SDS documentation</li>
+              <li>SDS on file</li>
               <li>Random RSL testing</li>
             </ul>
-            <a href="quality.html" class="link-more">QA &amp; chemistry →</a>
+            <a href="quality.html" class="link-more">Quality and chemistry →</a>
           </article>
           <article class="pillar">
             <div class="pillar__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 19h16M7 19V9h3v10M14 19V5h3v14"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0113.2-6"/><path d="M16.2 3.2v4.2h-4.2"/><path d="M20 12a8 8 0 01-13.2 6"/><path d="M7.8 20.8v-4.2h4.2"/></svg>
             </div>
-            <h3>Waste</h3>
-            <p>Yarn and fabric waste segregation, recycling partnerships, and packing optimization for export rolls.</p>
+            <h2>Waste reduction</h2>
+            <p>Yarn and fabric scrap are separated, and export packing is tightened so less material leaves as waste.</p>
             <ul>
               <li>Segregated scrap streams</li>
-              <li>Packaging reduction</li>
+              <li>Packing reduction</li>
               <li>Vendor take-back where available</li>
             </ul>
             <a href="facilities.html" class="link-more">See facilities →</a>
@@ -169,41 +156,37 @@
 
     <section class="commitment" data-cms-field="commitment">
       <div class="container commitment__inner">
-        <div>
-          <p class="section__eyebrow" style="color:rgba(255,255,255,.7)">Our Pledge</p>
-          <h2 class="section__title" style="color:#fff;margin:0 0 0.75rem">Continuous Improvement</h2>
-          <p style="margin:0;opacity:.9">We set annual targets for water, energy, and chemical compliance — and share progress with buyers who request our sustainability profile.</p>
+        <div class="commitment__copy">
+          <p class="section__eyebrow">Our commitment</p>
+          <h2>Measurable progress. Continuous improvement.</h2>
+          <p>Targets are set each year for water, energy, and chemical compliance. The figures that apply to a program are shared when a buyer requests the profile.</p>
         </div>
         <div class="commitment__metrics">
           <div class="commitment__metric">
             <div class="commitment__metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c4 4 6 7 6 10a6 6 0 11-12 0c0-3 2-6 6-10z"/></svg></div>
-            Water intensity ↓
+            <strong>Water intensity</strong>
+            <span>Tracked per meter</span>
           </div>
           <div class="commitment__metric">
             <div class="commitment__metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></div>
-            kWh per meter ↓
+            <strong>Energy intensity</strong>
+            <span>kWh per meter</span>
           </div>
           <div class="commitment__metric">
-            <div class="commitment__metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg></div>
-            MRSL compliance
+            <div class="commitment__metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5.5L6.2 17.2A2.2 2.2 0 008.2 20.5h7.6a2.2 2.2 0 002-3.3L14 8.5V3"/><path d="M8.2 14.5h7.6"/></svg></div>
+            <strong>Chemistry</strong>
+            <span>MRSL screening</span>
           </div>
           <div class="commitment__metric">
-            <div class="commitment__metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg></div>
-            Audit readiness
+            <div class="commitment__metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <strong>Audit readiness</strong>
+            <span>Documents on request</span>
           </div>
         </div>
       </div>
-    </section>
-
-    <section class="cta-band reveal">
-      <div class="container cta-band__inner">
-        <div>
-          <h2>Request Our Sustainability Profile</h2>
-          <p>Environmental data sheets and audit documentation available on request from Dhaka.</p>
-        </div>
-        <div class="cta-band__contact">
-          <a href="contact.html" class="btn btn--outline-light">Contact Us</a>
-        </div>
+      <div class="container commitment__foot">
+        <p>Sustainability is a mill practice. We share the record with buyers who ask for it.</p>
+        <a href="contact.html" class="btn btn--outline-light">Request the profile</a>
       </div>
     </section>
   </main>
@@ -260,4 +243,6 @@
     </div>
   </footer>
 </body>
+</html>
+
 </html>

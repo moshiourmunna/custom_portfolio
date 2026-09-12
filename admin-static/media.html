@@ -3,48 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Media Gallery | Islam Textile Admin</title>
+  <title>Media | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
+  <div class="admin-backdrop" data-nav-backdrop hidden></div>
   <div class="admin-shell">
-    <aside class="sidebar">
-      <div class="sidebar__brand">
-        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
-        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+    <header class="admin-nav">
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="admin-sidebar" aria-label="Open menu"><span></span></button>
+      <a class="admin-nav__brand" href="dashboard.html" aria-label="Islam Textile admin home">
+        <span class="admin-nav__mark" aria-hidden="true"></span>
+        <span class="admin-nav__word"><strong>Islam Textile</strong><small>Weaving Tradition, Ensuring Quality</small></span>
+      </a>
+      <div class="admin-nav__tools">
+        <a class="admin-nav__bell" href="inquiries.html" aria-label="Inquiries"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 4.2 1.2 5.5 1.2 5.5H5.3S6.5 13.7 6.5 9.5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg><span class="admin-nav__badge">0</span></a>
+        <div class="admin-nav__user"><span class="admin-nav__user-text"><strong>Admin</strong><small>Super Admin</small></span><span class="admin-nav__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="9" r="3"/><path d="M6 19v-.5A4.5 4.5 0 0 1 10.5 14h3A4.5 4.5 0 0 1 18 18.5V19"/></svg></span></div>
       </div>
-      <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="products.html">Products</a>
-        <a href="product-form.html">Add Product</a>
-        <a href="media.html" class="is-active">Media Gallery</a>
-        <a href="settings.html">Settings / Logos</a>
-        <a href="login.html">Log out</a>
-      </nav>
-    </aside>
+    </header>
+    <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top">
-        <h1>Media Gallery</h1>
-        <button class="btn btn-primary" type="button">Upload images</button>
-      </header>
-      <div class="admin-content">
-        <div class="dropzone">
-          <p><strong>Drag &amp; drop</strong> images here (UI only — uploads in Prompt 3)</p>
-          <p class="hint">JPG, PNG, WebP · max size enforced later</p>
+      <header class="admin-top media-page-top">
+        <div>
+          <h1>Media Gallery</h1>
         </div>
-        <div class="media-grid">
-          <figure><img src="assets/images/media/gallery-0.jpg" alt=""><figcaption>gallery-0 · Factory</figcaption></figure>
-          <figure><img src="assets/images/media/gallery-1.jpg" alt=""><figcaption>gallery-1 · Production</figcaption></figure>
-          <figure><img src="assets/images/media/gallery-2.jpg" alt=""><figcaption>gallery-2 · Yarn</figcaption></figure>
-          <figure><img src="assets/images/media/gallery-3.jpg" alt=""><figcaption>gallery-3 · Weaving</figcaption></figure>
-          <figure><img src="assets/images/media/gallery-4.jpg" alt=""><figcaption>gallery-4 · Finishing</figcaption></figure>
-          <figure><img src="assets/images/media/gallery-5.jpg" alt=""><figcaption>gallery-5 · QC</figcaption></figure>
+        <div class="admin-top__actions">
+          <button class="btn media-btn-ghost" type="button" data-media-folder>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.2 7.2h5.4l1.7 1.9h10.5v8.4a1.6 1.6 0 0 1-1.6 1.6H4.8a1.6 1.6 0 0 1-1.6-1.6V7.2z"/></svg>
+            New Folder
+          </button>
+          <button class="btn btn-primary media-btn-solid" type="button" data-media-upload>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 15.5V9.2"/><path d="m9.4 11.4 2.6-2.6 2.6 2.6"/></svg>
+            Upload Media
+          </button>
+        </div>
+      </header>
+      <div class="admin-content media-page">
+        <p class="media-lead">Manage and organize all uploaded media files.</p>
+        <div class="media-tabs" role="tablist">
+          <button type="button" class="is-active" data-media-tab="all">All Media</button>
+          <button type="button" data-media-tab="images">Images</button>
+          <button type="button" data-media-tab="videos">Videos</button>
+          <button type="button" data-media-tab="documents">Documents</button>
+        </div>
+        <div class="media-board" data-media-board>
+          <aside class="media-rail">
+            <section class="media-folders" aria-label="Folders">
+              <div class="media-folders__head">
+                <strong>Folders</strong>
+                <button type="button" class="media-folders__add" data-media-folder title="New folder" aria-label="New folder">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+                </button>
+              </div>
+              <form class="media-folder-create" data-folder-form hidden>
+                <input type="text" name="folder-name" placeholder="Folder name" maxlength="40" aria-label="Folder name" required>
+                <button type="submit" class="btn btn-primary media-btn-solid">Add</button>
+              </form>
+              <div data-media-folders></div>
+            </section>
+            <div class="media-drop" data-media-upload>
+              <svg class="media-drop__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 16.2V9.4"/><path d="m9.2 11.8 2.8-2.8 2.8 2.8"/></svg>
+              <strong>Drag &amp; drop files here</strong>
+              <span>or</span>
+              <button type="button" class="btn btn-primary media-btn-solid">Select Files</button>
+              <p>You can upload up to 50 files at once.<br>Max file size: 20MB each.</p>
+            </div>
+          </aside>
+          <div class="media-stage">
+            <div class="media-toolbar">
+              <div class="media-toolbar__bulk">
+                <label class="media-selectall"><input type="checkbox" data-media-all aria-label="Select all visible files"></label>
+                <span class="media-selected-pill" data-media-count>0 selected</span>
+                <button type="button" class="media-action" data-media-download disabled>Download</button>
+                <div class="media-move">
+                  <button type="button" class="media-action" data-media-move disabled>Move</button>
+                  <div class="media-move__menu" data-media-move-menu hidden></div>
+                </div>
+                <button type="button" class="media-action media-action--danger" data-media-delete disabled>Delete</button>
+              </div>
+              <div class="media-toolbar__end">
+                <label class="media-sort">Sort by
+                  <select data-media-sort aria-label="Sort media">
+                    <option value="name">Name</option>
+                    <option value="caption">Caption</option>
+                  </select>
+                </label>
+                <input type="search" data-media-search placeholder="Filter" aria-label="Filter media">
+              </div>
+            </div>
+            <div class="media-library" data-media></div>
+          </div>
+          <aside class="media-details" data-media-details hidden aria-label="File details">
+            <h2>File details</h2>
+            <img alt="" data-media-preview hidden>
+            <dl>
+              <div><dt>Filename</dt><dd data-detail="name">Select a file</dd></div>
+              <div><dt>File type</dt><dd data-detail="type">—</dd></div>
+              <div><dt>Folder</dt><dd data-detail="folder">—</dd></div>
+              <div><dt>Dimensions</dt><dd data-detail="size">—</dd></div>
+            </dl>
+            <div class="field">
+              <label for="media-alt">Alt text</label>
+              <textarea id="media-alt" data-detail-alt rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label for="media-caption">Caption</label>
+              <input id="media-caption" data-detail-caption>
+              <span class="hide-note">Hidden on the site when empty</span>
+            </div>
+            <div class="media-details__actions">
+              <button type="button" class="btn btn-outline" data-detail-cancel>Cancel</button>
+              <button type="button" class="btn btn-primary" data-save-media>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.2 4.2L19 7.5"/></svg>
+                Save
+              </button>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
   </div>
+  <script src="assets/js/admin-store.js"></script>
+  <script src="assets/js/admin-ui.js"></script>
+  <script src="assets/js/admin.js"></script>
 </body>
 </html>

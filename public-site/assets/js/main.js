@@ -30,22 +30,6 @@
     });
   }
 
-  /* Products dropdown (touch) */
-  qsa(".nav-dropdown").forEach((dd) => {
-    const btn = qs(".nav-dropdown__toggle", dd);
-    if (!btn) return;
-    btn.addEventListener("click", (e) => {
-      if (window.matchMedia("(hover: hover)").matches) return;
-      e.preventDefault();
-      dd.classList.toggle("is-open");
-    });
-  });
-  document.addEventListener("click", (e) => {
-    qsa(".nav-dropdown.is-open").forEach((dd) => {
-      if (!dd.contains(e.target)) dd.classList.remove("is-open");
-    });
-  });
-
   /* Reveal */
   const reveals = qsa(".reveal");
   if (reveals.length && "IntersectionObserver" in window) {
@@ -65,8 +49,11 @@
     reveals.forEach((el) => el.classList.add("is-visible"));
   }
 
-  /* Counters */
-  const counters = qsa("[data-count]");
+  /* Counters — numeric data-count only (product cards reuse data-count for yarn count) */
+  const counters = qsa("[data-count]").filter((el) => {
+    const raw = el.getAttribute("data-count");
+    return raw !== null && raw !== "" && !Number.isNaN(Number(raw));
+  });
   if (counters.length && "IntersectionObserver" in window) {
     const animate = (el) => {
       const target = Number(el.getAttribute("data-count") || "0");
@@ -96,59 +83,75 @@
     counters.forEach((el) => cio.observe(el));
   }
 
-  /* Simple category filters (gallery albums / legacy filter-btn) */
-  const filterBtns = qsa("[data-filter]");
-  const filterItems = qsa("[data-category]");
-  const applyCategoryFilter = (cat) => {
-    filterBtns.forEach((b) => b.classList.toggle("is-active", b.getAttribute("data-filter") === cat));
-    filterItems.forEach((item) => {
-      const match = cat === "all" || item.getAttribute("data-category") === cat;
-      item.hidden = !match;
-      item.classList.toggle("is-filtered-out", !match);
-    });
-    const status = qs("[data-filter-status]");
-    if (status) {
-      const visible = filterItems.filter((i) => !i.hidden).length;
-      status.textContent = cat === "all" ? `Showing all photos (${visible})` : `Showing ${visible} photos`;
-    }
-  };
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => applyCategoryFilter(btn.getAttribute("data-filter") || "all"));
-  });
+  /* Gallery albums, sort, and load more */
+  const galleryRoot = qs("[data-gallery]");
+  if (galleryRoot) {
+    const grid = qs("[data-gallery-grid]", galleryRoot);
+    const buttons = qsa("[data-filter]", galleryRoot);
+    const status = qs("[data-filter-status]", galleryRoot);
+    const sortEl = qs("[data-gallery-sort]", galleryRoot);
+    const more = qs("[data-load-more]", galleryRoot);
+    const pageSize = Number(more?.getAttribute("data-page-size") || "8");
+    let cat = "all";
+    let shown = pageSize;
 
-  /* Gallery sort */
-  const gallerySort = qs("[data-gallery-sort]");
-  if (gallerySort) {
-    gallerySort.addEventListener("change", () => {
-      const grid = qs("[data-gallery-grid]");
+    const renderGallery = () => {
       if (!grid) return;
-      const items = qsa("[data-category]", grid);
+      let matched = 0;
+      let visible = 0;
+      qsa("[data-load-item]", grid).forEach((el) => {
+        const match = cat === "all" || el.getAttribute("data-category") === cat;
+        el.classList.remove("is-feature");
+        if (!match) {
+          el.classList.add("is-off");
+          el.classList.remove("is-deferred");
+          return;
+        }
+        el.classList.remove("is-off");
+        if (visible < shown) {
+          el.classList.remove("is-deferred");
+          if (visible === 0) el.classList.add("is-feature");
+          visible += 1;
+        } else {
+          el.classList.add("is-deferred");
+        }
+        matched += 1;
+      });
+      if (status) {
+        status.textContent = cat === "all"
+          ? `Showing all photos (${matched})`
+          : `Showing ${matched} photo${matched === 1 ? "" : "s"}`;
+      }
+      if (more) more.hidden = shown >= matched;
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        cat = btn.getAttribute("data-filter") || "all";
+        buttons.forEach((b) => b.classList.toggle("is-active", b === btn));
+        shown = pageSize;
+        renderGallery();
+      });
+    });
+
+    sortEl?.addEventListener("change", () => {
+      if (!grid) return;
+      const items = qsa("[data-load-item]", grid);
       items.sort((a, b) => {
         const da = a.getAttribute("data-date") || "";
         const db = b.getAttribute("data-date") || "";
-        return gallerySort.value === "oldest" ? da.localeCompare(db) : db.localeCompare(da);
+        return sortEl.value === "oldest" ? da.localeCompare(db) : db.localeCompare(da);
       });
-      items.forEach((i) => grid.appendChild(i));
+      items.forEach((el) => grid.appendChild(el));
+      renderGallery();
     });
-  }
 
-  /* Load more */
-  const loadMore = qs("[data-load-more]");
-  if (loadMore) {
-    const pageSize = Number(loadMore.getAttribute("data-page-size") || "8");
-    const items = qsa("[data-load-item]");
-    let shown = pageSize;
-    const refresh = () => {
-      items.forEach((el, i) => {
-        el.style.display = i < shown ? "" : "none";
-      });
-      if (shown >= items.length) loadMore.hidden = true;
-    };
-    refresh();
-    loadMore.addEventListener("click", () => {
+    more?.addEventListener("click", () => {
       shown += pageSize;
-      refresh();
+      renderGallery();
     });
+
+    renderGallery();
   }
 
   /* Lightbox with next/prev */
@@ -156,12 +159,15 @@
   const lightboxImg = lightbox && qs("img", lightbox);
   const lightboxClose = lightbox && qs(".lightbox__close", lightbox);
   let lbSources = [];
+  let lbAlts = [];
   let lbIndex = 0;
-  const openLightbox = (src, sources) => {
+  const openLightbox = (src, sources, alts) => {
     if (!lightbox || !lightboxImg || !src) return;
     lbSources = sources && sources.length ? sources : [src];
+    lbAlts = alts && alts.length ? alts : [];
     lbIndex = Math.max(0, lbSources.indexOf(src));
     lightboxImg.src = lbSources[lbIndex];
+    lightboxImg.alt = lbAlts[lbIndex] || "";
     lightbox.classList.add("is-open");
     lightboxClose && lightboxClose.focus();
   };
@@ -170,12 +176,14 @@
     if (!lbSources.length) return;
     lbIndex = (lbIndex + dir + lbSources.length) % lbSources.length;
     lightboxImg.src = lbSources[lbIndex];
+    lightboxImg.alt = lbAlts[lbIndex] || "";
   };
   qsa("[data-lightbox]").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const all = qsa("[data-lightbox]").filter((b) => !b.hidden && b.offsetParent !== null);
+      const all = qsa("[data-lightbox]").filter((b) => !b.classList.contains("is-off") && !b.classList.contains("is-deferred") && !b.hidden && b.offsetParent !== null);
       const sources = all.map((b) => b.getAttribute("data-lightbox")).filter(Boolean);
-      openLightbox(btn.getAttribute("data-lightbox"), sources);
+      const alts = all.map((b) => qs("img", b)?.alt || "");
+      openLightbox(btn.getAttribute("data-lightbox"), sources, alts);
     });
   });
   lightboxClose && lightboxClose.addEventListener("click", closeLightbox);
@@ -287,6 +295,13 @@
         sort = sortSel.value;
         render();
       });
+    const queryInput = qs("[data-news-query]", newsRoot);
+    queryInput &&
+      queryInput.addEventListener("input", () => {
+        query = queryInput.value.trim().toLowerCase();
+        page = 1;
+        render();
+      });
     render();
 
     /* Search overlay */
@@ -315,7 +330,11 @@
 
   /* Product filters accordion + checkboxes */
   qsa(".filter-accordion__btn").forEach((btn) => {
-    btn.addEventListener("click", () => btn.closest(".filter-accordion")?.classList.toggle("is-open"));
+    btn.addEventListener("click", () => {
+      const acc = btn.closest(".filter-accordion");
+      acc?.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", acc?.classList.contains("is-open") ? "true" : "false");
+    });
   });
   /* Open first product filter group by default */
   const firstAcc = qs(".filters-panel .filter-accordion");
@@ -326,6 +345,12 @@
     const checks = qsa("[data-filter-key]");
     const sortSel = qs("[data-product-sort]");
     const status = qs("[data-product-status]");
+    const empty = qs("[data-product-empty]");
+    qsa("[data-filter-count]").forEach((el) => {
+      const key = el.getAttribute("data-filter-count");
+      const val = el.getAttribute("data-filter-value");
+      el.textContent = String(cards.filter((card) => card.getAttribute(`data-${key}`) === val).length);
+    });
 
     const apply = () => {
       const groups = {};
@@ -354,7 +379,12 @@
       cards.forEach((c) => {
         c.hidden = !list.includes(c);
       });
-      if (status) status.textContent = `Showing ${list.length} of ${cards.length} products`;
+      if (status) {
+        status.textContent = list.length
+          ? `Showing 1–${list.length} of ${cards.length} products`
+          : `Showing 0 of ${cards.length} products`;
+      }
+      if (empty) empty.hidden = list.length !== 0;
     };
 
     checks.forEach((c) => c.addEventListener("change", apply));
@@ -526,6 +556,139 @@
       if (urls[type]) window.open(urls[type], "_blank", "noopener,width=600,height=500");
     });
   });
+
+  /* Contact map pins — only when admin supplies a location */
+  const contactMap = qs(".contact-map[data-cms-field='contact-map']");
+  if (contactMap) {
+    const pinToView = (input) => {
+      const raw = (input || "").trim();
+      if (!raw || /^\s*javascript:/i.test(raw)) return null;
+
+      const coord = raw.match(/^(-?\d{1,2}(?:\.\d+)?)\s*,\s*(-?\d{1,3}(?:\.\d+)?)$/);
+      if (coord) {
+        const lat = Number(coord[1]);
+        const lng = Number(coord[2]);
+        if (lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
+        const q = `${lat},${lng}`;
+        return {
+          embed: `https://maps.google.com/maps?q=${q}&z=15&output=embed`,
+          open: `https://www.google.com/maps/search/?api=1&query=${q}`,
+        };
+      }
+
+      let url;
+      try {
+        url = new URL(raw);
+      } catch (_) {
+        const q = encodeURIComponent(raw);
+        return {
+          embed: `https://maps.google.com/maps?q=${q}&z=14&output=embed`,
+          open: `https://www.google.com/maps/search/?api=1&query=${q}`,
+        };
+      }
+
+      if (url.protocol !== "https:") return null;
+      const host = url.hostname.replace(/^www\./, "");
+      const allowed =
+        host === "google.com" ||
+        host.endsWith(".google.com") ||
+        host === "maps.app.goo.gl" ||
+        host === "goo.gl";
+      if (!allowed) return null;
+
+      if (url.pathname.includes("/maps/embed") || url.searchParams.get("output") === "embed") {
+        const open = new URL(url.toString());
+        open.searchParams.delete("output");
+        return { embed: url.toString(), open: open.toString() };
+      }
+
+      const at = url.href.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+      if (at) {
+        const q = `${at[1]},${at[2]}`;
+        return {
+          embed: `https://maps.google.com/maps?q=${q}&z=15&output=embed`,
+          open: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,
+        };
+      }
+
+      const query = url.searchParams.get("q") || url.searchParams.get("query");
+      const place = url.pathname.match(/\/maps\/(?:place|search)\/([^/@]+)/);
+      const label = query || (place ? decodeURIComponent(place[1].replace(/\+/g, " ")) : "");
+      if (label) {
+        const q = encodeURIComponent(label);
+        return {
+          embed: `https://maps.google.com/maps?q=${q}&z=15&output=embed`,
+          open: `https://www.google.com/maps/search/?api=1&query=${q}`,
+        };
+      }
+
+      return { embed: "", open: url.toString() };
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    let office = contactMap.getAttribute("data-office-pin") || "";
+    let mill = contactMap.getAttribute("data-mill-pin") || "";
+    if (!office && !mill) {
+      office = params.get("officePin") || "";
+      mill = params.get("millPin") || "";
+    }
+    if (!office && !mill) {
+      try {
+        const stored = JSON.parse(localStorage.getItem("it-contact-pins") || "{}");
+        office = stored.office || "";
+        mill = stored.mill || "";
+      } catch (_) {}
+    }
+
+    const pins = [
+      office && { id: "office", label: "Office", view: pinToView(office) },
+      mill && { id: "mill", label: "Mill", view: pinToView(mill) },
+    ].filter((pin) => pin && pin.view && (pin.view.embed || pin.view.open));
+
+    if (pins.length) {
+      const frame = qs("[data-map-frame]", contactMap);
+      const canvas = qs("[data-map-canvas]", contactMap);
+      const open = qs("[data-map-open]", contactMap);
+      const note = qs("[data-map-note]", contactMap);
+      const switcher = qs("[data-map-switch]", contactMap);
+
+      const show = (pin) => {
+        if (!pin) return;
+        if (frame && canvas && pin.view.embed) {
+          frame.src = pin.view.embed;
+          frame.title = pin.label + " pin";
+          canvas.hidden = false;
+          contactMap.classList.add("is-pinned");
+        } else {
+          if (frame) frame.removeAttribute("src");
+          if (canvas) canvas.hidden = true;
+          contactMap.classList.remove("is-pinned");
+        }
+        if (open) open.href = pin.view.open || pin.view.embed;
+        if (note) note.textContent = "Opens the " + pin.label.toLowerCase() + " pin in Google Maps.";
+        qsa("button", switcher).forEach((btn) => {
+          const on = btn.getAttribute("data-pin") === pin.id;
+          btn.classList.toggle("is-active", on);
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+        });
+      };
+
+      if (pins.length > 1 && switcher) {
+        switcher.classList.add("is-on");
+        pins.forEach((pin) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.setAttribute("role", "tab");
+          btn.setAttribute("data-pin", pin.id);
+          btn.textContent = pin.label;
+          btn.addEventListener("click", () => show(pin));
+          switcher.appendChild(btn);
+        });
+      }
+
+      show(pins[0]);
+    }
+  }
 
   /* Newsletter */
   qsa("[data-newsletter]").forEach((form) => {

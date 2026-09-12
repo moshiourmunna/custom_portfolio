@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -49,14 +49,7 @@
         <nav class="nav" aria-label="Main">
           <a href="index.html" class="is-active">Home</a>
           <a href="about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="products/index.html#yarn">Yarn</a>
-              <a href="products/woven-fabric.html">Woven Fabric</a>
-              <a href="products/index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="products/index.html">Products</a>
           <a href="facilities.html">Facilities &amp; Capacity</a>
           <a href="quality.html">Quality</a>
           <a href="sustainability.html">Sustainability</a>
@@ -69,9 +62,6 @@
       <a href="index.html" class="is-active">Home</a>
       <a href="about.html">About Us</a>
       <a href="products/index.html">Products</a>
-      <a class="mobile-nav__sub" href="products/index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="products/woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="products/index.html#finishing">Finished Fabric</a>
       <a href="facilities.html">Facilities &amp; Capacity</a>
       <a href="quality.html">Quality</a>
       <a href="sustainability.html">Sustainability</a>
@@ -83,13 +73,17 @@
     <!-- Hero -->
     <section class="hero" data-cms-field="hero">
       <div class="hero__media">
-        <img src="assets/images/hero/hero-0.jpg" alt="Weaving looms producing cotton fabric at Islam Textile, Narayanganj">
+        <img src="assets/images/products/product-0.jpg" alt="Weaving loom at the Islam Textile mill in Narayanganj">
       </div>
       <div class="hero__overlay" aria-hidden="true"></div>
       <div class="container hero__content">
-        <img class="hero__brand-mark" src="assets/images/brand/logo-01-monogram-it-ribbon.png" alt="">
-        <p class="hero__brand-name">Islam Textile</p>
-        <p class="hero__brand-tag">Weaving Tradition, Ensuring Quality</p>
+        <div class="hero__lockup">
+          <img class="hero__brand-mark" src="assets/images/brand/logo-01-monogram-it-ribbon.png" alt="">
+          <div>
+            <p class="hero__brand-name">Islam Textile</p>
+            <p class="hero__brand-tag">Weaving Tradition, Ensuring Quality</p>
+          </div>
+        </div>
         <h1 data-cms-field="hero-headline">Premium Cotton. Woven to Perfection.</h1>
         <p class="hero__lead" data-cms-field="hero-lead">Reliable quality, sustainable practices, and on-time delivery you can count on.</p>
         <div class="btn-group">
@@ -104,31 +98,39 @@
       <div class="container stats__grid">
         <div class="stat reveal">
           <div class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg>
+            <svg viewBox="0 0 32 32"><path d="M4 28V14l6-4v4l6-5 6 5v-4l6 4v14"/><path d="M13 28v-6h6v6"/><path d="M8 18h2M8 22h2M22 18h2M22 22h2"/></svg>
           </div>
-          <div class="stat__value" data-count="500" data-suffix="+">0</div>
-          <div class="stat__label">Looms Installed</div>
+          <div class="stat__copy">
+            <div class="stat__value" data-count="500" data-suffix="+">0</div>
+            <div class="stat__label">Looms Installed</div>
+          </div>
         </div>
         <div class="stat reveal">
           <div class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg>
+            <svg viewBox="0 0 32 32"><ellipse cx="16" cy="7.2" rx="7.2" ry="2.3"/><path d="M8.8 7.6 12.4 23.2h7.2L23.2 7.6"/><path d="M10.6 12.4h10.8M11.4 16.2h9.2M12.2 20h7.6"/><path d="M16 23.2v3.4"/></svg>
           </div>
-          <div class="stat__value" data-count="18000" data-suffix="+">0</div>
-          <div class="stat__label">MT Annual Capacity</div>
+          <div class="stat__copy">
+            <div class="stat__value" data-count="18000" data-suffix="+">0</div>
+            <div class="stat__label">MT Annual Capacity</div>
+          </div>
         </div>
         <div class="stat reveal">
           <div class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+            <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11"/><path d="M5 16h22M16 5c3.2 3.4 4.8 7 4.8 11S19.2 23.6 16 27c-3.2-3.4-4.8-7-4.8-11S12.8 8.4 16 5z"/></svg>
           </div>
-          <div class="stat__value" data-count="25" data-suffix="+">0</div>
-          <div class="stat__label">Countries Served</div>
+          <div class="stat__copy">
+            <div class="stat__value" data-count="25" data-suffix="+">0</div>
+            <div class="stat__label">Countries Served</div>
+          </div>
         </div>
         <div class="stat reveal">
           <div class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="3"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a3 3 0 010 5.74"/></svg>
+            <svg viewBox="0 0 32 32"><circle cx="11" cy="11" r="3.2"/><circle cx="21" cy="12" r="2.6"/><path d="M4.5 25v-1.2A5.2 5.2 0 019.7 18.6h2.6a5.2 5.2 0 015.2 5.2V25"/><path d="M18.2 19.2h2.2a4.4 4.4 0 014.4 4.4V25"/></svg>
           </div>
-          <div class="stat__value" data-count="800" data-suffix="+">0</div>
-          <div class="stat__label">Skilled Employees</div>
+          <div class="stat__copy">
+            <div class="stat__value" data-count="800" data-suffix="+">0</div>
+            <div class="stat__label">Skilled Employees</div>
+          </div>
         </div>
       </div>
     </section>
@@ -139,10 +141,11 @@
         <div class="home-products__grid">
           <article class="home-products__item reveal" id="yarn">
             <div class="home-products__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
-                <circle cx="24" cy="24" r="14"/>
-                <circle cx="24" cy="24" r="5"/>
-                <path d="M24 6v4M24 38v4M10 14l3 3M35 31l3 3M10 34l3-3M35 17l3-3"/>
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round">
+                <ellipse cx="24" cy="13" rx="9.5" ry="3"/>
+                <path d="M14.6 13.2 19.2 33.5h9.6l4.6-20.3"/>
+                <path d="M16.4 19.2h15.2M17.4 24h13.2M18.4 28.8h11.2"/>
+                <path d="M24 33.5v3.2"/>
               </svg>
             </div>
             <div class="home-products__body">
@@ -153,9 +156,9 @@
           </article>
           <article class="home-products__item reveal">
             <div class="home-products__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
-                <rect x="8" y="8" width="32" height="32" rx="1"/>
-                <path d="M8 16h32M8 24h32M8 32h32M16 8v32M24 8v32M32 8v32"/>
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round">
+                <rect x="9" y="9" width="30" height="30" rx="1.5"/>
+                <path d="M9 16.5h30M9 24h30M9 31.5h30M16.5 9v30M24 9v30M31.5 9v30"/>
               </svg>
             </div>
             <div class="home-products__body">
@@ -166,9 +169,13 @@
           </article>
           <article class="home-products__item reveal" id="finishing">
             <div class="home-products__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M10 16h28v18H10z"/>
-                <path d="M16 16V12h16v4M14 25h20"/>
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round">
+                <path d="M10 31.5c0-2.2 6.2-4.5 14-4.5s14 2.3 14 4.5"/>
+                <path d="M10 31.5v5.2c0 2.2 6.2 4.5 14 4.5s14-2.3 14-4.5v-5.2"/>
+                <path d="M13 25.2c0-1.8 4.8-3.6 11-3.6s11 1.8 11 3.6"/>
+                <path d="M13 25.2v4.2c0 1.8 4.8 3.6 11 3.6s11-1.8 11-3.6v-4.2"/>
+                <path d="M16 19.2c0-1.4 3.6-2.8 8-2.8s8 1.4 8 2.8"/>
+                <path d="M16 19.2v3.2c0 1.4 3.6 2.8 8 2.8s8-1.4 8-2.8v-3.2"/>
               </svg>
             </div>
             <div class="home-products__body">
@@ -192,7 +199,7 @@
               <a href="process.html" class="link-more link-more--serif">Discover Our Process →</a>
             </div>
             <div class="home-insight__visual" aria-hidden="true">
-              <img src="assets/images/products/product-0.jpg" alt="">
+              <img src="assets/images/process/step-06.jpg" alt="">
             </div>
           </article>
           <article class="home-insight__col reveal" data-cms-field="home-sustainability">
@@ -202,11 +209,16 @@
               <a href="sustainability.html" class="link-more link-more--serif">Our Commitment →</a>
             </div>
             <div class="home-insight__visual home-insight__visual--leaf" aria-hidden="true">
-              <svg viewBox="0 0 120 160" fill="none">
-                <path d="M60 150c0-50 28-78 52-98-8 42-28 70-52 98Z" fill="#0a5c4f" opacity=".9"/>
-                <path d="M60 150c0-55-30-82-52-100 10 44 30 72 52 100Z" fill="#004d40"/>
-                <path d="M60 150V42" stroke="#548c84" stroke-width="2"/>
-                <path d="M60 78c-14-8-24-22-28-38M60 98c14-10 24-24 30-42" stroke="#7aada6" stroke-width="1.5"/>
+              <svg viewBox="0 0 160 220" fill="none">
+                <path d="M78 208c2-46 8-78 22-112" stroke="#6d9a90" stroke-width="1.6"/>
+                <path d="M86 168c18-6 34-6 52 2-16 10-32 12-52 6Z" fill="#7eaea4"/>
+                <path d="M84 148c-20-2-36 2-50 12 18 6 34 4 50-2Z" fill="#5f8f84"/>
+                <path d="M90 128c16-10 30-12 46-6-14 14-28 18-46 14Z" fill="#8fbfb4"/>
+                <path d="M88 108c-16-8-30-8-44 0 16 10 30 10 44 2Z" fill="#4f7f74"/>
+                <path d="M94 88c14-12 26-16 40-12-12 16-24 22-40 18Z" fill="#6f9e94"/>
+                <path d="M92 70c-12-10-24-12-36-4 12 12 24 14 36 6Z" fill="#3f6f64"/>
+                <path d="M98 52c10-14 18-22 28-24-6 16-14 26-28 32Z" fill="#8fbfb4"/>
+                <path d="M96 48c-8-12-16-18-26-16 4 14 12 22 26 26Z" fill="#5f8f84"/>
               </svg>
             </div>
           </article>
@@ -226,7 +238,7 @@
               <a href="news/index.html" class="link-more link-more--serif">View All News →</a>
             </div>
             <div class="home-insight__visual" aria-hidden="true">
-              <img src="assets/images/news/news-0.jpg" alt="">
+              <img src="assets/images/gallery/gallery-8.jpg" alt="">
             </div>
           </article>
         </div>
@@ -272,17 +284,99 @@
         <header class="section__head section__head--center reveal">
           <p class="section__eyebrow">Vertical Integration</p>
           <h2 class="section__title">From yarn to finished fabric</h2>
-          <p class="section__lead">One coordinated mill pathway — fewer handoffs, clearer accountability, stronger batch traceability.</p>
+          <p class="section__lead">One coordinated mill pathway — fewer handoffs, clearer accountability, and batch identity from the first bale to the packed roll.</p>
         </header>
-        <div class="home-steps">
-          <article class="home-step reveal"><div class="home-step__num">01</div><h3>Fiber</h3><p>Selected cotton inputs for weaving performance.</p></article>
-          <article class="home-step reveal"><div class="home-step__num">02</div><h3>Spinning</h3><p>Ring-spun yarn with controlled evenness.</p></article>
-          <article class="home-step reveal"><div class="home-step__num">03</div><h3>Weaving</h3><p>Greige fabric on modern looms to construction.</p></article>
-          <article class="home-step reveal"><div class="home-step__num">04</div><h3>Dyeing</h3><p>Reactive and process dyeing to shade targets.</p></article>
-          <article class="home-step reveal"><div class="home-step__num">05</div><h3>Finishing</h3><p>Mercerize, sanforize, and soft finishes.</p></article>
-          <article class="home-step reveal"><div class="home-step__num">06</div><h3>Dispatch</h3><p>Inspected rolls packed for export shipment.</p></article>
+        <ol class="home-steps">
+          <li class="home-step reveal">
+            <div class="home-step__marker" aria-hidden="true"><span class="home-step__num">01</span></div>
+            <div class="home-step__body">
+              <div class="home-step__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 10h14v8H5z"/><path d="M5 14h14M9 10v8M15 10v8"/><path d="M8 10V8.2C8 6.4 9.6 5 12 5s4 1.4 4 3.2V10"/></svg>
+              </div>
+              <h3>Fiber</h3>
+              <p>Cotton opened and carded for length and cleanliness.</p>
+              <p class="home-step__spec">Opening · Carding</p>
+            </div>
+          </li>
+          <li class="home-step reveal">
+            <div class="home-step__marker" aria-hidden="true"><span class="home-step__num">02</span></div>
+            <div class="home-step__body">
+              <div class="home-step__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg>
+              </div>
+              <h3>Spinning</h3>
+              <p>Ring-spun yarn with controlled twist, evenness, and strength.</p>
+              <p class="home-step__spec">Ne 20–40</p>
+            </div>
+          </li>
+          <li class="home-step reveal">
+            <div class="home-step__marker" aria-hidden="true"><span class="home-step__num">03</span></div>
+            <div class="home-step__body">
+              <div class="home-step__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18M6 3v18M12 3v18M18 3v18"/></svg>
+              </div>
+              <h3>Weaving</h3>
+              <p>Greige woven to spec on air-jet and rapier looms, then inspected.</p>
+              <p class="home-step__spec">Air-jet · Rapier</p>
+            </div>
+          </li>
+          <li class="home-step reveal">
+            <div class="home-step__marker" aria-hidden="true"><span class="home-step__num">04</span></div>
+            <div class="home-step__body">
+              <div class="home-step__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3.2c2.6 3.4 4.8 6.1 4.8 8.8a4.8 4.8 0 0 1-9.6 0c0-2.7 2.2-5.4 4.8-8.8z"/></svg>
+              </div>
+              <h3>Dyeing</h3>
+              <p>Reactive and pigment shades held to approved lab dips.</p>
+              <p class="home-step__spec">Shade control</p>
+            </div>
+          </li>
+          <li class="home-step reveal">
+            <div class="home-step__marker" aria-hidden="true"><span class="home-step__num">05</span></div>
+            <div class="home-step__body">
+              <div class="home-step__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 8l8-3 8 3-8 3-8-3z"/><path d="M4 12l8 3 8-3"/><path d="M4 16l8 3 8-3"/></svg>
+              </div>
+              <h3>Finishing</h3>
+              <p>Mercerize, sanforize, and soften for hand and shrinkage.</p>
+              <p class="home-step__spec">Mercer · Sanfor</p>
+            </div>
+          </li>
+          <li class="home-step reveal">
+            <div class="home-step__marker" aria-hidden="true"><span class="home-step__num">06</span></div>
+            <div class="home-step__body">
+              <div class="home-step__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 8h13v9H3z"/><path d="M16 11h3.2L21 13.5V17h-5"/><circle cx="7" cy="17.5" r="1.4"/><circle cx="17.2" cy="17.5" r="1.4"/></svg>
+              </div>
+              <h3>Dispatch</h3>
+              <p>Lab-checked rolls packed with batch documents for export.</p>
+              <p class="home-step__spec">Export packing</p>
+            </div>
+          </li>
+        </ol>
+        <div class="integration-gains reveal" aria-label="Why buyers choose an integrated mill">
+          <article>
+            <p class="integration-gains__kicker">Accountability</p>
+            <h3>One mill partner</h3>
+            <p>Spinning, weaving, and finishing on one Narayanganj campus — a single team for the program.</p>
+          </article>
+          <article>
+            <p class="integration-gains__kicker">Traceability</p>
+            <h3>Lot identity held</h3>
+            <p>Batch records travel from fiber blend through shade approval to the packed roll.</p>
+          </article>
+          <article>
+            <p class="integration-gains__kicker">Programs</p>
+            <h3>Built for repeats</h3>
+            <p>Construction, hand, and shade held for seasonal peaks and standing export orders.</p>
+          </article>
         </div>
-        <p class="section-action"><a href="process.html" class="btn btn--outline">See Full Process</a></p>
+        <div class="section-action">
+          <div class="btn-group">
+            <a href="process.html" class="btn btn--primary">See Full Process</a>
+            <a href="contact.html" class="btn btn--outline">Request Quote</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -290,19 +384,38 @@
     <section class="section home-facilities" data-cms-field="home-facilities">
       <div class="container home-split">
         <div class="home-split__media reveal">
-          <img src="assets/images/facilities/dept-weaving.jpg" alt="Weaving department at Islam Textile mill">
+          <img src="assets/images/products/product-0.jpg" alt="Air-jet weaving loom at the Islam Textile mill in Narayanganj">
+          <p class="home-split__caption">Narayanganj campus · Weaving floor</p>
         </div>
         <div class="home-split__body reveal">
           <p class="section__eyebrow">Facilities &amp; Capacity</p>
           <h2 class="section__title section__title--display">Built for reliable bulk production</h2>
-          <p class="section__lead">Our Narayanganj campus brings spinning, weaving, and wet processing together — supported by utilities, lab, and warehouse readiness for export programs.</p>
-          <div class="home-split__metrics">
+          <p class="section__lead">One Narayanganj campus for spinning, weaving, and wet processing — with Dhaka program coordination and Chattogram export logistics.</p>
+          <div class="home-split__metrics" aria-label="Mill capacity">
             <div><strong data-count="120000" data-suffix="+">0</strong><span>Spindles</span></div>
             <div><strong data-count="480" data-suffix="+">0</strong><span>Looms</span></div>
             <div><strong data-count="1200" data-suffix="+">0</strong><span>Workforce</span></div>
             <div><strong data-count="25" data-suffix="M+">0</strong><span>Yards / Year</span></div>
           </div>
-          <a href="facilities.html" class="btn btn--primary">Explore Facilities</a>
+          <ul class="campus-points">
+            <li>
+              <strong>Continuous utilities</strong>
+              <span>Boiler, compressed air, and power backup sized for 24/7 running.</span>
+            </li>
+            <li>
+              <strong>Export packing</strong>
+              <span>Inspected rolls and buyer packing specs before dispatch.</span>
+            </li>
+            <li>
+              <strong>Dhaka buyer desk</strong>
+              <span>Commercial follow-up while the mill holds the lot.</span>
+            </li>
+          </ul>
+          <p class="campus-line">Spinning · Weaving · Processing · Laboratory · Warehouse · ETP</p>
+          <div class="btn-group">
+            <a href="facilities.html" class="btn btn--primary">Explore Facilities</a>
+            <a href="contact.html" class="btn btn--outline">Schedule a Visit</a>
+          </div>
         </div>
       </div>
     </section>
@@ -313,15 +426,45 @@
         <header class="section__head section__head--center reveal">
           <p class="section__eyebrow">Quality &amp; Certifications</p>
           <h2 class="section__title">Standards woven into every stage</h2>
-          <p class="section__lead">From raw material checks to final inspection — quality is a mill culture, not a last-minute gate.</p>
+          <p class="section__lead">From yarn evenness to packed-roll inspection — quality is a mill culture, not a last-minute gate.</p>
         </header>
         <div class="cert-strip reveal">
-          <div class="cert-strip__item"><strong>In-house Lab</strong><span>Construction, shade &amp; strength tests</span></div>
-          <div class="cert-strip__item"><strong>Process Control</strong><span>Monitoring across spinning &amp; weaving</span></div>
-          <div class="cert-strip__item"><strong>Buyer Specs</strong><span>Aligned to apparel &amp; home textile programs</span></div>
-          <div class="cert-strip__item"><strong>Compliance Ready</strong><span>Documentation support for audits</span></div>
+          <article class="cert-strip__item">
+            <div class="cert-strip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 3h6l1 3h3v13H5V6h3l1-3z"/><path d="M9 13h6M12 10v6"/></svg>
+            </div>
+            <h3>In-house lab</h3>
+            <p>Tensile, GSM, colorfastness, yarn U%, and shade ΔE before shipment.</p>
+          </article>
+          <article class="cert-strip__item">
+            <div class="cert-strip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 3v18M16 3v18"/></svg>
+            </div>
+            <h3>Process control</h3>
+            <p>Yarn check, loom-side inspection, and 4-point fabric mapping on the lot.</p>
+          </article>
+          <article class="cert-strip__item">
+            <div class="cert-strip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5"/><path d="M10 13h6M10 17h4"/></svg>
+            </div>
+            <h3>Buyer specs</h3>
+            <p>Construction, hand, and shade panels held to apparel and home textile programs.</p>
+          </article>
+          <article class="cert-strip__item">
+            <div class="cert-strip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3>Audit ready</h3>
+            <p>Test reports and packing documents available for buyer and audit review.</p>
+          </article>
         </div>
-        <p class="section-action"><a href="quality.html" class="link-more link-more--serif">View Quality &amp; Certifications →</a></p>
+        <p class="quality-gates">Yarn check · Loom-side · 4-point · Laboratory · Shade · Dispatch</p>
+        <div class="section-action">
+          <div class="btn-group">
+            <a href="quality.html" class="btn btn--primary">View Quality</a>
+            <a href="contact.html" class="btn btn--outline">Request QA Documents</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -329,19 +472,36 @@
     <section class="section home-markets" data-cms-field="home-markets">
       <div class="container home-split home-split--reverse">
         <div class="home-split__media reveal">
-          <img src="assets/images/gallery/gallery-5.jpg" alt="Finished fabric rolls prepared for export">
+          <img src="assets/images/gallery/gallery-5.jpg" alt="Dyeing machines on the wet-processing floor at Islam Textile">
+          <p class="home-split__caption">Dyeing floor · Wet processing</p>
         </div>
         <div class="home-split__body reveal">
           <p class="section__eyebrow">Markets We Serve</p>
           <h2 class="section__title section__title--display">Bangladesh-made cotton for global programs</h2>
-          <p class="section__lead">We support buyers who need dependable woven greige and finished cotton for apparel, home textile, and industrial end uses.</p>
+          <p class="section__lead">Greige and finished woven cotton for buyers who need the same construction, hand, and shade on the next order.</p>
           <div class="markets-grid">
-            <div class="market-chip"><strong>Apparel</strong><span>Shirting, bottoms, linings</span></div>
-            <div class="market-chip"><strong>Home Textile</strong><span>Sheeting &amp; soft furnishings</span></div>
-            <div class="market-chip"><strong>Workwear</strong><span>Durable plain &amp; twill</span></div>
-            <div class="market-chip"><strong>Industrial</strong><span>Spec-driven constructions</span></div>
+            <article class="market-chip">
+              <h3>Apparel</h3>
+              <p>Poplin and oxford for shirting, uniforms, and linings.</p>
+            </article>
+            <article class="market-chip">
+              <h3>Home textile</h3>
+              <p>Sheeting and soft furnishings in greige or finished cotton.</p>
+            </article>
+            <article class="market-chip">
+              <h3>Workwear</h3>
+              <p>Durable plain and twill built for repeat bulk programs.</p>
+            </article>
+            <article class="market-chip">
+              <h3>Industrial</h3>
+              <p>Spec-driven width, GSM, and construction to the buyer brief.</p>
+            </article>
           </div>
-          <a href="contact.html" class="btn btn--outline">Talk to Our Team</a>
+          <p class="markets-note">Program planning in Dhaka. Mill execution in Narayanganj. Export via Chattogram.</p>
+          <div class="btn-group">
+            <a href="contact.html" class="btn btn--primary">Request Quote</a>
+            <a href="products/woven-fabric.html" class="btn btn--outline">Browse Fabrics</a>
+          </div>
         </div>
       </div>
     </section>
@@ -352,13 +512,25 @@
         <header class="section__head section__head--center reveal">
           <p class="section__eyebrow">Gallery</p>
           <h2 class="section__title">Inside the mill</h2>
-          <p class="section__lead">A look at our floors — spinning, weaving, finishing, and warehouse — without portraits.</p>
+          <p class="section__lead">Documented floors at Narayanganj — weaving, dyeing, finishing, and utilities — without portraits.</p>
         </header>
         <div class="home-gallery reveal">
-          <a href="gallery/index.html"><img src="assets/images/gallery/gallery-0.jpg" alt="Mill facility view"></a>
-          <a href="gallery/index.html"><img src="assets/images/gallery/gallery-1.jpg" alt="Yarn production"></a>
-          <a href="gallery/index.html"><img src="assets/images/gallery/gallery-2.jpg" alt="Weaving looms"></a>
-          <a href="gallery/index.html"><img src="assets/images/gallery/gallery-4.jpg" alt="Finishing line"></a>
+          <a class="home-gallery__item" href="gallery/index.html">
+            <img src="assets/images/products/product-1.jpg" alt="Weaving loom with warp beams at Islam Textile">
+            <span class="home-gallery__label">Weaving</span>
+          </a>
+          <a class="home-gallery__item" href="gallery/index.html">
+            <img src="assets/images/gallery/gallery-2.jpg" alt="Fabric on the finishing line">
+            <span class="home-gallery__label">Finishing</span>
+          </a>
+          <a class="home-gallery__item" href="gallery/index.html">
+            <img src="assets/images/facilities/dept-spinning.jpg" alt="Dyeing machines on the wet-processing floor">
+            <span class="home-gallery__label">Dyeing</span>
+          </a>
+          <a class="home-gallery__item" href="gallery/index.html">
+            <img src="assets/images/gallery/gallery-1.jpg" alt="Effluent treatment plant at the Narayanganj campus">
+            <span class="home-gallery__label">ETP</span>
+          </a>
         </div>
         <p class="section-action"><a href="gallery/index.html" class="link-more link-more--serif">Open Gallery →</a></p>
       </div>
@@ -387,8 +559,14 @@
         </div>
         <a href="contact.html" class="btn btn--outline-light">Request Quote →</a>
         <div class="cta-band__contact">
-          <a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a>
-          <a href="mailto:info@islamtextile.com">info@islamtextile.com</a>
+          <a href="tel:+8801XXXXXXXXX">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 4.5h3l1.2 3-1.8 1.1a12 12 0 006.5 6.5l1.1-1.8 3 1.2v3A1.5 1.5 0 0018 19 14.5 14.5 0 015 6a1.5 1.5 0 001.5-1.5z"/></svg>
+            +880 1XXX-XXXXXX
+          </a>
+          <a href="mailto:info@islamtextile.com">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4 7l8 6 8-6"/></svg>
+            info@islamtextile.com
+          </a>
         </div>
       </div>
     </section>

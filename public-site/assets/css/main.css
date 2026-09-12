@@ -11,6 +11,12 @@
 
 html {
   scroll-behavior: smooth;
+  /* A 1px rounding gap under the footer shows this color on some widths */
+  background-color: var(--color-white);
+  background-image: linear-gradient(var(--color-primary-deep), var(--color-primary-deep));
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 8px;
 }
 
 body {

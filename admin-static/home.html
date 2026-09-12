@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Islam Textile Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <div class="admin-backdrop" data-nav-backdrop hidden></div>
+  <div class="admin-shell">
+    <header class="admin-nav">
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="admin-sidebar" aria-label="Open menu"><span></span></button>
+      <a class="admin-nav__brand" href="dashboard.html" aria-label="Islam Textile admin home">
+        <span class="admin-nav__mark" aria-hidden="true"></span>
+        <span class="admin-nav__word"><strong>Islam Textile</strong><small>Weaving Tradition, Ensuring Quality</small></span>
+      </a>
+      <div class="admin-nav__tools">
+        <a class="admin-nav__bell" href="inquiries.html" aria-label="Inquiries"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 4.2 1.2 5.5 1.2 5.5H5.3S6.5 13.7 6.5 9.5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg><span class="admin-nav__badge">0</span></a>
+        <div class="admin-nav__user"><span class="admin-nav__user-text"><strong>Admin</strong><small>Super Admin</small></span><span class="admin-nav__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="9" r="3"/><path d="M6 19v-.5A4.5 4.5 0 0 1 10.5 14h3A4.5 4.5 0 0 1 18 18.5V19"/></svg></span></div>
+      </div>
+    </header>
+    <aside class="sidebar" id="admin-sidebar"></aside>
+    <div class="admin-main">
+      <header class="admin-top"><h1>Home</h1><button class="btn btn-primary" type="submit" form="home-form">Save home</button></header>
+      <div class="admin-content">
+        <p class="hint">Twelve homepage blocks in the order they appear on the public site. Phone and email for the closing band stay in Settings.</p>
+        <form id="home-form" data-store="home">
+        <section class="panel">
+          <h2><span class="section-num">1</span>Hero</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Image</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="hero.image"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Headline</label><input name="hero.headline"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="hero.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Primary button</label><input name="hero.primaryLabel"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Primary link</label><input name="hero.primaryHref"></div>
+            <div class="field"><label>Secondary button</label><input name="hero.secondaryLabel"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Secondary link</label><input name="hero.secondaryHref"></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">2</span>Stats</h2>
+            <div class="repeater" data-repeater="stats" data-keys="value,suffix,label" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="stats">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">3</span>Product row</h2>
+            <div class="repeater" data-repeater="products" data-keys="title,text,href" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="products">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">4</span>Insight panels</h2>
+            <div class="repeater" data-repeater="insights" data-keys="title,text,href,linkLabel,image" data-images="image"></div>
+            <p><button type="button" class="btn btn-outline" data-add="insights">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">5</span>Why</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="why.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="why.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+            <div class="repeater" data-repeater="why.items" data-keys="title,text" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="why.items">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">6</span>Integration</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="integration.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="integration.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+            <div class="repeater" data-repeater="integration.steps" data-keys="title,text,meta" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="integration.steps">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">7</span>Facilities teaser</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="facilities.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="facilities.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Image</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="facilities.image"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+            <div class="repeater" data-repeater="facilities.bullets" data-keys="title,text" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="facilities.bullets">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">8</span>Quality teaser</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="quality.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="quality.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+            <div class="repeater" data-repeater="quality.points" data-keys="title,text" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="quality.points">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">9</span>Markets</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="markets.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="markets.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+            <div class="repeater" data-repeater="markets.items" data-keys="title,text" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="markets.items">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">10</span>Gallery teaser</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="gallery.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="gallery.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">11</span>Careers teaser</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="careers.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="careers.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Button</label><input name="careers.button"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2><span class="section-num">12</span>CTA</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="cta.title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><input name="cta.lead"><span class="hide-note">Hidden on the site when empty</span></div>
+          </div>
+          <p class="hint">Phone and email stay in Settings so they are not edited twice.</p>
+        </section>
+        <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/admin-store.js"></script>
+  <script src="assets/js/admin-ui.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

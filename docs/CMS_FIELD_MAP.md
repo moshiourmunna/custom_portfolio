@@ -55,7 +55,8 @@ Attributes use `data-cms-field="..."` in HTML. Map these to admin-editable model
 ## Contact
 | Field | Notes |
 |-------|-------|
-| `contact-info` | SiteSetting |
+| `contact-info` | SiteSetting (phones, emails, addresses) |
+| `contact-map` | SiteSetting.office_pin, mill_pin — Maps link, embed URL, or lat,lng. Empty stays a district search, not a plotted street |
 | `quote-form` | Inquiry (name, company, email, phone, country, interest, message) |
 
 ## Legal

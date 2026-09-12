@@ -10,71 +10,34 @@
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
+  <div class="admin-backdrop" data-nav-backdrop hidden></div>
   <div class="admin-shell">
-    <aside class="sidebar">
-      <div class="sidebar__brand">
-        <img src="assets/images/brand/logo-13-minimal-initial.png" alt="">
-        <strong style="color:#fff;font-size:.85rem">Islam Textile CMS</strong>
+    <header class="admin-nav">
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="admin-sidebar" aria-label="Open menu"><span></span></button>
+      <a class="admin-nav__brand" href="dashboard.html" aria-label="Islam Textile admin home">
+        <span class="admin-nav__mark" aria-hidden="true"></span>
+        <span class="admin-nav__word"><strong>Islam Textile</strong><small>Weaving Tradition, Ensuring Quality</small></span>
+      </a>
+      <div class="admin-nav__tools">
+        <a class="admin-nav__bell" href="inquiries.html" aria-label="Inquiries"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 4.2 1.2 5.5 1.2 5.5H5.3S6.5 13.7 6.5 9.5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg><span class="admin-nav__badge">0</span></a>
+        <div class="admin-nav__user"><span class="admin-nav__user-text"><strong>Admin</strong><small>Super Admin</small></span><span class="admin-nav__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="9" r="3"/><path d="M6 19v-.5A4.5 4.5 0 0 1 10.5 14h3A4.5 4.5 0 0 1 18 18.5V19"/></svg></span></div>
       </div>
-      <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="products.html" class="is-active">Products</a>
-        <a href="product-form.html">Add Product</a>
-        <a href="media.html">Media Gallery</a>
-        <a href="settings.html">Settings / Logos</a>
-        <a href="login.html">Log out</a>
-      </nav>
-    </aside>
+    </header>
+    <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top">
-        <h1>Products</h1>
-        <a class="btn btn-primary" href="product-form.html">Add product</a>
-      </header>
+      <header class="admin-top"><h1>Products</h1><a class="btn btn-primary" href="product-form.html">Add product</a></header>
       <div class="admin-content">
         <div class="toolbar">
-          <input type="search" placeholder="Search products…" style="min-height:2.4rem;padding:.4rem .75rem;border:1px solid var(--line);min-width:220px">
-          <select style="min-height:2.4rem;border:1px solid var(--line);padding:.4rem">
-            <option>All categories</option>
-            <option>Yarn</option>
-            <option>Woven Fabric</option>
-            <option>Finished Fabric</option>
-          </select>
+          <input type="search" data-list-search="products" placeholder="Search products…" aria-label="Search products">
+          <select data-list-status="products" aria-label="Status"><option value="">All statuses</option><option>Published</option><option>Draft</option></select>
         </div>
-        <div class="panel">
-          <table class="table">
-            <thead>
-              <tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Updated</th><th>Actions</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><img src="assets/images/media/gallery-2.jpg" alt="" width="48" height="48" style="object-fit:cover"></td>
-                <td>Combed Cotton Poplin</td>
-                <td>Woven Fabric</td>
-                <td><span class="badge">Published</span></td>
-                <td>08 Sep 2026</td>
-                <td><a href="product-form.html">Edit</a> · <a href="#">Delete</a></td>
-              </tr>
-              <tr>
-                <td><img src="assets/images/media/gallery-3.jpg" alt="" width="48" height="48" style="object-fit:cover"></td>
-                <td>Carded OE Yarn 20s</td>
-                <td>Yarn</td>
-                <td><span class="badge">Published</span></td>
-                <td>05 Sep 2026</td>
-                <td><a href="product-form.html">Edit</a> · <a href="#">Delete</a></td>
-              </tr>
-              <tr>
-                <td><img src="assets/images/media/gallery-4.jpg" alt="" width="48" height="48" style="object-fit:cover"></td>
-                <td>Piece-dyed Twill</td>
-                <td>Finished Fabric</td>
-                <td><span class="badge badge-new">Draft</span></td>
-                <td>01 Sep 2026</td>
-                <td><a href="product-form.html">Edit</a> · <a href="#">Delete</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <p class="list-meta" data-list-count="products"></p>
+        <div class="panel"><table class="table"><thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Updated</th><th>Actions</th></tr></thead><tbody data-list="products"></tbody></table></div>
       </div>
     </div>
   </div>
+  <script src="assets/js/admin-store.js"></script>
+  <script src="assets/js/admin-ui.js"></script>
+  <script src="assets/js/admin.js"></script>
 </body>
 </html>

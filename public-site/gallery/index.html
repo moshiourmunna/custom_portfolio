@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery | Islam Textile Mill Photos</title>
-  <meta name="description" content="Photo gallery of Islam Textile — factory, production, yarn, and mill events at our Narayanganj cotton textile campus.">
+  <meta name="description" content="Photo gallery of Islam Textile — dyeing, weaving, finishing, yarn, and the effluent plant at the Narayanganj campus.">
   <link rel="canonical" href="https://www.islamtextile.com/gallery/">
   <meta property="og:title" content="Gallery | Islam Textile">
   <meta property="og:description" content="Explore our cotton textile manufacturing facilities through photos.">
   <meta property="og:url" content="https://www.islamtextile.com/gallery/">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.islamtextile.com/assets/images/gallery/gallery-0.jpg">
+  <meta property="og:image" content="https://www.islamtextile.com/assets/images/products/product-0.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,14 +35,7 @@
         <nav class="nav" aria-label="Main">
           <a href="../index.html">Home</a>
           <a href="../about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="../products/index.html#yarn">Yarn</a>
-              <a href="../products/woven-fabric.html">Woven Fabric</a>
-              <a href="../products/index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="../products/index.html">Products</a>
           <a href="../facilities.html">Facilities &amp; Capacity</a>
           <a href="../quality.html">Quality</a>
           <a href="../sustainability.html">Sustainability</a>
@@ -55,9 +48,6 @@
       <a href="../index.html">Home</a>
       <a href="../about.html">About Us</a>
       <a href="../products/index.html">Products</a>
-      <a class="mobile-nav__sub" href="../products/index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="../products/woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="../products/index.html#finishing">Finished Fabric</a>
       <a href="../facilities.html">Facilities &amp; Capacity</a>
       <a href="../quality.html">Quality</a>
       <a href="../sustainability.html">Sustainability</a>
@@ -66,41 +56,52 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container page-hero__content">
-        <nav class="breadcrumb page-hero__crumb" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a> <span aria-hidden="true">/</span> <span>Gallery</span>
-        </nav>
+    <section class="mill-hero">
+      <img class="mill-hero__bg" src="../assets/images/gallery/gallery-2.jpg" alt="">
+      <div class="container mill-hero__content">
         <h1 data-cms-field="page-title">Gallery</h1>
-        <p data-cms-field="page-lead">Mill, yarn, and production photography from our Narayanganj campus — no portraits, only process and place.</p>
+        <nav class="mill-hero__crumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a> <span aria-hidden="true">›</span> <span>Gallery</span>
+        </nav>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container gallery-layout">
-        <aside class="filters-panel" aria-label="Albums">
-          <div class="filters-panel__head">
-            <h2>Albums</h2>
+    <section class="section mill-gallery" data-gallery>
+      <div class="container mill-layout">
+        <aside class="mill-side" aria-label="Albums">
+          <h2>Filter albums</h2>
+          <div class="mill-filters" role="group" aria-label="Filter gallery albums">
+            <button type="button" class="is-active" data-filter="all">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg>
+              All Photos
+            </button>
+            <button type="button" data-filter="factory">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l5 3V9l5 3V6h6v14H4z"/><path d="M8 20v-3M12 20v-3M16 20v-3"/></svg>
+              Factory
+            </button>
+            <button type="button" data-filter="production">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><path d="M12 4.2v2.1M12 17.7v2.1M4.2 12h2.1M17.7 12h2.1M6.4 6.4l1.5 1.5M16.1 16.1l1.5 1.5M17.6 6.4l-1.5 1.5M7.9 16.1l-1.5 1.5"/></svg>
+              Production
+            </button>
+            <button type="button" data-filter="yarn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7.5h14M5 12h14M5 16.5h14"/></svg>
+              Yarn &amp; Fabric
+            </button>
           </div>
-          <div class="filter-list" role="group" aria-label="Filter gallery albums">
-            <button type="button" class="is-active" data-filter="all">All Photos</button>
-            <button type="button" data-filter="factory">Factory</button>
-            <button type="button" data-filter="production">Production</button>
-            <button type="button" data-filter="yarn">Yarn</button>
-            <button type="button" data-filter="events">Events</button>
-          </div>
-          <div class="capture-box">
-            <img src="../assets/images/gallery/gallery-0.jpg" alt="Narayanganj mill exterior" width="280" height="160" style="width:100%;height:auto;border-radius:4px;object-fit:cover;aspect-ratio:16/10">
-            <h3>Capture the Mill</h3>
-            <p>Documented spinning, weaving, and finishing floors at Islam Textile, Narayanganj.</p>
+          <div class="mill-note">
+            <div class="mill-note__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 7.5h8l1.2 1.6H20v9H4v-9h2.8L8 7.5z"/><circle cx="12" cy="13" r="2.4"/></svg>
+            </div>
+            <h3>Capturing the mill</h3>
+            <p>Dyeing, weaving, finishing, yarn, and the effluent plant at Islam Textile, Narayanganj.</p>
           </div>
         </aside>
 
-        <div>
-          <div class="gallery-toolbar">
-            <p data-filter-status>Showing all photos (12)</p>
+        <div class="mill-board">
+          <div class="mill-toolbar">
+            <p data-filter-status>Showing all photos (14)</p>
             <label>
-              Sort
+              Sort by:
               <select data-gallery-sort aria-label="Sort gallery">
                 <option value="newest">Latest</option>
                 <option value="oldest">Oldest</option>
@@ -108,47 +109,53 @@
             </label>
           </div>
 
-          <div class="gallery-grid reveal" data-gallery-grid data-cms-field="gallery-grid">
-            <button type="button" class="gallery-item" data-load-item data-category="factory" data-date="2026-08-01" data-lightbox="../assets/images/gallery/gallery-0.jpg" aria-label="Factory exterior">
-              <img src="../assets/images/gallery/gallery-0.jpg" alt="Factory exterior at Islam Textile">
+          <div class="mill-grid" data-gallery-grid data-cms-field="gallery-grid">
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-08-20" data-lightbox="../assets/images/products/product-0.jpg" aria-label="Weaving loom">
+              <img src="../assets/images/products/product-0.jpg" alt="Weaving loom on the mill floor">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="yarn" data-date="2026-07-20" data-lightbox="../assets/images/gallery/gallery-1.jpg" aria-label="Spinning floor">
-              <img src="../assets/images/gallery/gallery-1.jpg" alt="Spinning floor yarn production">
+            <button type="button" class="mill-item" data-load-item data-category="factory" data-date="2026-08-10" data-lightbox="../assets/images/gallery/gallery-1.jpg" aria-label="Effluent treatment plant">
+              <img src="../assets/images/gallery/gallery-1.jpg" alt="Effluent treatment plant at the Narayanganj campus">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="production" data-date="2026-07-12" data-lightbox="../assets/images/gallery/gallery-2.jpg" aria-label="Weaving looms">
-              <img src="../assets/images/gallery/gallery-2.jpg" alt="Air-jet weaving looms">
+            <button type="button" class="mill-item" data-load-item data-category="yarn" data-date="2026-07-28" data-lightbox="../assets/images/gallery/gallery-7.jpg" aria-label="Yarn rolls in store">
+              <img src="../assets/images/gallery/gallery-7.jpg" alt="Yarn rolls stored on racking">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="production" data-date="2026-06-28" data-lightbox="../assets/images/gallery/gallery-3.jpg" aria-label="Fabric inspection">
-              <img src="../assets/images/gallery/gallery-3.jpg" alt="Fabric inspection table">
+            <button type="button" class="mill-item" data-load-item data-category="yarn" data-date="2026-07-18" data-lightbox="../assets/images/gallery/gallery-2.jpg" aria-label="Fabric on the finishing line">
+              <img src="../assets/images/gallery/gallery-2.jpg" alt="Fabric on the finishing line">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="production" data-date="2026-06-10" data-lightbox="../assets/images/gallery/gallery-4.jpg" aria-label="Dyehouse">
-              <img src="../assets/images/gallery/gallery-4.jpg" alt="Dyehouse finishing line">
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-07-08" data-lightbox="../assets/images/products/product-1.jpg" aria-label="Weaving loom beams">
+              <img src="../assets/images/products/product-1.jpg" alt="Yarn beams on a weaving loom">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="factory" data-date="2026-05-22" data-lightbox="../assets/images/gallery/gallery-5.jpg" aria-label="Finished fabric rolls">
-              <img src="../assets/images/gallery/gallery-5.jpg" alt="Finished fabric rolls in warehouse">
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-06-26" data-lightbox="../assets/images/gallery/gallery-4.jpg" aria-label="Color dispensing laboratory">
+              <img src="../assets/images/gallery/gallery-4.jpg" alt="Color dispensing laboratory">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="factory" data-date="2026-05-01" data-lightbox="../assets/images/hero/hero-0.jpg" aria-label="Weaving hall">
-              <img src="../assets/images/hero/hero-0.jpg" alt="Weaving hall overview">
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-06-14" data-lightbox="../assets/images/gallery/gallery-0.jpg" aria-label="Dyeing machines">
+              <img src="../assets/images/gallery/gallery-0.jpg" alt="Dyeing machines on the wet-processing floor">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="yarn" data-date="2026-04-18" data-lightbox="../assets/images/hero/hero-1.jpg" aria-label="Fiber processing">
-              <img src="../assets/images/hero/hero-1.jpg" alt="Cotton fiber processing">
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-06-02" data-lightbox="../assets/images/news/news-1.jpg" aria-label="Printed fabric inspection">
+              <img src="../assets/images/news/news-1.jpg" alt="Printed fabric on an inspection line">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="production" data-date="2026-03-30" data-lightbox="../assets/images/hero/hero-2.jpg" aria-label="Finishing plant">
-              <img src="../assets/images/hero/hero-2.jpg" alt="Finishing plant exterior view">
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-05-18" data-lightbox="../assets/images/gallery/gallery-3.jpg" aria-label="Sample washing machines">
+              <img src="../assets/images/gallery/gallery-3.jpg" alt="Sample washing machines used for fabric testing">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="yarn" data-date="2026-03-08" data-lightbox="../assets/images/products/product-0.jpg" aria-label="Yarn cones">
-              <img src="../assets/images/products/product-0.jpg" alt="Combed cotton yarn cones">
+            <button type="button" class="mill-item" data-load-item data-category="yarn" data-date="2026-05-04" data-lightbox="../assets/images/gallery/gallery-6.jpg" aria-label="White fabric on the line">
+              <img src="../assets/images/gallery/gallery-6.jpg" alt="White fabric running on the finishing line">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="events" data-date="2026-02-14" data-lightbox="../assets/images/news/news-0.jpg" aria-label="Efficiency upgrade">
-              <img src="../assets/images/news/news-0.jpg" alt="Mill efficiency upgrade documentation">
+            <button type="button" class="mill-item" data-load-item data-category="factory" data-date="2026-04-20" data-lightbox="../assets/images/gallery/gallery-10.jpg" aria-label="Finishing floor">
+              <img src="../assets/images/gallery/gallery-10.jpg" alt="Finishing floor aisle at the Narayanganj mill">
             </button>
-            <button type="button" class="gallery-item" data-load-item data-category="events" data-date="2025-11-05" data-lightbox="../assets/images/news/news-1.jpg" aria-label="Quality milestone">
-              <img src="../assets/images/news/news-1.jpg" alt="Quality milestone fabric display">
+            <button type="button" class="mill-item" data-load-item data-category="yarn" data-date="2026-04-06" data-lightbox="../assets/images/gallery/gallery-13.jpg" aria-label="Printed fabric on the finishing line">
+              <img src="../assets/images/gallery/gallery-13.jpg" alt="Printed fabric on the finishing line">
+            </button>
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-03-22" data-lightbox="../assets/images/gallery/gallery-5.jpg" aria-label="Dyeing machines">
+              <img src="../assets/images/gallery/gallery-5.jpg" alt="Dyeing machines on the wet-processing floor">
+            </button>
+            <button type="button" class="mill-item" data-load-item data-category="production" data-date="2026-03-08" data-lightbox="../assets/images/products/product-2.jpg" aria-label="Production line">
+              <img src="../assets/images/products/product-2.jpg" alt="Production line on the mill floor">
             </button>
           </div>
 
-          <p class="text-center" style="margin-top:1.75rem">
-            <button type="button" class="btn btn--outline" data-load-more data-page-size="8">Load More</button>
+          <p class="mill-more">
+            <button type="button" class="btn btn--outline" data-load-more data-page-size="9">Load more</button>
           </p>
         </div>
       </div>

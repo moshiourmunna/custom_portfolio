@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product | Islam Textile Admin</title>
+  <title>Legal | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,27 +25,25 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Product</h1><a class="btn btn-outline" href="products.html">Back to list</a></header>
+      <header class="admin-top"><h1>Privacy, terms, and quote success</h1></header>
       <div class="admin-content">
-        <form class="panel" data-record="products">
-          <div class="form-grid two">
-            <div class="field"><label>Title</label><input name="title" data-required data-slug-source></div>
-            <div class="field"><label>Slug</label><input name="slug" data-slug></div>
-            <div class="field"><label>Category</label><select name="category"><option>Yarn</option><option>Woven Fabric</option><option>Finished Fabric</option></select></div>
-            <div class="field"><label>Status</label><select name="status"><option>Published</option><option>Draft</option></select></div>
-            <div class="field"><label>Count</label><input name="count"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Weave</label><input name="weave"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Finish</label><input name="finish"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Construction</label><input name="construction"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>GSM</label><input name="gsm"><span class="hide-note">Hidden on the site when empty</span></div>
-                        <div class="field"><label>Image</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="image"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
-          </div>
-          <div class="field"><label>Summary</label><textarea name="summary" rows="2"></textarea></div>
-          <div class="field"><label>Description</label><textarea name="description" rows="5"></textarea></div>
-          <div class="form-grid two">
-            <div class="field"><label>SEO title</label><input name="metaTitle"></div>
-            <div class="field"><label>SEO description</label><input name="metaDesc"></div>
-          </div>
+        <form id="privacy" class="panel" data-store="pages" data-slice="privacy">
+          <h2>Privacy</h2>
+          <div class="form-grid two">            <div class="field"><label>Title</label><input name="title"></div>            <div class="field"><label>Last updated</label><input name="updated"></div></div>
+                      <div class="field"><label>Body</label><textarea name="body" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
+                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
+        <form id="terms" class="panel" data-store="pages" data-slice="terms">
+          <h2>Terms</h2>
+                      <div class="field"><label>Title</label><input name="title"></div>
+                      <div class="field"><label>Lead</label><textarea name="lead" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
+                      <div class="field"><label>Body</label><textarea name="body" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
+                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
+        <form id="success" class="panel" data-store="pages" data-slice="success">
+          <h2>Quote success</h2>
+                      <div class="field"><label>Title</label><input name="title"><span class="hide-note">Hidden on the site when empty</span></div>
+                      <div class="field"><label>Message</label><textarea name="message" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
                   <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
         </form>
       </div>

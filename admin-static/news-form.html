@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Islam Textile Admin</title>
+  <title>News article | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,20 +25,20 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Dashboard</h1><a class="btn btn-outline" href="../public-site/index.html" target="_blank" rel="noopener">View site</a></header>
+      <header class="admin-top"><h1>News article</h1><a class="btn btn-outline" href="news.html">Back to list</a></header>
       <div class="admin-content">
-        <div data-dashboard>
-          <div class="stats-row">
-            <div class="stat-card"><strong data-count="products">0</strong><span>Products</span></div>
-            <div class="stat-card"><strong data-count="inquiries">0</strong><span>New inquiries</span></div>
-            <div class="stat-card"><strong data-count="news">0</strong><span>News</span></div>
-            <div class="stat-card"><strong data-count="gallery">0</strong><span>Gallery items</span></div>
+        <form class="panel" data-record="news">
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="title" data-required data-slug-source></div>
+            <div class="field"><label>Slug</label><input name="slug" data-slug></div>
+            <div class="field"><label>Date</label><input name="date" type="date"></div>
+            <div class="field"><label>Status</label><select name="status"><option>Published</option><option>Draft</option></select></div>
+                        <div class="field"><label>Cover</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="cover"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
           </div>
-          <div class="panel">
-            <div class="panel-head"><h2>Recent inquiries</h2><a href="inquiries.html">Open inbox</a></div>
-            <table class="table"><thead><tr><th>Image</th><th>Date</th><th>Company</th><th>Interest</th><th>Status</th></tr></thead><tbody data-list="inquiries"></tbody></table>
-          </div>
-        </div>
+          <div class="field"><label>Lead</label><textarea name="lead" rows="3"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
+          <div class="field"><label>Body</label><textarea name="body" rows="8"></textarea></div>
+                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Islam Textile Admin</title>
+  <title>Job | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,20 +25,18 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Dashboard</h1><a class="btn btn-outline" href="../public-site/index.html" target="_blank" rel="noopener">View site</a></header>
+      <header class="admin-top"><h1>Job</h1><a class="btn btn-outline" href="careers.html">Back to list</a></header>
       <div class="admin-content">
-        <div data-dashboard>
-          <div class="stats-row">
-            <div class="stat-card"><strong data-count="products">0</strong><span>Products</span></div>
-            <div class="stat-card"><strong data-count="inquiries">0</strong><span>New inquiries</span></div>
-            <div class="stat-card"><strong data-count="news">0</strong><span>News</span></div>
-            <div class="stat-card"><strong data-count="gallery">0</strong><span>Gallery items</span></div>
+        <form class="panel" data-record="careers" data-record-key="jobs">
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="title" data-required></div>
+            <div class="field"><label>Location</label><input name="location"></div>
+            <div class="field"><label>Status</label><select name="status"><option>Open</option><option>Closed</option></select></div>
           </div>
-          <div class="panel">
-            <div class="panel-head"><h2>Recent inquiries</h2><a href="inquiries.html">Open inbox</a></div>
-            <table class="table"><thead><tr><th>Image</th><th>Date</th><th>Company</th><th>Interest</th><th>Status</th></tr></thead><tbody data-list="inquiries"></tbody></table>
-          </div>
-        </div>
+          <div class="field"><label>Summary</label><textarea name="summary" rows="3"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
+          <div class="field"><label>Description</label><textarea name="description" rows="6"></textarea></div>
+                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Islam Textile Admin</title>
+  <title>Sustainability | Islam Textile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,20 +25,31 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Dashboard</h1><a class="btn btn-outline" href="../public-site/index.html" target="_blank" rel="noopener">View site</a></header>
+      <header class="admin-top"><h1>Sustainability</h1><button class="btn btn-primary" type="submit" form="f">Save</button></header>
       <div class="admin-content">
-        <div data-dashboard>
-          <div class="stats-row">
-            <div class="stat-card"><strong data-count="products">0</strong><span>Products</span></div>
-            <div class="stat-card"><strong data-count="inquiries">0</strong><span>New inquiries</span></div>
-            <div class="stat-card"><strong data-count="news">0</strong><span>News</span></div>
-            <div class="stat-card"><strong data-count="gallery">0</strong><span>Gallery items</span></div>
+        <form id="f" data-store="pages" data-slice="sustainability">
+        <section class="panel">
+          <h2>Page</h2>
+          <div class="form-grid two">
+            <div class="field"><label>Title</label><input name="title"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Lead</label><textarea name="lead" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
           </div>
-          <div class="panel">
-            <div class="panel-head"><h2>Recent inquiries</h2><a href="inquiries.html">Open inbox</a></div>
-            <table class="table"><thead><tr><th>Image</th><th>Date</th><th>Company</th><th>Interest</th><th>Status</th></tr></thead><tbody data-list="inquiries"></tbody></table>
+        </section>
+        <section class="panel">
+          <h2>Pillars</h2>
+            <div class="repeater" data-repeater="pillars" data-keys="title,text" data-images=""></div>
+            <p><button type="button" class="btn btn-outline" data-add="pillars">Add row</button></p>
+            <p class="hint">Empty rows are omitted. An empty block is treated as hidden on the site when this is wired.</p>
+        </section>
+        <section class="panel">
+          <h2>Commitment</h2>
+          <div class="form-grid">
+            <div class="field"><label>Title</label><input name="commitmentTitle"><span class="hide-note">Hidden on the site when empty</span></div>
+            <div class="field"><label>Text</label><textarea name="commitment" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
           </div>
-        </div>
+        </section>
+        <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+        </form>
       </div>
     </div>
   </div>

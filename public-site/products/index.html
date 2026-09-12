@@ -46,14 +46,7 @@
         <nav class="nav" aria-label="Main">
           <a href="../index.html">Home</a>
           <a href="../about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle is-active" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="index.html#yarn">Yarn</a>
-              <a href="woven-fabric.html">Woven Fabric</a>
-              <a href="index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="index.html" class="is-active">Products</a>
           <a href="../facilities.html">Facilities &amp; Capacity</a>
           <a href="../quality.html">Quality</a>
           <a href="../sustainability.html">Sustainability</a>
@@ -66,9 +59,6 @@
       <a href="../index.html">Home</a>
       <a href="../about.html">About Us</a>
       <a href="index.html" class="is-active">Products</a>
-      <a class="mobile-nav__sub" href="index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="index.html#finishing">Finished Fabric</a>
       <a href="../facilities.html">Facilities &amp; Capacity</a>
       <a href="../quality.html">Quality</a>
       <a href="../sustainability.html">Sustainability</a>
@@ -77,103 +67,113 @@
   </header>
 
   <main id="main">
-    <section class="page-hero" data-cms-field="page-hero">
-      <div class="page-hero__media">
-        <img src="../assets/images/products/product-1.jpg" alt="Cotton woven fabric rolls">
-      </div>
-      <div class="page-hero__overlay" aria-hidden="true"></div>
-      <div class="container page-hero__content">
-        <p class="page-hero__crumb"><a href="../index.html">Home</a> / Products</p>
-        <h1 data-cms-field="page-title">Our Products</h1>
-        <p data-cms-field="page-lead">Integrated cotton textile offerings — from ring-spun yarn through woven greige and export-ready finished fabric.</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <header class="section__head section__head--center reveal">
-          <p class="section__eyebrow">Categories</p>
-          <h2 class="section__title">Yarn · Woven · Finished</h2>
-          <p class="section__lead">Three connected product lines designed for apparel, home textile, and industrial cotton programs.</p>
-        </header>
-        <div class="grid-3">
-          <article class="card-media reveal" id="yarn" data-cms-field="product-yarn">
-            <div class="card-media__img">
-              <img src="../assets/images/products/product-0.jpg" alt="Cotton yarn cones">
-              <div class="card-media__badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
-              </div>
-            </div>
-            <div class="card-media__body">
-              <h3>Yarn</h3>
-              <p>Combed and carded ring-spun cotton yarn in counts suited for shirting, sheeting, and industrial woven applications.</p>
-              <a href="#yarn" class="link-more">Explore yarn →</a>
-            </div>
-          </article>
-          <article class="card-media reveal" id="woven" data-cms-field="product-woven">
-            <div class="card-media__img">
-              <img src="../assets/images/products/product-1.jpg" alt="Woven cotton fabric on loom">
-              <div class="card-media__badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18M6 3v18M12 3v18M18 3v18"/></svg>
-              </div>
-            </div>
-            <div class="card-media__body">
-              <h3>Woven Fabric</h3>
-              <p>Greige and finished cotton fabrics woven on air-jet and rapier looms — poplin, twill, oxford, and plain constructions.</p>
-              <a href="woven-fabric.html" class="link-more">Browse woven fabric →</a>
-            </div>
-          </article>
-          <article class="card-media reveal" id="finishing" data-cms-field="product-finishing">
-            <div class="card-media__img">
-              <img src="../assets/images/products/product-2.jpg" alt="Finished dyed cotton fabric">
-              <div class="card-media__badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 19h16M6 19V9l6-5 6 5v10"/></svg>
-              </div>
-            </div>
-            <div class="card-media__body">
-              <h3>Finished Fabric</h3>
-              <p>Reactive and pigment dyeing, mercerization, sanforizing, and soft finishes for export-ready cotton fabric.</p>
-              <a href="../contact.html" class="link-more">Request finishing spec →</a>
-            </div>
-          </article>
+    <section class="range-hero" data-cms-field="page-hero">
+      <img class="range-hero__bg" src="../assets/images/gallery/gallery-2.jpg" alt="">
+      <div class="container range-hero__content">
+        <div class="range-hero__copy">
+          <p class="range-hero__kicker">Our products</p>
+          <h1 data-cms-field="page-title">From yarn to<br> finished fabric.</h1>
+          <p data-cms-field="page-lead">Integrated cotton textile offerings — from ring-spun yarn through woven greige and export-ready finished fabric.</p>
         </div>
+        <ul class="range-hero__points">
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7.5c2.2-2.4 5.8-2.4 8 0"/><path d="M7 10.5c2.8-2.6 7.2-2.6 10 0"/><path d="M6.2 13.8c3.4-2.8 8.2-2.8 11.6 0"/><path d="M12 14.2v6.3"/></svg>
+            <span>Ring-spun yarn</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 4v16M16 4v16"/></svg>
+            <span>Woven fabrics</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12v10H6z"/><path d="M9 8V6.5A3 3 0 0115 6.5V8"/><path d="M8 13h8"/></svg>
+            <span>Mill finishing</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5h10v15H7z"/><path d="M9.5 8.5h5M9.5 12h5M9.5 15.5h3"/></svg>
+            <span>Buyer specs</span>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section class="trust-bar trust-bar--surface" data-cms-field="trust-bar">
-      <div class="container grid-4">
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg>
+    <section class="section range-page">
+      <div class="container range-grid">
+        <article class="range-card" id="yarn" data-cms-field="product-yarn">
+          <div class="range-card__media">
+            <img src="../assets/images/gallery/gallery-7.jpg" alt="Yarn rolls stored on racking">
+            <span class="range-card__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 7.5c2.2-2.4 5.8-2.4 8 0"/><path d="M7 10.5c2.8-2.6 7.2-2.6 10 0"/><path d="M6.2 13.8c3.4-2.8 8.2-2.8 11.6 0"/><path d="M12 14.2v6.3"/></svg>
+            </span>
           </div>
-          <h3>Export Ready</h3>
-          <p>Batch documentation and packing to buyer specs</p>
+          <div class="range-card__body">
+            <h2>Yarn</h2>
+            <p>Combed and carded ring-spun cotton yarn in counts suited for shirting, sheeting, and industrial woven applications.</p>
+            <a href="#yarn">Explore yarn <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+        <article class="range-card" id="woven" data-cms-field="product-woven">
+          <div class="range-card__media">
+            <img src="../assets/images/products/product-0.jpg" alt="Weaving loom on the mill floor">
+            <span class="range-card__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M8 4v16M16 4v16"/></svg>
+            </span>
+          </div>
+          <div class="range-card__body">
+            <h2>Woven fabric</h2>
+            <p>Greige and finished cotton fabrics woven on air-jet and rapier looms — poplin, twill, oxford, and plain constructions.</p>
+            <a href="woven-fabric.html">Explore woven fabric <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+        <article class="range-card" id="finishing" data-cms-field="product-finishing">
+          <div class="range-card__media">
+            <img src="../assets/images/gallery/gallery-13.jpg" alt="Printed fabric on the finishing line">
+            <span class="range-card__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 8h12v10H6z"/><path d="M9 8V6.5A3 3 0 0115 6.5V8"/><path d="M8 13h8"/></svg>
+            </span>
+          </div>
+          <div class="range-card__body">
+            <h2>Finished fabric</h2>
+            <p>Reactive and pigment dyeing, mercerization, sanforizing, and soft finishes for export-ready cotton fabric.</p>
+            <a href="../contact.html">Request finishing spec <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="range-band" data-cms-field="trust-bar">
+      <div class="container range-band__grid">
+        <div class="range-band__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg>
+          <div>
+            <h2>Export ready</h2>
+            <p>Batch documentation and packing to buyer specs.</p>
+          </div>
         </div>
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div class="range-band__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5l3 1.5"/></svg>
+          <div>
+            <h2>Reliable lead times</h2>
+            <p>Integrated mill control from yarn to finish.</p>
           </div>
-          <h3>Reliable Lead Times</h3>
-          <p>Integrated mill control from yarn to finish</p>
         </div>
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg>
+        <div class="range-band__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7.5"/></svg>
+          <div>
+            <h2>Consistent quality</h2>
+            <p>In-line inspection and laboratory testing.</p>
           </div>
-          <h3>Consistent Quality</h3>
-          <p>In-line inspection and laboratory testing</p>
         </div>
-        <div class="trust-item reveal">
-          <div class="trust-item__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 018 0c0-2.2 1.8-4 4-4a4 4 0 010 8c0 5.5-7 10-7 10z"/></svg>
+        <div class="range-band__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-4.2-6.5-9.2a3.7 3.7 0 017.4 0 3.7 3.7 0 017.4 0C20.3 16.8 12 21 12 21z"/></svg>
+          <div>
+            <h2>Bangladesh made</h2>
+            <p>Dhaka office and the Narayanganj mill.</p>
           </div>
-          <h3>Bangladesh Made</h3>
-          <p>Dhaka office · Narayanganj mill</p>
         </div>
       </div>
     </section>
 
-    <section class="cta-band reveal">
+    <section class="cta-band">
       <div class="container cta-band__inner">
         <div>
           <h2>Need Custom Specifications?</h2>

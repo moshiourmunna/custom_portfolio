@@ -47,14 +47,7 @@
         <nav class="nav" aria-label="Main">
           <a href="../index.html">Home</a>
           <a href="../about.html">About Us</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown__toggle is-active" aria-expanded="false" aria-haspopup="true">Products</button>
-            <div class="nav-dropdown__menu">
-              <a href="index.html#yarn">Yarn</a>
-              <a href="woven-fabric.html">Woven Fabric</a>
-              <a href="index.html#finishing">Finished Fabric</a>
-            </div>
-          </div>
+          <a href="index.html" class="is-active">Products</a>
           <a href="../facilities.html">Facilities &amp; Capacity</a>
           <a href="../quality.html">Quality</a>
           <a href="../sustainability.html">Sustainability</a>
@@ -67,9 +60,6 @@
       <a href="../index.html">Home</a>
       <a href="../about.html">About Us</a>
       <a href="index.html" class="is-active">Products</a>
-      <a class="mobile-nav__sub" href="index.html#yarn">Yarn</a>
-      <a class="mobile-nav__sub" href="woven-fabric.html">Woven Fabric</a>
-      <a class="mobile-nav__sub" href="index.html#finishing">Finished Fabric</a>
       <a href="../facilities.html">Facilities &amp; Capacity</a>
       <a href="../quality.html">Quality</a>
       <a href="../sustainability.html">Sustainability</a>
@@ -78,19 +68,30 @@
   </header>
 
   <main id="main">
-    <section class="page-hero" data-cms-field="page-hero">
-      <div class="page-hero__media">
-        <img src="../assets/images/products/product-1.jpg" alt="Woven cotton fabric on loom">
-      </div>
-      <div class="page-hero__overlay" aria-hidden="true"></div>
-      <div class="container page-hero__content">
-        <p class="page-hero__crumb"><a href="../index.html">Home</a> / <a href="index.html">Products</a> / Woven Fabric</p>
-        <h1 data-cms-field="page-title">Woven Fabric</h1>
-        <p data-cms-field="page-lead">Cotton greige and finished woven fabrics — filter by count, weave, and finish for your next program.</p>
+    <section class="weave-hero" data-cms-field="page-hero">
+      <img class="weave-hero__bg" src="../assets/images/products/product-3.jpg" alt="">
+      <div class="weave-hero__shade" aria-hidden="true"></div>
+      <div class="container weave-hero__inner">
+        <div class="weave-hero__copy">
+          <p class="weave-hero__crumb"><a href="../index.html">Home</a> <span aria-hidden="true">/</span> <a href="index.html">Products</a> <span aria-hidden="true">/</span> Woven Fabric</p>
+          <h1 data-cms-field="page-title">Woven Fabric</h1>
+        </div>
+        <p class="weave-hero__note" data-cms-field="page-lead">
+          <span class="weave-hero__rule" aria-hidden="true"></span>
+          <span class="weave-hero__mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.45">
+              <path d="M24 7 41 24 24 41 7 24Z"></path>
+              <path d="M15.5 15.5 32.5 32.5M32.5 15.5 15.5 32.5"></path>
+              <path d="M24 7v34M7 24h34"></path>
+              <path d="M24 13.5 34.5 24 24 34.5 13.5 24Z"></path>
+            </svg>
+          </span>
+          <span>Cotton greige and finished woven fabrics — filter by count, weave, and finish for your next program.</span>
+        </p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section weave-catalog">
       <div class="container products-layout">
         <aside class="filters-panel" aria-label="Product filters">
           <div class="filters-panel__head">
@@ -99,151 +100,224 @@
           </div>
 
           <div class="filter-accordion is-open">
-            <button type="button" class="filter-accordion__btn" aria-expanded="true">Count <span aria-hidden="true">▾</span></button>
+            <button type="button" class="filter-accordion__btn" aria-expanded="true">Count (yarn count) <span aria-hidden="true"></span></button>
             <div class="filter-accordion__body">
-              <label class="filter-check"><input type="checkbox" data-filter-key="count" value="fine"> Fine (Ne 50+) <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="count" value="medium"> Medium (Ne 30–40) <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="count" value="coarse"> Coarse (Ne ≤20) <span></span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="count" value="fine"> Fine (Ne 50+) <span data-filter-count="count" data-filter-value="fine">1</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="count" value="medium"> Medium (Ne 30–40) <span data-filter-count="count" data-filter-value="medium">3</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="count" value="coarse"> Coarse (Ne ≤20) <span data-filter-count="count" data-filter-value="coarse">2</span></label>
             </div>
           </div>
 
           <div class="filter-accordion is-open">
-            <button type="button" class="filter-accordion__btn" aria-expanded="true">Weave <span aria-hidden="true">▾</span></button>
+            <button type="button" class="filter-accordion__btn" aria-expanded="true">Weave <span aria-hidden="true"></span></button>
             <div class="filter-accordion__body">
-              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="poplin"> Poplin <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="twill"> Twill <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="oxford"> Oxford <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="plain"> Plain <span></span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="poplin"> Poplin <span data-filter-count="weave" data-filter-value="poplin">2</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="twill"> Twill <span data-filter-count="weave" data-filter-value="twill">2</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="oxford"> Oxford <span data-filter-count="weave" data-filter-value="oxford">1</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="weave" value="plain"> Plain <span data-filter-count="weave" data-filter-value="plain">1</span></label>
             </div>
           </div>
 
-          <div class="filter-accordion">
-            <button type="button" class="filter-accordion__btn" aria-expanded="false">Finish <span aria-hidden="true">▾</span></button>
+          <div class="filter-accordion is-open">
+            <button type="button" class="filter-accordion__btn" aria-expanded="true">Finish <span aria-hidden="true"></span></button>
             <div class="filter-accordion__body">
-              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="greige"> Greige <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="rfd"> RFD <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="dyed"> Dyed <span></span></label>
-              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="finished"> Soft Finished <span></span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="greige"> Greige <span data-filter-count="finish" data-filter-value="greige">2</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="rfd"> RFD <span data-filter-count="finish" data-filter-value="rfd">1</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="dyed"> Dyed <span data-filter-count="finish" data-filter-value="dyed">2</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-key="finish" value="finished"> Soft finished <span data-filter-count="finish" data-filter-value="finished">1</span></label>
             </div>
           </div>
+
+          <button type="button" class="weave-clear" data-clear-filters>
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.4 4.1h11.2"></path><path d="M6.1 4.1V2.7h3.8v1.4"></path><path d="M3.5 4.1l.5 9h8l.5-9"></path></svg>
+            Clear all filters
+          </button>
         </aside>
 
         <div>
-          <div class="gallery-toolbar">
-            <p data-product-status>Showing 6 of 6 products</p>
-            <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
-              <label>
-                Sort
+          <div class="weave-toolbar">
+            <div class="weave-toolbar__lead">
+              <h2>Woven fabric</h2>
+              <p data-product-status>Showing 1–6 of 6 products</p>
+            </div>
+            <div class="weave-toolbar__tools">
+              <label class="weave-sort">
+                <span>Sort by:</span>
                 <select data-product-sort aria-label="Sort products">
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="name">Name</option>
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="name">Name A–Z</option>
                 </select>
               </label>
               <div class="view-toggle" role="group" aria-label="View mode">
-                <button type="button" class="is-active" data-view="grid" aria-label="Grid view">▦</button>
-                <button type="button" data-view="list" aria-label="List view">☰</button>
+                <button type="button" class="is-active" data-view="grid" aria-label="Grid view">
+                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1.1" fill="currentColor"></rect><rect x="9" y="1" width="6" height="6" rx="1.1" fill="currentColor"></rect><rect x="1" y="9" width="6" height="6" rx="1.1" fill="currentColor"></rect><rect x="9" y="9" width="6" height="6" rx="1.1" fill="currentColor"></rect></svg>
+                </button>
+                <button type="button" data-view="list" aria-label="List view">
+                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M1 3.2h14v1.3H1zm0 4.15h14v1.3H1zm0 4.15h14v1.3H1z"></path></svg>
+                </button>
               </div>
             </div>
           </div>
 
-          <div class="product-grid reveal" data-product-grid data-cms-field="product-grid">
-            <article class="product-card" data-product data-count="medium" data-weave="poplin" data-finish="greige" data-name="Combed Cotton Poplin" data-date="2026-08-01">
-              <div class="product-card__img">
-                <img src="../assets/images/products/product-0.jpg" alt="Combed cotton poplin">
-                <button type="button" class="product-card__wish" data-wish aria-pressed="false" aria-label="Save Combed Cotton Poplin">♡</button>
+          <div class="weave-grid reveal" data-product-grid data-cms-field="product-grid">
+            <article class="weave-card" data-product data-count="medium" data-weave="poplin" data-finish="greige" data-name="Combed Cotton Poplin" data-date="2026-08-01">
+              <div class="weave-card__media">
+                <img src="../assets/images/products/product-0.jpg" alt="Weaving loom running a cotton warp">
+                <button type="button" class="weave-card__wish" data-wish aria-pressed="false" aria-label="Save Combed Cotton Poplin">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45"><path d="M12 19.4s-6.2-3.9-6.2-8A3.6 3.6 0 0 1 12 8.2a3.6 3.6 0 0 1 6.2 3.2c0 4.1-6.2 8-6.2 8z"></path></svg>
+                </button>
               </div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Poplin</span>
-                <h3><a href="combed-cotton-poplin.html">Combed Cotton Poplin</a></h3>
-                <table class="product-specs">
-                  <tr><td>GSM</td><td>130–145</td></tr>
-                  <tr><td>Construction</td><td>40×40 / 133×72</td></tr>
-                </table>
-                <a href="combed-cotton-poplin.html" class="link-more">View details →</a>
-              </div>
-            </article>
-
-            <article class="product-card" data-product data-count="fine" data-weave="poplin" data-finish="rfd" data-name="Fine Count Poplin" data-date="2026-07-15">
-              <div class="product-card__img">
-                <img src="../assets/images/products/product-1.jpg" alt="Fine count poplin">
-                <button type="button" class="product-card__wish" data-wish aria-pressed="false" aria-label="Save Fine Count Poplin">♡</button>
-              </div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Poplin</span>
-                <h3>Fine Count Poplin</h3>
-                <table class="product-specs">
-                  <tr><td>GSM</td><td>110–125</td></tr>
-                  <tr><td>Construction</td><td>60×60 / 173×124</td></tr>
-                </table>
-                <a href="../contact.html" class="link-more">Request quote →</a>
+              <div class="weave-card__body">
+                <div class="weave-card__head">
+                  <h3><a href="combed-cotton-poplin.html">Combed Cotton Poplin</a></h3>
+                  <span>Poplin</span>
+                </div>
+                <dl class="weave-specs">
+                  <div><dt>Count</dt><dd>40s × 40s</dd></div>
+                  <div><dt>Weave</dt><dd>Poplin</dd></div>
+                  <div><dt>Finish</dt><dd>Greige</dd></div>
+                  <div><dt>Construction</dt><dd>40×40 / 133×72</dd></div>
+                  <div><dt>GSM</dt><dd>130–145</dd></div>
+                </dl>
+                <a href="../contact.html" class="btn btn--primary weave-card__btn">
+                  <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><rect x="1.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="1.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect></svg>
+                  Request swatch
+                </a>
               </div>
             </article>
 
-            <article class="product-card" data-product data-count="coarse" data-weave="twill" data-finish="dyed" data-name="Cotton Twill 3/1" data-date="2026-06-20">
-              <div class="product-card__img">
-                <img src="../assets/images/products/product-2.jpg" alt="Cotton twill">
-                <button type="button" class="product-card__wish" data-wish aria-pressed="false" aria-label="Save Cotton Twill">♡</button>
+            <article class="weave-card" data-product data-count="fine" data-weave="poplin" data-finish="rfd" data-name="Fine Count Poplin" data-date="2026-07-15">
+              <div class="weave-card__media">
+                <img src="../assets/images/products/product-1.jpg" alt="Warp beams on a weaving loom">
+                <button type="button" class="weave-card__wish" data-wish aria-pressed="false" aria-label="Save Fine Count Poplin">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45"><path d="M12 19.4s-6.2-3.9-6.2-8A3.6 3.6 0 0 1 12 8.2a3.6 3.6 0 0 1 6.2 3.2c0 4.1-6.2 8-6.2 8z"></path></svg>
+                </button>
               </div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Twill</span>
-                <h3>Cotton Twill 3/1</h3>
-                <table class="product-specs">
-                  <tr><td>GSM</td><td>220–280</td></tr>
-                  <tr><td>Construction</td><td>20×16 / 120×60</td></tr>
-                </table>
-                <a href="../contact.html" class="link-more">Request quote →</a>
-              </div>
-            </article>
-
-            <article class="product-card" data-product data-count="coarse" data-weave="twill" data-finish="finished" data-name="Cotton Drill" data-date="2026-05-10">
-              <div class="product-card__img">
-                <img src="../assets/images/products/product-0.jpg" alt="Cotton drill">
-                <button type="button" class="product-card__wish" data-wish aria-pressed="false" aria-label="Save Cotton Drill">♡</button>
-              </div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Twill</span>
-                <h3>Cotton Drill</h3>
-                <table class="product-specs">
-                  <tr><td>GSM</td><td>250–300</td></tr>
-                  <tr><td>Construction</td><td>16×12 / 108×56</td></tr>
-                </table>
-                <a href="../contact.html" class="link-more">Request quote →</a>
+              <div class="weave-card__body">
+                <div class="weave-card__head">
+                  <h3>Fine Count Poplin</h3>
+                  <span>Poplin</span>
+                </div>
+                <dl class="weave-specs">
+                  <div><dt>Count</dt><dd>60s × 60s</dd></div>
+                  <div><dt>Weave</dt><dd>Poplin</dd></div>
+                  <div><dt>Finish</dt><dd>RFD</dd></div>
+                  <div><dt>Construction</dt><dd>60×60 / 173×124</dd></div>
+                  <div><dt>GSM</dt><dd>110–125</dd></div>
+                </dl>
+                <a href="../contact.html" class="btn btn--primary weave-card__btn">
+                  <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><rect x="1.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="1.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect></svg>
+                  Request swatch
+                </a>
               </div>
             </article>
 
-            <article class="product-card" data-product data-count="medium" data-weave="oxford" data-finish="dyed" data-name="Cotton Oxford" data-date="2026-04-02">
-              <div class="product-card__img">
-                <img src="../assets/images/products/product-1.jpg" alt="Cotton oxford">
-                <button type="button" class="product-card__wish" data-wish aria-pressed="false" aria-label="Save Cotton Oxford">♡</button>
+            <article class="weave-card" data-product data-count="coarse" data-weave="twill" data-finish="dyed" data-name="Cotton Twill 3/1" data-date="2026-06-20">
+              <div class="weave-card__media">
+                <img class="crop-finish" src="../assets/images/gallery/gallery-8.jpg" alt="White fabric moving through a finishing range">
+                <button type="button" class="weave-card__wish" data-wish aria-pressed="false" aria-label="Save Cotton Twill">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45"><path d="M12 19.4s-6.2-3.9-6.2-8A3.6 3.6 0 0 1 12 8.2a3.6 3.6 0 0 1 6.2 3.2c0 4.1-6.2 8-6.2 8z"></path></svg>
+                </button>
               </div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Oxford</span>
-                <h3>Cotton Oxford</h3>
-                <table class="product-specs">
-                  <tr><td>GSM</td><td>140–160</td></tr>
-                  <tr><td>Construction</td><td>30×30 / 84×72</td></tr>
-                </table>
-                <a href="../contact.html" class="link-more">Request quote →</a>
+              <div class="weave-card__body">
+                <div class="weave-card__head">
+                  <h3>Cotton Twill 3/1</h3>
+                  <span>Twill</span>
+                </div>
+                <dl class="weave-specs">
+                  <div><dt>Count</dt><dd>20s × 16s</dd></div>
+                  <div><dt>Weave</dt><dd>Twill 3/1</dd></div>
+                  <div><dt>Finish</dt><dd>Dyed</dd></div>
+                  <div><dt>Construction</dt><dd>20×16 / 120×60</dd></div>
+                  <div><dt>GSM</dt><dd>220–280</dd></div>
+                </dl>
+                <a href="../contact.html" class="btn btn--primary weave-card__btn">
+                  <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><rect x="1.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="1.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect></svg>
+                  Request swatch
+                </a>
               </div>
             </article>
 
-            <article class="product-card" data-product data-count="medium" data-weave="plain" data-finish="greige" data-name="Plain Weave Sheeting" data-date="2026-03-12">
-              <div class="product-card__img">
-                <img src="../assets/images/products/product-2.jpg" alt="Plain weave sheeting">
-                <button type="button" class="product-card__wish" data-wish aria-pressed="false" aria-label="Save Plain Weave Sheeting">♡</button>
+            <article class="weave-card" data-product data-count="coarse" data-weave="twill" data-finish="finished" data-name="Cotton Drill" data-date="2026-05-10">
+              <div class="weave-card__media">
+                <img class="crop-finish" src="../assets/images/gallery/gallery-9.jpg" alt="White fabric on a finishing range">
+                <button type="button" class="weave-card__wish" data-wish aria-pressed="false" aria-label="Save Cotton Drill">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45"><path d="M12 19.4s-6.2-3.9-6.2-8A3.6 3.6 0 0 1 12 8.2a3.6 3.6 0 0 1 6.2 3.2c0 4.1-6.2 8-6.2 8z"></path></svg>
+                </button>
               </div>
-              <div class="product-card__body">
-                <span class="product-card__badge">Plain</span>
-                <h3>Plain Weave Sheeting</h3>
-                <table class="product-specs">
-                  <tr><td>GSM</td><td>120–140</td></tr>
-                  <tr><td>Construction</td><td>30×30 / 68×68</td></tr>
-                </table>
-                <a href="../contact.html" class="link-more">Request quote →</a>
+              <div class="weave-card__body">
+                <div class="weave-card__head">
+                  <h3>Cotton Drill</h3>
+                  <span>Twill</span>
+                </div>
+                <dl class="weave-specs">
+                  <div><dt>Count</dt><dd>16s × 12s</dd></div>
+                  <div><dt>Weave</dt><dd>Drill</dd></div>
+                  <div><dt>Finish</dt><dd>Soft finished</dd></div>
+                  <div><dt>Construction</dt><dd>16×12 / 108×56</dd></div>
+                  <div><dt>GSM</dt><dd>250–300</dd></div>
+                </dl>
+                <a href="../contact.html" class="btn btn--primary weave-card__btn">
+                  <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><rect x="1.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="1.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect></svg>
+                  Request swatch
+                </a>
+              </div>
+            </article>
+
+            <article class="weave-card" data-product data-count="medium" data-weave="oxford" data-finish="dyed" data-name="Cotton Oxford" data-date="2026-04-02">
+              <div class="weave-card__media">
+                <img src="../assets/images/products/product-3.jpg" alt="White fabric on a finishing line">
+                <button type="button" class="weave-card__wish" data-wish aria-pressed="false" aria-label="Save Cotton Oxford">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45"><path d="M12 19.4s-6.2-3.9-6.2-8A3.6 3.6 0 0 1 12 8.2a3.6 3.6 0 0 1 6.2 3.2c0 4.1-6.2 8-6.2 8z"></path></svg>
+                </button>
+              </div>
+              <div class="weave-card__body">
+                <div class="weave-card__head">
+                  <h3>Cotton Oxford</h3>
+                  <span>Oxford</span>
+                </div>
+                <dl class="weave-specs">
+                  <div><dt>Count</dt><dd>30s × 30s</dd></div>
+                  <div><dt>Weave</dt><dd>Oxford</dd></div>
+                  <div><dt>Finish</dt><dd>Dyed</dd></div>
+                  <div><dt>Construction</dt><dd>30×30 / 84×72</dd></div>
+                  <div><dt>GSM</dt><dd>140–160</dd></div>
+                </dl>
+                <a href="../contact.html" class="btn btn--primary weave-card__btn">
+                  <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><rect x="1.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="1.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect></svg>
+                  Request swatch
+                </a>
+              </div>
+            </article>
+
+            <article class="weave-card" data-product data-count="medium" data-weave="plain" data-finish="greige" data-name="Plain Weave Sheeting" data-date="2026-03-12">
+              <div class="weave-card__media">
+                <img class="crop-fold" src="../assets/images/gallery/gallery-13.jpg" alt="Folded fabric beside a finishing line">
+                <button type="button" class="weave-card__wish" data-wish aria-pressed="false" aria-label="Save Plain Weave Sheeting">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45"><path d="M12 19.4s-6.2-3.9-6.2-8A3.6 3.6 0 0 1 12 8.2a3.6 3.6 0 0 1 6.2 3.2c0 4.1-6.2 8-6.2 8z"></path></svg>
+                </button>
+              </div>
+              <div class="weave-card__body">
+                <div class="weave-card__head">
+                  <h3>Plain Weave Sheeting</h3>
+                  <span>Plain</span>
+                </div>
+                <dl class="weave-specs">
+                  <div><dt>Count</dt><dd>30s × 30s</dd></div>
+                  <div><dt>Weave</dt><dd>Plain</dd></div>
+                  <div><dt>Finish</dt><dd>Greige</dd></div>
+                  <div><dt>Construction</dt><dd>30×30 / 68×68</dd></div>
+                  <div><dt>GSM</dt><dd>120–140</dd></div>
+                </dl>
+                <a href="../contact.html" class="btn btn--primary weave-card__btn">
+                  <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><rect x="1.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="1.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="1.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect><rect x="9.15" y="9.15" width="5.7" height="5.7" rx="1.15" fill="currentColor"></rect></svg>
+                  Request swatch
+                </a>
               </div>
             </article>
           </div>
+          <p class="weave-empty" data-product-empty hidden>No constructions match these filters. Clear them, or request a custom program below.</p>
         </div>
       </div>
     </section>
