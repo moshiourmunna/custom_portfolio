@@ -25,8 +25,21 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Privacy, terms, and quote success</h1></header>
-      <div class="admin-content">
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Privacy, terms, and quote success</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span><a href="pages.html">Pages</a><span aria-hidden="true">/</span>Legal</p>
+        </div>
+        <div class="admin-top__actions">
+          <a class="btn btn-outline" href="../public-site/privacy.html" target="_blank" rel="noopener">Privacy</a>
+          <a class="btn btn-outline" href="../public-site/terms.html" target="_blank" rel="noopener">Terms</a>
+          <a class="btn btn-outline" href="../public-site/quote-success.html" target="_blank" rel="noopener">Quote success</a>
+        </div>
+      </header>
+      <div class="admin-content editor-page">
+        <div class="editor-layout">
+          <aside class="editor-nav" data-editor-nav></aside>
+          <div class="editor-main">
         <form id="privacy" class="panel" data-store="pages" data-slice="privacy">
           <h2>Privacy</h2>
           <div class="form-grid two">            <div class="field"><label>Title</label><input name="title"></div>            <div class="field"><label>Last updated</label><input name="updated"></div></div>
@@ -46,6 +59,8 @@
                       <div class="field"><label>Message</label><textarea name="message" rows="5"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
                   <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
         </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -25,8 +25,20 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Quality</h1><button class="btn btn-primary" type="submit" form="f">Save</button></header>
-      <div class="admin-content">
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Quality</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span><a href="pages.html">Pages</a><span aria-hidden="true">/</span>Quality</p>
+        </div>
+        <div class="admin-top__actions">
+          <a class="btn btn-outline" href="../public-site/quality.html" target="_blank" rel="noopener">View site</a>
+          <button class="btn btn-primary" type="submit" form="f">Save</button>
+        </div>
+      </header>
+      <div class="admin-content editor-page">
+        <div class="editor-layout">
+          <aside class="editor-nav" data-editor-nav></aside>
+          <div class="editor-main">
         <p class="hint">Document cards are buyer-request documents, not earned certificates. Do not mark ISO, OEKO-TEX, BSCI, GOTS, or GRS as held.</p>
         <form id="f" data-store="pages" data-slice="quality">
         <section class="panel">
@@ -51,6 +63,8 @@
         </section>
         <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
         </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

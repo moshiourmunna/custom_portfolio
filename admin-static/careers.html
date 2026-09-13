@@ -25,18 +25,81 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Careers</h1><a class="btn btn-primary" href="career-form.html">Add job</a></header>
-      <div class="admin-content">
-        <div class="toolbar">
-          <input type="search" data-list-search="careers" placeholder="Search jobs…" aria-label="Search jobs">
-          <select data-list-status="careers" aria-label="Status"><option value="">All statuses</option><option>Open</option><option>Closed</option></select>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Careers</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Careers</p>
         </div>
-        <p class="list-meta" data-list-count="careers"></p>
-        <div class="panel"><table class="table"><thead><tr><th>Image</th><th>Title</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead><tbody data-list="careers"></tbody></table></div>
-        <div class="panel">
-          <h2>Applications</h2>
-          <p class="hint">Read-only demo. Nothing is invented here.</p>
-          <table class="table"><thead><tr><th>Name</th><th>Role</th><th>Date</th></tr></thead><tbody data-list="applications"></tbody></table>
+        <div class="admin-top__actions">
+          <a class="btn btn-outline" href="../public-site/careers/index.html" target="_blank" rel="noopener">View site</a>
+          <a class="btn btn-primary btn--labeled catalog-add" href="career-form.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Add job
+          </a>
+        </div>
+      </header>
+      <div class="admin-content catalog-page">
+        <div class="list-stats" data-list-stats="careers"></div>
+        <div class="catalog-stack">
+          <section class="catalog-card" aria-label="Open roles">
+            <div class="catalog-filters">
+              <label class="catalog-search">
+                <input type="search" data-list-search="careers" placeholder="Search jobs…" aria-label="Search jobs">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              </label>
+              <select data-list-status="careers" aria-label="Status"><option value="">Select status</option><option>Open</option><option>Closed</option></select>
+              <button type="button" class="btn btn-outline btn--labeled catalog-reset" data-list-reset="careers">Reset</button>
+              <button type="button" class="btn btn-primary btn--labeled catalog-filter" data-list-filter="careers">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg>
+                Filter
+              </button>
+            </div>
+            <div class="catalog-table-wrap">
+              <table class="catalog-table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody data-list="careers" data-list-layout="catalog"></tbody>
+              </table>
+            </div>
+            <div class="catalog-foot">
+              <p data-list-count="careers">Showing 0 results</p>
+              <div class="catalog-pager">
+                <label>Rows
+                  <select data-page-size="careers" aria-label="Rows per page">
+                    <option>5</option>
+                    <option selected>10</option>
+                    <option>25</option>
+                  </select>
+                </label>
+                <div data-list-pages="careers"></div>
+              </div>
+            </div>
+          </section>
+          <section class="catalog-card" aria-label="Applications">
+            <div class="catalog-board__head">
+              <h2>Applications</h2>
+              <p class="catalog-note">None are stored yet. Names are not invented for this list.</p>
+            </div>
+            <div class="catalog-table-wrap">
+              <table class="catalog-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody data-list="applications" data-list-layout="catalog" data-empty="No applications in this browser yet."></tbody>
+              </table>
+            </div>
+          </section>
         </div>
       </div>
     </div>

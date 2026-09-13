@@ -1,0 +1,13 @@
+/**
+ * Theme override hook for Laravel admin (Prompt 3).
+ * Leave empty in static phase, or uncomment to demo admin color injection:
+ *
+ * :root {
+ *   --color-primary: #004d40;
+ *   --color-primary-deep: #003d33;
+ *   --color-accent: #548c84;
+ * }
+ *
+ * In Blade later:
+ * <style id="theme-vars">:root{--color-primary:{{ $settings->theme_primary }};...}</style>
+ */

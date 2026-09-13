@@ -25,28 +25,126 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Product</h1><a class="btn btn-outline" href="products.html">Back to list</a></header>
-      <div class="admin-content">
-        <form class="panel" data-record="products">
-          <div class="form-grid two">
-            <div class="field"><label>Title</label><input name="title" data-required data-slug-source></div>
-            <div class="field"><label>Slug</label><input name="slug" data-slug></div>
-            <div class="field"><label>Category</label><select name="category"><option>Yarn</option><option>Woven Fabric</option><option>Finished Fabric</option></select></div>
-            <div class="field"><label>Status</label><select name="status"><option>Published</option><option>Draft</option></select></div>
-            <div class="field"><label>Count</label><input name="count"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Weave</label><input name="weave"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Finish</label><input name="finish"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Construction</label><input name="construction"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>GSM</label><input name="gsm"><span class="hide-note">Hidden on the site when empty</span></div>
-                        <div class="field"><label>Image</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="image"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
+      <header class="admin-top product-top">
+        <div>
+          <h1 data-product-title>Add new product</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span><a href="products.html">Products</a><span aria-hidden="true">/</span><span data-product-crumb>Add new</span></p>
+        </div>
+      </header>
+      <div class="admin-content product-form-page">
+        <form class="product-layout" data-record="products">
+          <div class="product-main">
+            <section class="product-card">
+              <div class="form-grid two">
+                <div class="field">
+                  <label for="product-title">Product title <abbr title="Required">*</abbr></label>
+                  <input id="product-title" name="title" data-required data-slug-source placeholder="Enter product title">
+                </div>
+                <div class="field">
+                  <label for="product-slug">Slug <abbr title="Required">*</abbr></label>
+                  <input id="product-slug" name="slug" data-slug placeholder="enter-product-slug">
+                  <span class="hint">URL-friendly version. Lowercase letters, numbers, and hyphens.</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="product-category">Category <abbr title="Required">*</abbr></label>
+                <select id="product-category" name="category" data-required>
+                  <option value="">Select category</option>
+                  <option>Yarn</option>
+                  <option>Woven Fabric</option>
+                  <option>Finished Fabric</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="product-summary">Summary</label>
+                <textarea id="product-summary" name="summary" rows="3" placeholder="Short summary about the product…"></textarea>
+              </div>
+              <div class="field">
+                <label for="product-description">Description <abbr title="Required">*</abbr></label>
+                <div class="editor">
+                  <div class="editor-bar" role="toolbar" aria-label="Description formatting">
+                    <span>Paragraph</span>
+                    <button type="button" data-format="bold" aria-label="Bold"><b>B</b></button>
+                    <button type="button" data-format="italic" aria-label="Italic"><i>I</i></button>
+                    <button type="button" data-format="list" aria-label="List">List</button>
+                    <button type="button" data-format="quote" aria-label="Quote">Quote</button>
+                  </div>
+                  <textarea id="product-description" name="description" data-required rows="6" placeholder="Detailed description about the product…"></textarea>
+                </div>
+              </div>
+            </section>
+            <section class="product-card">
+              <h2>Specifications</h2>
+              <div class="spec-table">
+                <div class="spec-head"><span>Specification</span><span>Value</span><span></span></div>
+                <div class="spec-row"><input value="Count" readonly aria-label="Specification"><input name="count" placeholder="e.g. 40s × 40s" aria-label="Count"><button type="button" class="spec-clear" data-clear aria-label="Clear count">×</button></div>
+                <div class="spec-row"><input value="Weave" readonly aria-label="Specification"><input name="weave" placeholder="e.g. Poplin" aria-label="Weave"><button type="button" class="spec-clear" data-clear aria-label="Clear weave">×</button></div>
+                <div class="spec-row"><input value="Finish" readonly aria-label="Specification"><input name="finish" placeholder="e.g. Greige" aria-label="Finish"><button type="button" class="spec-clear" data-clear aria-label="Clear finish">×</button></div>
+                <div class="spec-row"><input value="Construction" readonly aria-label="Specification"><input name="construction" placeholder="e.g. 40×40 / 133×72" aria-label="Construction"><button type="button" class="spec-clear" data-clear aria-label="Clear construction">×</button></div>
+                <div class="spec-row"><input value="GSM" readonly aria-label="Specification"><input name="gsm" placeholder="e.g. 130–145" aria-label="GSM"><button type="button" class="spec-clear" data-clear aria-label="Clear GSM">×</button></div>
+              </div>
+              <div class="spec-extra" data-repeater="specs" data-keys="label,value" data-optional></div>
+              <button type="button" class="btn btn-primary btn--labeled spec-add" data-add="specs">+ Add specification</button>
+              <p class="hide-note">A specification stays off the product page when its value is empty.</p>
+            </section>
+            <section class="product-card">
+              <h2>SEO</h2>
+              <div class="field">
+                <label for="meta-title">Meta title</label>
+                <input id="meta-title" name="metaTitle" maxlength="70" placeholder="Enter meta title">
+                <span class="char-count" data-count-for="metaTitle" data-max="60">0 / 60</span>
+              </div>
+              <div class="field">
+                <label for="meta-desc">Meta description</label>
+                <textarea id="meta-desc" name="metaDesc" rows="3" maxlength="180" placeholder="Enter meta description"></textarea>
+                <span class="char-count" data-count-for="metaDesc" data-max="160">0 / 160</span>
+              </div>
+            </section>
           </div>
-          <div class="field"><label>Summary</label><textarea name="summary" rows="2"></textarea></div>
-          <div class="field"><label>Description</label><textarea name="description" rows="5"></textarea></div>
-          <div class="form-grid two">
-            <div class="field"><label>SEO title</label><input name="metaTitle"></div>
-            <div class="field"><label>SEO description</label><input name="metaDesc"></div>
+          <aside class="product-side">
+            <section class="product-card">
+              <h2>Product image <abbr title="Required">*</abbr></h2>
+              <div class="product-drop" data-image-field>
+                <img alt="" data-preview hidden>
+                <input type="hidden" name="image" data-required>
+                <button type="button" class="product-drop__hit" data-pick-image>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 16V9.5"/><path d="m9.2 11.8 2.8-2.8 2.8 2.8"/></svg>
+                  <strong>Choose from the library</strong>
+                  <span>JPG or PNG already on the public site</span>
+                </button>
+              </div>
+              <p class="hint">No new upload in this phase. An empty image stays off the product page.</p>
+            </section>
+            <section class="product-card">
+              <h2>Product gallery</h2>
+              <button type="button" class="product-drop product-drop--plain" data-add-gallery>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 16V9.5"/><path d="m9.2 11.8 2.8-2.8 2.8 2.8"/></svg>
+                <strong>Add gallery photos</strong>
+                <span>Choose existing mill photographs</span>
+              </button>
+              <div class="product-gallery" data-repeater="gallery" data-keys="file" data-images="file" data-optional></div>
+            </section>
+            <section class="product-card">
+              <h2>Publish</h2>
+              <div class="field">
+                <label for="product-status">Status <abbr title="Required">*</abbr></label>
+                <div class="status-field" data-status-field>
+                  <i aria-hidden="true"></i>
+                  <select id="product-status" name="status">
+                    <option>Draft</option>
+                    <option>Published</option>
+                  </select>
+                </div>
+              </div>
+              <p class="product-updated">Updated <span data-updated>Not saved yet</span></p>
+              <p class="hint">Saving stores this product in the browser. The public catalog is not rewritten.</p>
+            </section>
+          </aside>
+          <div class="product-actions">
+            <span class="unsaved" data-unsaved hidden>Unsaved changes</span>
+            <a class="btn btn-outline btn--labeled" href="products.html">Cancel</a>
+            <button class="btn btn-primary btn--labeled" type="submit">Save product</button>
           </div>
-                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
         </form>
       </div>
     </div>

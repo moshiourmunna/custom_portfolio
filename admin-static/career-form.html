@@ -25,17 +25,71 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Job</h1><a class="btn btn-outline" href="careers.html">Back to list</a></header>
-      <div class="admin-content">
-        <form class="panel" data-record="careers" data-record-key="jobs">
-          <div class="form-grid two">
-            <div class="field"><label>Title</label><input name="title" data-required></div>
-            <div class="field"><label>Location</label><input name="location"></div>
-            <div class="field"><label>Status</label><select name="status"><option>Open</option><option>Closed</option></select></div>
+      <header class="admin-top product-top">
+        <div>
+          <h1 data-product-title data-add="Add job" data-edit="Edit job" data-crumb-add="Add new">Add job</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span><a href="careers.html">Careers</a><span aria-hidden="true">/</span><span data-product-crumb>Add new</span></p>
+        </div>
+      </header>
+      <div class="admin-content product-form-page">
+        <form class="product-layout" data-record="careers" data-record-key="jobs">
+          <div class="product-main">
+            <section class="product-card">
+              <div class="form-grid two">
+                <div class="field">
+                  <label for="job-title">Title <abbr title="Required">*</abbr></label>
+                  <input id="job-title" name="title" data-required placeholder="Role title">
+                </div>
+                <div class="field">
+                  <label for="job-location">Location</label>
+                  <input id="job-location" name="location" placeholder="Dhaka or Narayanganj">
+                </div>
+              </div>
+              <div class="field">
+                <label for="job-summary">Summary</label>
+                <textarea id="job-summary" name="summary" rows="3" placeholder="One line for the careers list…"></textarea>
+                <span class="hide-note">Hidden on the site when empty</span>
+              </div>
+              <div class="field">
+                <label for="job-description">Description</label>
+                <textarea id="job-description" name="description" rows="8" placeholder="What the role covers…"></textarea>
+              </div>
+            </section>
           </div>
-          <div class="field"><label>Summary</label><textarea name="summary" rows="3"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
-          <div class="field"><label>Description</label><textarea name="description" rows="6"></textarea></div>
-                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+          <aside class="product-side">
+            <section class="product-card">
+              <h2>Role image</h2>
+              <div class="product-drop" data-image-field>
+                <img alt="" data-preview hidden>
+                <input type="hidden" name="image">
+                <button type="button" class="product-drop__hit" data-pick-image>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 16V9.5"/><path d="m9.2 11.8 2.8-2.8 2.8 2.8"/></svg>
+                  <strong>Choose from the library</strong>
+                  <span>Floor or desk photograph, not a portrait</span>
+                </button>
+              </div>
+              <p class="hint">No upload. An empty image uses the existing mill photo for known roles.</p>
+            </section>
+            <section class="product-card">
+              <h2>Publish</h2>
+              <div class="field">
+                <label for="job-status">Status</label>
+                <div class="status-field" data-status-field>
+                  <i aria-hidden="true"></i>
+                  <select id="job-status" name="status">
+                    <option>Open</option>
+                    <option>Closed</option>
+                  </select>
+                </div>
+              </div>
+              <p class="hint">Saving stores this role in the browser. The public careers pages are not rewritten.</p>
+            </section>
+          </aside>
+          <div class="product-actions">
+            <span class="unsaved" data-unsaved hidden>Unsaved changes</span>
+            <a class="btn btn-outline btn--labeled" href="careers.html">Cancel</a>
+            <button class="btn btn-primary btn--labeled" type="submit">Save job</button>
+          </div>
         </form>
       </div>
     </div>

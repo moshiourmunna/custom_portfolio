@@ -25,23 +25,98 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Gallery</h1></header>
-      <div class="admin-content">
-        <form class="panel" data-gallery-form>
-          <h2>Add item</h2>
-          <div class="form-grid two">
-            <div class="field"><label>Album</label><input name="album"></div>
-            <div class="field"><label>Sort</label><input name="sort" type="number" value="10"></div>
-                        <div class="field"><label>Image</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="image"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Alt</label><input name="alt"><span class="hide-note">Hidden on the site when empty</span></div>
-            <div class="field"><label>Caption</label><input name="caption"><span class="hide-note">Hidden on the site when empty</span></div>
-          </div>
-          <button class="btn btn-primary" type="submit">Add to gallery</button>
-          <p class="hint">Choose an existing library image. No upload in this phase. Label only what the photo shows.</p>
-        </form>
-        <div class="toolbar"><input type="search" data-list-search="gallery" placeholder="Search gallery…" aria-label="Search gallery"></div>
-        <p class="list-meta" data-list-count="gallery"></p>
-        <div class="panel"><table class="table"><thead><tr><th>Image</th><th>Album</th><th>Caption</th><th>Alt</th><th>Sort</th><th>Actions</th></tr></thead><tbody data-list="gallery"></tbody></table></div>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Gallery</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Gallery</p>
+        </div>
+        <a class="btn btn-outline" href="../public-site/gallery/index.html" target="_blank" rel="noopener">View site</a>
+      </header>
+      <div class="admin-content catalog-page">
+        <div class="list-stats" data-list-stats="gallery"></div>
+        <div class="gallery-layout">
+          <section class="catalog-card" aria-label="Gallery items">
+            <div class="catalog-filters">
+              <label class="catalog-search">
+                <input type="search" data-list-search="gallery" placeholder="Search caption, alt, or album…" aria-label="Search gallery">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              </label>
+              <select data-list-album="gallery" aria-label="Album"><option value="">All albums</option></select>
+              <button type="button" class="btn btn-outline btn--labeled catalog-reset" data-list-reset="gallery">Reset</button>
+              <button type="button" class="btn btn-primary btn--labeled catalog-filter" data-list-filter="gallery">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg>
+                Filter
+              </button>
+            </div>
+            <div class="catalog-bulk" data-list-bulk="gallery" hidden>
+              <span data-list-selected="gallery">0 selected</span>
+              <button type="button" class="set-mini set-mini--danger" data-list-bulk-delete="gallery">Delete selected</button>
+            </div>
+            <div class="catalog-table-wrap">
+              <table class="catalog-table">
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" data-list-all="gallery" aria-label="Select all on this page"></th>
+                    <th>Image</th>
+                    <th>Caption</th>
+                    <th>Album</th>
+                    <th>Sort</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody data-list="gallery" data-list-layout="catalog"></tbody>
+              </table>
+            </div>
+            <div class="catalog-foot">
+              <p data-list-count="gallery">Showing 0 results</p>
+              <div class="catalog-pager">
+                <label>Rows
+                  <select data-page-size="gallery" aria-label="Rows per page">
+                    <option>5</option>
+                    <option selected>10</option>
+                    <option>25</option>
+                  </select>
+                </label>
+                <div data-list-pages="gallery"></div>
+              </div>
+            </div>
+          </section>
+          <form class="product-card gallery-add" data-gallery-form>
+            <h2>Add item</h2>
+            <div class="field">
+              <label for="gallery-album">Album</label>
+              <input id="gallery-album" name="album" placeholder="Factory, Production, Weaving…">
+            </div>
+            <div class="field">
+              <label for="gallery-sort">Sort</label>
+              <input id="gallery-sort" name="sort" type="number" value="10">
+            </div>
+            <div class="field">
+              <label>Image</label>
+              <div class="product-drop" data-image-field>
+                <img alt="" data-preview hidden>
+                <input type="hidden" name="image">
+                <button type="button" class="product-drop__hit" data-pick-image>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 16V9.5"/><path d="m9.2 11.8 2.8-2.8 2.8 2.8"/></svg>
+                  <strong>Choose from the library</strong>
+                  <span>Label only what the photo shows</span>
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="gallery-alt">Alt</label>
+              <input id="gallery-alt" name="alt">
+              <span class="hide-note">Hidden on the site when empty</span>
+            </div>
+            <div class="field">
+              <label for="gallery-caption">Caption</label>
+              <input id="gallery-caption" name="caption">
+              <span class="hide-note">Hidden on the site when empty</span>
+            </div>
+            <button class="btn btn-primary btn--labeled" type="submit">Add to gallery</button>
+            <p class="hint">No upload in this phase. Videos and documents stay in Media.</p>
+          </form>
+        </div>
       </div>
     </div>
   </div>

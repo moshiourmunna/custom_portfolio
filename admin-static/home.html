@@ -25,9 +25,21 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Home</h1><button class="btn btn-primary" type="submit" form="home-form">Save home</button></header>
-      <div class="admin-content">
-        <p class="hint">Twelve homepage blocks in the order they appear on the public site. Phone and email for the closing band stay in Settings.</p>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Home</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Home</p>
+        </div>
+        <div class="admin-top__actions">
+          <a class="btn btn-outline" href="../public-site/index.html" target="_blank" rel="noopener">View site</a>
+          <button class="btn btn-primary" type="submit" form="home-form">Save home</button>
+        </div>
+      </header>
+      <div class="admin-content editor-page">
+        <div class="editor-layout">
+          <aside class="editor-nav" data-editor-nav></aside>
+          <div class="editor-main">
+        <p class="catalog-note">Twelve homepage blocks in public order. Phone and email for the closing band stay in <a href="settings.html">Settings</a>.</p>
         <form id="home-form" data-store="home">
         <section class="panel">
           <h2><span class="section-num">1</span>Hero</h2>
@@ -135,6 +147,8 @@
         </section>
         <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
         </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

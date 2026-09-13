@@ -25,9 +25,25 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Contact copy</h1><button class="btn btn-primary" type="submit" form="f">Save</button></header>
-      <div class="admin-content">
-        <p class="hint">Addresses, phone, email, and map pins stay in Settings.</p>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Contact copy</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span><a href="pages.html">Pages</a><span aria-hidden="true">/</span>Contact</p>
+        </div>
+        <div class="admin-top__actions">
+          <a class="btn btn-outline" href="../public-site/contact.html" target="_blank" rel="noopener">View site</a>
+          <button class="btn btn-primary" type="submit" form="f">Save</button>
+        </div>
+      </header>
+      <div class="admin-content editor-page">
+        <div class="editor-layout">
+          <aside class="editor-nav" data-editor-nav></aside>
+          <div class="editor-main">
+        <section class="panel editor-related">
+          <h2>Contact details</h2>
+          <p class="hint">Addresses, phone, email, and map pins stay in Settings so they are not edited twice.</p>
+          <a class="btn btn-outline btn--labeled" href="settings.html">Open settings</a>
+        </section>
         <form id="f" data-store="pages" data-slice="contact">
         <section class="panel">
           <h2>Page copy</h2>
@@ -40,6 +56,8 @@
         </section>
         <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
         </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

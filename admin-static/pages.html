@@ -25,19 +25,67 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Pages</h1></header>
-      <div class="admin-content">
-        <div class="toolbar">
-          <input type="search" data-list-search="pages" placeholder="Search pages…" aria-label="Search pages">
-          <select data-list-status="pages" aria-label="Status"><option value="">All statuses</option><option>Published</option><option>Draft</option></select>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Pages</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Pages</p>
         </div>
-        <p class="list-meta" data-list-count="pages"></p>
-        <div class="panel">
-          <table class="table">
-            <thead><tr><th>Image</th><th>Page</th><th>Path</th><th>Summary</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody data-list="pages"></tbody>
-          </table>
-        </div>
+        <a class="btn btn-outline" href="../public-site/index.html" target="_blank" rel="noopener">View site</a>
+      </header>
+      <div class="admin-content catalog-page">
+        <div class="list-stats" data-list-stats="pages"></div>
+        <nav class="related-links" aria-label="Related editors">
+          <a href="home.html">Home editor</a>
+          <a href="page-about.html">About</a>
+          <a href="page-process.html">Process</a>
+          <a href="page-facilities.html">Facilities</a>
+          <a href="page-quality.html">Quality</a>
+          <a href="page-sustainability.html">Sustainability</a>
+          <a href="page-contact.html">Contact</a>
+          <a href="page-legal.html">Legal</a>
+        </nav>
+        <section class="catalog-card" aria-label="Site pages">
+          <div class="catalog-filters">
+            <label class="catalog-search">
+              <input type="search" data-list-search="pages" placeholder="Search pages…" aria-label="Search pages">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            </label>
+            <select data-list-status="pages" aria-label="Status"><option value="">Select status</option><option>Published</option><option>Draft</option></select>
+            <button type="button" class="btn btn-outline btn--labeled catalog-reset" data-list-reset="pages">Reset</button>
+            <button type="button" class="btn btn-primary btn--labeled catalog-filter" data-list-filter="pages">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg>
+              Filter
+            </button>
+          </div>
+          <p class="catalog-note">These public routes are fixed. Saving a page editor stores copy in this browser only.</p>
+          <div class="catalog-table-wrap">
+            <table class="catalog-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Page</th>
+                  <th>Path</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody data-list="pages" data-list-layout="catalog"></tbody>
+            </table>
+          </div>
+          <div class="catalog-foot">
+            <p data-list-count="pages">Showing 0 results</p>
+            <div class="catalog-pager">
+              <label>Rows
+                <select data-page-size="pages" aria-label="Rows per page">
+                  <option>5</option>
+                  <option selected>10</option>
+                  <option>25</option>
+                </select>
+              </label>
+              <div data-list-pages="pages"></div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>

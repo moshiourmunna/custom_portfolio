@@ -25,14 +25,65 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Products</h1><a class="btn btn-primary" href="product-form.html">Add product</a></header>
-      <div class="admin-content">
-        <div class="toolbar">
-          <input type="search" data-list-search="products" placeholder="Search products…" aria-label="Search products">
-          <select data-list-status="products" aria-label="Status"><option value="">All statuses</option><option>Published</option><option>Draft</option></select>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Products</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Products</p>
         </div>
-        <p class="list-meta" data-list-count="products"></p>
-        <div class="panel"><table class="table"><thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Updated</th><th>Actions</th></tr></thead><tbody data-list="products"></tbody></table></div>
+        <a class="btn btn-primary btn--labeled catalog-add" href="product-form.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          Add product
+        </a>
+      </header>
+      <div class="admin-content catalog-page">
+        <section class="catalog-card" aria-label="Product catalog">
+          <div class="catalog-filters">
+            <label class="catalog-search">
+              <input type="search" data-list-search="products" placeholder="Search products…" aria-label="Search products">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            </label>
+            <select data-list-category="products" aria-label="Category"><option value="">Select category</option></select>
+            <select data-list-status="products" aria-label="Status"><option value="">Select status</option><option>Published</option><option>Draft</option></select>
+            <button type="button" class="btn btn-outline btn--labeled catalog-reset" data-list-reset="products">Reset</button>
+            <button type="button" class="btn btn-primary btn--labeled catalog-filter" data-list-filter="products">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg>
+              Filter
+            </button>
+          </div>
+          <div class="catalog-bulk" data-list-bulk="products" hidden>
+            <span data-list-selected="products">0 selected</span>
+            <button type="button" class="set-mini set-mini--danger" data-list-bulk-delete="products">Delete selected</button>
+          </div>
+          <div class="catalog-table-wrap">
+            <table class="catalog-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" data-list-all="products" aria-label="Select all on this page"></th>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Updated</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody data-list="products" data-list-layout="catalog"></tbody>
+            </table>
+          </div>
+          <div class="catalog-foot">
+            <p data-list-count="products">Showing 0 results</p>
+            <div class="catalog-pager">
+              <label>Rows
+                <select data-page-size="products" aria-label="Rows per page">
+                  <option>5</option>
+                  <option selected>10</option>
+                  <option>25</option>
+                </select>
+              </label>
+              <div data-list-pages="products"></div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>

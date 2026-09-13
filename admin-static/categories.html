@@ -25,12 +25,21 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Categories</h1></header>
-      <div class="admin-content">
-        <p class="hint">Yarn, Woven Fabric, and Finished Fabric. These feed the products index cards.</p>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Categories</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Categories</p>
+        </div>
+        <a class="btn btn-outline" href="products.html">View products</a>
+      </header>
+      <div class="admin-content catalog-page">
+        <p class="catalog-note">Yarn, Woven Fabric, and Finished Fabric. These feed the product index cards. Saving stays in this browser.</p>
         <form data-category-editor>
-          <div data-category-rows></div>
-                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+          <div class="category-grid" data-category-rows></div>
+          <div class="product-actions">
+            <span class="unsaved" data-unsaved hidden>Unsaved changes</span>
+            <button class="btn btn-primary btn--labeled" type="submit">Save categories</button>
+          </div>
         </form>
       </div>
     </div>

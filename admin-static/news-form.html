@@ -25,19 +25,76 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>News article</h1><a class="btn btn-outline" href="news.html">Back to list</a></header>
-      <div class="admin-content">
-        <form class="panel" data-record="news">
-          <div class="form-grid two">
-            <div class="field"><label>Title</label><input name="title" data-required data-slug-source></div>
-            <div class="field"><label>Slug</label><input name="slug" data-slug></div>
-            <div class="field"><label>Date</label><input name="date" type="date"></div>
-            <div class="field"><label>Status</label><select name="status"><option>Published</option><option>Draft</option></select></div>
-                        <div class="field"><label>Cover</label><div class="image-pick" data-image-field><img alt="" data-preview hidden><input type="hidden" name="cover"><button type="button" class="btn btn-outline" data-pick-image>Choose image</button></div><span class="hide-note">Hidden on the site when empty</span></div>
+      <header class="admin-top product-top">
+        <div>
+          <h1 data-product-title data-add="Add article" data-edit="Edit article" data-crumb-add="Add new">Add article</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span><a href="news.html">News</a><span aria-hidden="true">/</span><span data-product-crumb>Add new</span></p>
+        </div>
+      </header>
+      <div class="admin-content product-form-page">
+        <form class="product-layout" data-record="news">
+          <div class="product-main">
+            <section class="product-card">
+              <div class="form-grid two">
+                <div class="field">
+                  <label for="news-title">Title <abbr title="Required">*</abbr></label>
+                  <input id="news-title" name="title" data-required data-slug-source placeholder="Article title">
+                </div>
+                <div class="field">
+                  <label for="news-slug">Slug</label>
+                  <input id="news-slug" name="slug" data-slug placeholder="article-slug">
+                  <span class="hint">URL-friendly version. Lowercase letters, numbers, and hyphens.</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="news-lead">Lead</label>
+                <textarea id="news-lead" name="lead" rows="3" placeholder="Short lead for the news card…"></textarea>
+                <span class="hide-note">Hidden on the site when empty</span>
+              </div>
+              <div class="field">
+                <label for="news-body">Body</label>
+                <textarea id="news-body" name="body" rows="10" placeholder="Article body…"></textarea>
+              </div>
+            </section>
           </div>
-          <div class="field"><label>Lead</label><textarea name="lead" rows="3"></textarea><span class="hide-note">Hidden on the site when empty</span></div>
-          <div class="field"><label>Body</label><textarea name="body" rows="8"></textarea></div>
-                  <div class="save-bar"><button class="btn btn-primary" type="submit">Save</button><span class="unsaved" data-unsaved hidden>Unsaved changes</span><span class="hint">Saved in this browser only. Public pages are not rewritten.</span></div>
+          <aside class="product-side">
+            <section class="product-card">
+              <h2>Cover</h2>
+              <div class="product-drop" data-image-field>
+                <img alt="" data-preview hidden>
+                <input type="hidden" name="cover">
+                <button type="button" class="product-drop__hit" data-pick-image>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a3.5 3.5 0 0 0 .4-7 4.5 4.5 0 0 0-8.7-1.4A3.2 3.2 0 0 0 7 18.5z"/><path d="M12 16V9.5"/><path d="m9.2 11.8 2.8-2.8 2.8 2.8"/></svg>
+                  <strong>Choose from the library</strong>
+                  <span>Mill photograph already on the public site</span>
+                </button>
+              </div>
+              <p class="hint">No upload in this phase. An empty cover stays off the article.</p>
+            </section>
+            <section class="product-card">
+              <h2>Publish</h2>
+              <div class="field">
+                <label for="news-date">Date</label>
+                <input id="news-date" name="date" type="date">
+              </div>
+              <div class="field">
+                <label for="news-status">Status</label>
+                <div class="status-field" data-status-field>
+                  <i aria-hidden="true"></i>
+                  <select id="news-status" name="status">
+                    <option>Draft</option>
+                    <option>Published</option>
+                  </select>
+                </div>
+              </div>
+              <p class="hint">Saving stores this article in the browser. The public news pages are not rewritten.</p>
+            </section>
+          </aside>
+          <div class="product-actions">
+            <span class="unsaved" data-unsaved hidden>Unsaved changes</span>
+            <a class="btn btn-outline btn--labeled" href="news.html">Cancel</a>
+            <button class="btn btn-primary btn--labeled" type="submit">Save article</button>
+          </div>
         </form>
       </div>
     </div>

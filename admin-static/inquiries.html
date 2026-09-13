@@ -25,14 +25,67 @@
     </header>
     <aside class="sidebar" id="admin-sidebar"></aside>
     <div class="admin-main">
-      <header class="admin-top"><h1>Inquiries</h1></header>
-      <div class="admin-content">
-        <div class="toolbar">
-          <input type="search" data-list-search="inquiries" placeholder="Search inquiries…" aria-label="Search inquiries">
-          <select data-list-status="inquiries" aria-label="Status"><option value="">All statuses</option><option>New</option><option>In progress</option><option>Closed</option></select>
+      <header class="admin-top catalog-top">
+        <div>
+          <h1>Inquiries</h1>
+          <p class="catalog-crumb"><a href="dashboard.html">Dashboard</a><span aria-hidden="true">/</span>Inquiries</p>
         </div>
-        <p class="list-meta" data-list-count="inquiries"></p>
-        <div class="panel"><table class="table"><thead><tr><th>Image</th><th>Date</th><th>Company</th><th>Interest</th><th>Status</th></tr></thead><tbody data-list="inquiries"></tbody></table></div>
+        <a class="btn btn-outline" href="../public-site/contact.html" target="_blank" rel="noopener">View contact</a>
+      </header>
+      <div class="admin-content catalog-page">
+        <div class="list-stats" data-list-stats="inquiries"></div>
+        <nav class="related-links" aria-label="Related editors">
+          <a href="page-contact.html">Contact copy</a>
+          <a href="settings.html">Contact details</a>
+          <a href="page-legal.html">Privacy</a>
+        </nav>
+        <section class="catalog-card" aria-label="Inquiry inbox">
+          <div class="catalog-filters">
+            <label class="catalog-search">
+              <input type="search" data-list-search="inquiries" placeholder="Search company, interest, or message…" aria-label="Search inquiries">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            </label>
+            <select data-list-status="inquiries" aria-label="Status"><option value="">Select status</option><option>New</option><option>In progress</option><option>Closed</option></select>
+            <button type="button" class="btn btn-outline btn--labeled catalog-reset" data-list-reset="inquiries">Reset</button>
+            <button type="button" class="btn btn-primary btn--labeled catalog-filter" data-list-filter="inquiries">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg>
+              Filter
+            </button>
+          </div>
+          <p class="catalog-note">Status changes stay in this browser. The public contact form is not rewritten.</p>
+          <div class="catalog-bulk" data-list-bulk="inquiries" hidden>
+            <span data-list-selected="inquiries">0 selected</span>
+            <button type="button" class="set-mini set-mini--danger" data-list-bulk-delete="inquiries">Delete selected</button>
+          </div>
+          <div class="catalog-table-wrap">
+            <table class="catalog-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" data-list-all="inquiries" aria-label="Select all on this page"></th>
+                  <th>Image</th>
+                  <th>Company</th>
+                  <th>Interest</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody data-list="inquiries" data-list-layout="catalog"></tbody>
+            </table>
+          </div>
+          <div class="catalog-foot">
+            <p data-list-count="inquiries">Showing 0 results</p>
+            <div class="catalog-pager">
+              <label>Rows
+                <select data-page-size="inquiries" aria-label="Rows per page">
+                  <option>5</option>
+                  <option selected>10</option>
+                  <option>25</option>
+                </select>
+              </label>
+              <div data-list-pages="inquiries"></div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>

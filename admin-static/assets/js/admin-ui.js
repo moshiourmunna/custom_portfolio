@@ -172,7 +172,8 @@
     var keys = (box.getAttribute("data-keys") || "title,text").split(",");
     var images = (box.getAttribute("data-images") || "").split(",").filter(Boolean);
     box.innerHTML = "";
-    (items.length ? items : [{}]).forEach(function (item) {
+    var seed = items.length ? items : (box.hasAttribute("data-optional") ? [] : [{}]);
+    seed.forEach(function (item) {
       box.appendChild(repeaterRow(keys, images, item));
     });
   }
@@ -255,20 +256,33 @@
       clearDirty(form);
       toast("Saved in this browser. The public site is unchanged.");
     });
+    bindRepeaters(form);
+  }
+
+  function bindRepeaters(form) {
     form.querySelectorAll("[data-add]").forEach(function (button) {
       button.addEventListener("click", function () {
         var box = form.querySelector('[data-repeater="' + button.getAttribute("data-add") + '"]');
         if (!box) return;
         var keys = (box.getAttribute("data-keys") || "").split(",");
-        box.appendChild(repeaterRow(keys, (box.getAttribute("data-images") || "").split(","), {}));
+        box.appendChild(repeaterRow(keys, (box.getAttribute("data-images") || "").split(",").filter(Boolean), {}));
         markDirty(form);
       });
     });
     form.addEventListener("click", function (event) {
+      var clear = event.target.closest("[data-clear]");
+      if (clear && form.contains(clear)) {
+        var input = clear.parentNode.querySelector("input:not([readonly]), textarea");
+        if (input) {
+          input.value = "";
+          markDirty(form);
+        }
+      }
       var row = event.target.closest("[data-row]");
-      if (!row) return;
+      if (!row || !form.contains(row)) return;
       if (event.target.closest("[data-remove]")) {
-        if (row.parentNode.querySelectorAll("[data-row]").length === 1) {
+        var only = row.parentNode.querySelectorAll("[data-row]").length === 1;
+        if (only && !row.parentNode.hasAttribute("data-optional")) {
           row.querySelectorAll("[data-key]").forEach(function (field) { field.value = ""; });
         } else row.remove();
         markDirty(form);
@@ -320,6 +334,8 @@
     var record = list.filter(function (row) { return row.id === id; })[0] || { id: id || ("id-" + Date.now()), status: "Draft" };
     writeBound(form, record);
     bindSlug(form);
+    bindRepeaters(form);
+    bindProductForm(form, record);
     form.addEventListener("input", function () { markDirty(form); });
     form.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -415,10 +431,66 @@
     });
   }
 
+  var listPager = {};
+  var listPick = {};
+
+  function pagerFor(kind) {
+    if (!listPager[kind]) listPager[kind] = { page: 1, size: 10 };
+    return listPager[kind];
+  }
+
+  function catalogLayout(kind) {
+    var node = document.querySelector('[data-list="' + kind + '"]');
+    return !!(node && node.getAttribute("data-list-layout") === "catalog");
+  }
+
+  function fillProductCategories() {
+    var select = document.querySelector('[data-list-category="products"]');
+    if (!select) return;
+    var current = select.value;
+    var names = {};
+    (store.get("categories") || []).forEach(function (row) { if (row && row.name) names[row.name] = true; });
+    (store.get("products") || []).forEach(function (row) { if (row && row.category) names[row.category] = true; });
+    select.innerHTML = '<option value="">Select category</option>' + Object.keys(names).map(function (name) {
+      return "<option" + (name === current ? " selected" : "") + ">" + esc(name) + "</option>";
+    }).join("");
+  }
+
+  function fillGalleryAlbums() {
+    var select = document.querySelector('[data-list-album="gallery"]');
+    if (!select) return;
+    var current = select.value;
+    var names = {};
+    (store.get("gallery") || []).forEach(function (row) { if (row && row.album) names[row.album] = true; });
+    select.innerHTML = '<option value="">All albums</option>' + Object.keys(names).sort().map(function (name) {
+      return "<option" + (name === current ? " selected" : "") + ">" + esc(name) + "</option>";
+    }).join("");
+  }
+
+  function catStatus(status) {
+    var cls = "catalog-status";
+    if (status === "Draft" || status === "Closed") cls += " is-off";
+    else if (status === "In progress") cls += " is-progress";
+    return '<span class="' + cls + '"><i></i>' + esc(status || "—") + "</span>";
+  }
+
+  function catTitle(title, sub) {
+    return '<div class="catalog-title"><strong>' + esc(title || "—") + "</strong>" + (sub ? "<small>" + esc(sub) + "</small>" : "") + "</div>";
+  }
+
+  function checkCell(kind, id, label) {
+    var picked = listPick[kind] && listPick[kind][id];
+    return '<td data-label="Select"><input type="checkbox" data-row-check="' + kind + '" data-id="' + esc(id) + '"' + (picked ? " checked" : "") + ' aria-label="Select ' + esc(label || "item") + '"></td>';
+  }
+
   function renderList(node) {
     var kind = node.getAttribute("data-list");
     var query = ((document.querySelector('[data-list-search="' + kind + '"]') || {}).value || "").toLowerCase();
     var status = (document.querySelector('[data-list-status="' + kind + '"]') || {}).value || "";
+    var category = (document.querySelector('[data-list-category="' + kind + '"]') || {}).value || "";
+    var album = (document.querySelector('[data-list-album="' + kind + '"]') || {}).value || "";
+    if (kind === "products" && catalogLayout(kind)) fillProductCategories();
+    if (kind === "gallery" && catalogLayout(kind)) fillGalleryAlbums();
     var rows = [];
     if (kind === "products") rows = store.get("products") || [];
     if (kind === "news") rows = store.get("news") || [];
@@ -432,29 +504,103 @@
       var blob = Object.keys(row).map(function (key) { return row[key]; }).join(" ").toLowerCase();
       if (query && blob.indexOf(query) === -1) return false;
       if (status && row.status !== status) return false;
+      if (category && row.category !== category) return false;
+      if (album && row.album !== album) return false;
       return true;
     });
+    var catalog = catalogLayout(kind);
+    var visibleRows = rows;
+    var pager = pagerFor(kind);
+    if (catalog) {
+      var sizeSelect = document.querySelector('[data-page-size="' + kind + '"]');
+      if (sizeSelect) pager.size = Number(sizeSelect.value) || 10;
+      var pages = Math.max(1, Math.ceil(rows.length / pager.size));
+      if (pager.page > pages) pager.page = pages;
+      if (pager.page < 1) pager.page = 1;
+      var start = (pager.page - 1) * pager.size;
+      visibleRows = rows.slice(start, start + pager.size);
+    }
     var count = document.querySelector('[data-list-count="' + kind + '"]');
-    if (count) count.textContent = rows.length + " shown";
-    if (!rows.length) {
-      node.innerHTML = '<tr><td colspan="8"><div class="empty-state">Nothing matches. Empty rows stay hidden on the site when this is wired.</div></td></tr>';
+    if (count) {
+      if (catalog) {
+        var from = rows.length ? (pager.page - 1) * pager.size + 1 : 0;
+        var to = Math.min(pager.page * pager.size, rows.length);
+        count.textContent = "Showing " + from + " to " + to + " of " + rows.length + " results";
+      } else {
+        count.textContent = rows.length + " shown";
+      }
+    }
+    if (catalog) paintPager(kind, rows.length);
+    if (!visibleRows.length) {
+      var empty = node.getAttribute("data-empty") || "Nothing matches. Empty rows stay hidden on the site when this is wired.";
+      node.innerHTML = '<tr><td colspan="8"><div class="empty-state">' + esc(empty) + "</div></td></tr>";
+      if (catalog) paintCatalogPick(kind, []);
       return;
     }
-    node.innerHTML = rows.map(function (row) { return listRow(kind, row); }).join("");
+    node.innerHTML = visibleRows.map(function (row) { return listRow(kind, row); }).join("");
+    if (catalog) paintCatalogPick(kind, visibleRows);
+  }
+
+  function paintPager(kind, total) {
+    var box = document.querySelector('[data-list-pages="' + kind + '"]');
+    if (!box) return;
+    var pager = pagerFor(kind);
+    var pages = Math.max(1, Math.ceil(total / pager.size));
+    var html = '<button type="button" data-page-go="' + kind + '" data-page="' + (pager.page - 1) + '"' + (pager.page <= 1 ? " disabled" : "") + ' aria-label="Previous page">‹</button>';
+    for (var i = 1; i <= pages; i++) {
+      html += '<button type="button" data-page-go="' + kind + '" data-page="' + i + '"' + (i === pager.page ? ' class="is-current"' : "") + ">" + i + "</button>";
+    }
+    html += '<button type="button" data-page-go="' + kind + '" data-page="' + (pager.page + 1) + '"' + (pager.page >= pages ? " disabled" : "") + ' aria-label="Next page">›</button>';
+    box.innerHTML = html;
+  }
+
+  function paintCatalogPick(kind, pageRows) {
+    var picks = listPick[kind] || {};
+    var count = Object.keys(picks).length;
+    var bulk = document.querySelector('[data-list-bulk="' + kind + '"]');
+    var label = document.querySelector('[data-list-selected="' + kind + '"]');
+    if (label) label.textContent = count + " selected";
+    if (bulk) bulk.hidden = count === 0;
+    var all = document.querySelector('[data-list-all="' + kind + '"]');
+    if (all) all.checked = pageRows.length > 0 && pageRows.every(function (row) { return picks[row.id]; });
   }
 
   function listRow(kind, row) {
     if (kind === "pages") {
-      return "<tr><td>" + thumb(row.image, row.title) + "</td><td>" + esc(row.title) + "</td><td>" + esc(row.path) + "</td><td>" + esc(row.summary) + "</td><td>" + statusPill(row.status) + "</td><td>" +
-        actionsHtml([
-          iconBtn("view", "View on site", 'href="../public-site/' + esc(row.path) + '" target="_blank" rel="noopener"'),
-          iconBtn("edit", "Edit", 'href="' + esc(row.edit) + '"')
-        ]) + "</td></tr>";
+      var pageActions = actionsHtml([
+        iconBtn("view", "View on site", 'href="../public-site/' + esc(row.path) + '" target="_blank" rel="noopener"'),
+        iconBtn("edit", "Edit", 'href="' + esc(row.edit) + '"')
+      ]);
+      if (catalogLayout(kind)) {
+        return "<tr>" +
+          '<td data-label="Image">' + thumb(row.image, row.title) + "</td>" +
+          '<td data-label="Page">' + catTitle(row.title, row.summary) + "</td>" +
+          '<td data-label="Path"><span class="catalog-cat">' + esc(row.path) + "</span></td>" +
+          '<td data-label="Status">' + catStatus(row.status) + "</td>" +
+          '<td data-label="Actions">' + pageActions + "</td></tr>";
+      }
+      return "<tr><td>" + thumb(row.image, row.title) + "</td><td>" + esc(row.title) + "</td><td>" + esc(row.path) + "</td><td>" + esc(row.summary) + "</td><td>" + statusPill(row.status) + "</td><td>" + pageActions + "</td></tr>";
     }
     if (kind === "products") {
       var productView = row.slug === "combed-cotton-poplin"
         ? "../public-site/products/combed-cotton-poplin.html"
         : (row.category === "Yarn" ? "../public-site/products/index.html#yarn" : (row.category === "Finished Fabric" ? "../public-site/products/index.html#finishing" : "../public-site/products/woven-fabric.html"));
+      if (catalogLayout(kind)) {
+        var picked = listPick.products && listPick.products[row.id];
+        var draft = row.status === "Draft";
+        return "<tr>" +
+          '<td data-label="Select"><input type="checkbox" data-row-check="products" data-id="' + esc(row.id) + '"' + (picked ? " checked" : "") + ' aria-label="Select ' + esc(row.title) + '"></td>' +
+          '<td data-label="Image">' + thumb(row.image, row.title) + "</td>" +
+          '<td data-label="Title"><div class="catalog-title"><strong>' + esc(row.title) + "</strong>" + (row.summary ? "<small>" + esc(row.summary) + "</small>" : "") + "</div></td>" +
+          '<td data-label="Category"><span class="catalog-cat">' + esc(row.category || "—") + "</span></td>" +
+          '<td data-label="Status"><span class="catalog-status' + (draft ? " is-off" : "") + '"><i></i>' + esc(row.status || "Published") + "</span></td>" +
+          '<td data-label="Updated">' + esc(typeof dashDate === "function" ? dashDate(row.updated) : (row.updated || "—")) + "</td>" +
+          '<td data-label="Actions">' + actionsHtml([
+            iconBtn("view", "View on site", 'href="' + productView + '" target="_blank" rel="noopener"'),
+            iconBtn("edit", "Edit", 'href="product-form.html?id=' + esc(row.id) + '"'),
+            iconBtn("trash", "Delete", 'data-delete="products" data-id="' + esc(row.id) + '"')
+          ]) + "</td></tr>";
+      }
       return "<tr><td>" + thumb(row.image, row.title) + "</td><td>" + esc(row.title) + "</td><td>" + esc(row.category) + "</td><td>" + statusPill(row.status) + "</td><td>" + esc(row.updated || "") + "</td><td>" +
         actionsHtml([
           iconBtn("view", "View on site", 'href="' + productView + '" target="_blank" rel="noopener"'),
@@ -466,36 +612,72 @@
       var newsView = row.slug === "mill-efficiency-upgrade"
         ? "../public-site/news/mill-efficiency-upgrade.html"
         : "../public-site/news/index.html";
-      return "<tr><td>" + thumb(row.cover, row.title) + "</td><td>" + esc(row.date) + "</td><td>" + esc(row.title) + "</td><td>" + statusPill(row.status) + "</td><td>" +
-        actionsHtml([
-          iconBtn("view", "View on site", 'href="' + newsView + '" target="_blank" rel="noopener"'),
-          iconBtn("edit", "Edit", 'href="news-form.html?id=' + esc(row.id) + '"'),
-          iconBtn("trash", "Delete", 'data-delete="news" data-id="' + esc(row.id) + '"')
-        ]) + "</td></tr>";
+      var newsActions = actionsHtml([
+        iconBtn("view", "View on site", 'href="' + newsView + '" target="_blank" rel="noopener"'),
+        iconBtn("edit", "Edit", 'href="news-form.html?id=' + esc(row.id) + '"'),
+        iconBtn("trash", "Delete", 'data-delete="news" data-id="' + esc(row.id) + '"')
+      ]);
+      if (catalogLayout(kind)) {
+        return "<tr>" + checkCell("news", row.id, row.title) +
+          '<td data-label="Image">' + thumb(row.cover, row.title) + "</td>" +
+          '<td data-label="Title">' + catTitle(row.title, excerpt(row.lead, 88)) + "</td>" +
+          '<td data-label="Date">' + esc(dashDate(row.date)) + "</td>" +
+          '<td data-label="Status">' + catStatus(row.status) + "</td>" +
+          '<td data-label="Actions">' + newsActions + "</td></tr>";
+      }
+      return "<tr><td>" + thumb(row.cover, row.title) + "</td><td>" + esc(row.date) + "</td><td>" + esc(row.title) + "</td><td>" + statusPill(row.status) + "</td><td>" + newsActions + "</td></tr>";
     }
     if (kind === "gallery") {
-      return "<tr><td>" + thumb(row.image, row.alt) + "</td><td>" + esc(row.album) + "</td><td>" + esc(row.caption) + "</td><td>" + esc(row.alt) + "</td><td>" + esc(row.sort) + "</td><td>" +
-        actionsHtml([
-          iconBtn("view", "View image", 'href="' + esc(publicSrc(row.image)) + '" target="_blank" rel="noopener"'),
-          iconBtn("trash", "Delete", 'data-delete="gallery" data-id="' + esc(row.id) + '"')
-        ]) + "</td></tr>";
+      var galleryActions = actionsHtml([
+        iconBtn("view", "View image", 'href="' + esc(publicSrc(row.image)) + '" target="_blank" rel="noopener"'),
+        iconBtn("trash", "Delete", 'data-delete="gallery" data-id="' + esc(row.id) + '"')
+      ]);
+      if (catalogLayout(kind)) {
+        return "<tr>" + checkCell("gallery", row.id, row.caption || row.alt) +
+          '<td data-label="Image">' + thumb(row.image, row.alt) + "</td>" +
+          '<td data-label="Caption">' + catTitle(row.caption || row.alt || "Untitled", row.alt && row.caption ? row.alt : "") + "</td>" +
+          '<td data-label="Album"><span class="catalog-cat">' + esc(row.album || "—") + "</span></td>" +
+          '<td data-label="Sort">' + esc(row.sort) + "</td>" +
+          '<td data-label="Actions">' + galleryActions + "</td></tr>";
+      }
+      return "<tr><td>" + thumb(row.image, row.alt) + "</td><td>" + esc(row.album) + "</td><td>" + esc(row.caption) + "</td><td>" + esc(row.alt) + "</td><td>" + esc(row.sort) + "</td><td>" + galleryActions + "</td></tr>";
     }
     if (kind === "careers") {
       var jobView = row.id === "qi" ? "../public-site/careers/quality-inspector.html" : "../public-site/careers/index.html";
-      return "<tr><td>" + thumb(careerImage(row), row.title) + "</td><td>" + esc(row.title) + "</td><td>" + esc(row.location) + "</td><td>" + statusPill(row.status) + "</td><td>" +
-        actionsHtml([
-          iconBtn("view", "View on site", 'href="' + jobView + '" target="_blank" rel="noopener"'),
-          iconBtn("edit", "Edit", 'href="career-form.html?id=' + esc(row.id) + '"'),
-          iconBtn("trash", "Delete", 'data-delete="careers" data-id="' + esc(row.id) + '"')
-        ]) + "</td></tr>";
+      var jobActions = actionsHtml([
+        iconBtn("view", "View on site", 'href="' + jobView + '" target="_blank" rel="noopener"'),
+        iconBtn("edit", "Edit", 'href="career-form.html?id=' + esc(row.id) + '"'),
+        iconBtn("trash", "Delete", 'data-delete="careers" data-id="' + esc(row.id) + '"')
+      ]);
+      if (catalogLayout(kind)) {
+        return "<tr>" +
+          '<td data-label="Image">' + thumb(careerImage(row), row.title) + "</td>" +
+          '<td data-label="Title">' + catTitle(row.title, row.summary) + "</td>" +
+          '<td data-label="Location">' + esc(row.location || "—") + "</td>" +
+          '<td data-label="Status">' + catStatus(row.status) + "</td>" +
+          '<td data-label="Actions">' + jobActions + "</td></tr>";
+      }
+      return "<tr><td>" + thumb(careerImage(row), row.title) + "</td><td>" + esc(row.title) + "</td><td>" + esc(row.location) + "</td><td>" + statusPill(row.status) + "</td><td>" + jobActions + "</td></tr>";
     }
     if (kind === "inquiries") {
-      return "<tr><td>" + thumb(inquiryImage(row), row.interest) + "</td><td>" + esc(row.date) + "</td><td>" + esc(row.company) + "</td><td>" + esc(row.interest) + "</td><td><select data-inquiry=\"" + esc(row.id) + "\"><option" + (row.status === "New" ? " selected" : "") + ">New</option><option" + (row.status === "In progress" ? " selected" : "") + ">In progress</option><option" + (row.status === "Closed" ? " selected" : "") + ">Closed</option></select></td></tr>";
+      var statusSelect = '<select class="catalog-select" data-inquiry="' + esc(row.id) + '" aria-label="Status for ' + esc(row.company || "inquiry") + '"><option' + (row.status === "New" ? " selected" : "") + ">New</option><option" + (row.status === "In progress" ? " selected" : "") + ">In progress</option><option" + (row.status === "Closed" ? " selected" : "") + ">Closed</option></select>";
+      if (catalogLayout(kind)) {
+        return "<tr>" + checkCell("inquiries", row.id, row.company) +
+          '<td data-label="Image">' + thumb(inquiryImage(row), row.interest) + "</td>" +
+          '<td data-label="Company">' + catTitle(row.company, excerpt(row.message, 88)) + "</td>" +
+          '<td data-label="Interest"><span class="catalog-cat">' + esc(row.interest || "—") + "</span></td>" +
+          '<td data-label="Date">' + esc(dashDate(row.date)) + "</td>" +
+          '<td data-label="Status">' + statusSelect + "</td></tr>";
+      }
+      return "<tr><td>" + thumb(inquiryImage(row), row.interest) + "</td><td>" + esc(row.date) + "</td><td>" + esc(row.company) + "</td><td>" + esc(row.interest) + "</td><td>" + statusSelect + "</td></tr>";
     }
     if (kind === "categories") {
       return "<tr><td>" + thumb(categoryImage(row), row.name) + "</td><td>" + esc(row.name) + "</td><td>" + esc(row.text) + "</td><td>" + esc(row.href) + "</td></tr>";
     }
     if (kind === "applications") {
+      if (catalogLayout(kind)) {
+        return "<tr><td data-label=\"Name\">" + catTitle(row.name, "") + "</td><td data-label=\"Role\">" + esc(row.role || "—") + "</td><td data-label=\"Date\">" + esc(dashDate(row.date)) + "</td></tr>";
+      }
       return "<tr><td>" + esc(row.name) + "</td><td>" + esc(row.role) + "</td><td>" + esc(row.date) + "</td></tr>";
     }
     return "";
@@ -516,38 +698,243 @@
 
   function refreshLists() {
     document.querySelectorAll("[data-list]").forEach(renderList);
+    paintListStats();
     updateBadge();
     renderDashboard();
+  }
+
+  function paintListStats() {
+    function chips(kind, pairs) {
+      var box = document.querySelector('[data-list-stats="' + kind + '"]');
+      if (!box) return;
+      var current = (document.querySelector('[data-list-status="' + kind + '"]') || {}).value || "";
+      box.innerHTML = pairs.map(function (pair) {
+        var active = (pair.value || "") === current ? " is-active" : "";
+        return '<button type="button" class="list-chip' + active + '" data-status-jump="' + kind + '" data-status="' + esc(pair.value) + '">' + esc(pair.label) + " <strong>" + pair.count + "</strong></button>";
+      }).join("");
+    }
+    var news = store.get("news") || [];
+    chips("news", [
+      { label: "All", value: "", count: news.length },
+      { label: "Published", value: "Published", count: news.filter(function (row) { return row.status === "Published"; }).length },
+      { label: "Draft", value: "Draft", count: news.filter(function (row) { return row.status === "Draft"; }).length }
+    ]);
+    var jobs = (store.get("careers") || {}).jobs || [];
+    chips("careers", [
+      { label: "All", value: "", count: jobs.length },
+      { label: "Open", value: "Open", count: jobs.filter(function (row) { return row.status === "Open"; }).length },
+      { label: "Closed", value: "Closed", count: jobs.filter(function (row) { return row.status === "Closed"; }).length }
+    ]);
+    var inbox = store.get("inquiries") || [];
+    chips("inquiries", [
+      { label: "All", value: "", count: inbox.length },
+      { label: "New", value: "New", count: inbox.filter(function (row) { return row.status === "New"; }).length },
+      { label: "In progress", value: "In progress", count: inbox.filter(function (row) { return row.status === "In progress"; }).length },
+      { label: "Closed", value: "Closed", count: inbox.filter(function (row) { return row.status === "Closed"; }).length }
+    ]);
+    var pagesBox = document.querySelector('[data-list-stats="pages"]');
+    if (pagesBox) {
+      var pages = pageRows();
+      pagesBox.innerHTML = '<span class="list-chip">Pages <strong>' + pages.length + "</strong></span><span class=\"list-chip\">Published <strong>" + pages.filter(function (row) { return row.status === "Published"; }).length + "</strong></span>";
+    }
+    var galleryBox = document.querySelector('[data-list-stats="gallery"]');
+    if (galleryBox) {
+      var items = store.get("gallery") || [];
+      var albums = {};
+      items.forEach(function (row) { if (row.album) albums[row.album] = true; });
+      galleryBox.innerHTML = '<span class="list-chip">Items <strong>' + items.length + "</strong></span><span class=\"list-chip\">Albums <strong>" + Object.keys(albums).length + "</strong></span>";
+    }
+  }
+
+  function dashDate(value) {
+    if (!value) return "—";
+    var date = new Date(String(value).slice(0, 10) + "T00:00:00");
+    if (isNaN(date.getTime())) return String(value);
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+  }
+
+  function withinDays(value, days) {
+    if (!value) return false;
+    var date = new Date(String(value).slice(0, 10) + "T00:00:00");
+    if (isNaN(date.getTime())) return false;
+    var start = new Date();
+    start.setHours(0, 0, 0, 0);
+    start.setDate(start.getDate() - days);
+    return date >= start;
+  }
+
+  function dashStatus(status) {
+    var key = status === "In progress" ? " is-progress" : (status === "Closed" ? " is-closed" : "");
+    return '<span class="dash-status' + key + '">' + esc(status || "New") + "</span>";
+  }
+
+  function excerpt(value, limit) {
+    var text = String(value || "").replace(/\s+/g, " ").trim();
+    if (text.length <= limit) return text;
+    return text.slice(0, limit - 1).trim() + "…";
+  }
+
+  function setDashNote(box, key, text, up) {
+    var node = box.querySelector('[data-count-note="' + key + '"]');
+    if (!node) return;
+    node.textContent = text;
+    node.classList.toggle("is-up", !!up);
   }
 
   function renderDashboard() {
     var box = document.querySelector("[data-dashboard]");
     if (!box) return;
+    var products = store.get("products") || [];
+    var inquiries = (store.get("inquiries") || []).slice().sort(function (a, b) {
+      return String(b.date || "").localeCompare(String(a.date || ""));
+    });
+    var news = (store.get("news") || []).slice().sort(function (a, b) {
+      return String(b.date || "").localeCompare(String(a.date || ""));
+    });
+    var gallery = store.get("gallery") || [];
+    var categories = store.get("categories") || [];
+    var jobs = ((store.get("careers") || {}).jobs || []).filter(function (row) { return row.status !== "Closed"; });
+    var media = store.get("media") || [];
+    var settings = store.get("settings") || {};
+    var weekInquiries = inquiries.filter(function (row) { return withinDays(row.date, 7); }).length;
     var counts = {
-      products: (store.get("products") || []).length,
-      inquiries: newCount(),
-      news: (store.get("news") || []).length,
-      gallery: (store.get("gallery") || []).length
+      products: products.length,
+      inquiries: inquiries.length,
+      news: news.length,
+      gallery: gallery.length,
+      pages: SITE_PAGES.length,
+      categories: categories.length,
+      media: media.length,
+      roles: jobs.length
     };
     box.querySelectorAll("[data-count]").forEach(function (node) {
       node.textContent = String(counts[node.getAttribute("data-count")] || 0);
     });
-    var body = box.querySelector("[data-list]");
-    if (body) renderList(body);
+    setDashNote(box, "products", categories.length ? categories.length + " categories" : "Catalog", false);
+    setDashNote(box, "inquiries", weekInquiries ? weekInquiries + " this week" : (newCount() ? newCount() + " new" : "Inbox"), weekInquiries > 0 || newCount() > 0);
+    setDashNote(box, "news", news[0] ? "Latest " + dashDate(news[0].date) : "Published", false);
+    setDashNote(box, "gallery", "Mill photographs", false);
+    var today = document.querySelector("[data-dash-today] span");
+    if (today) today.textContent = dashDate(new Date().toISOString().slice(0, 10));
+    var inbox = box.querySelector("[data-dash-inquiries]");
+    if (inbox) {
+      inbox.innerHTML = inquiries.length ? inquiries.slice(0, 5).map(function (row) {
+        return "<tr>" +
+          '<td data-label="Company"><strong>' + esc(row.company || row.name || "Inquiry") + "</strong></td>" +
+          '<td data-label="Interest">' + esc(row.interest || "—") + "</td>" +
+          '<td data-label="Message"><span class="dash-msg">' + esc(excerpt(row.message, 72) || "—") + "</span></td>" +
+          '<td data-label="Date">' + esc(dashDate(row.date)) + "</td>" +
+          '<td data-label="Status">' + dashStatus(row.status) + "</td>" +
+          '<td>' + iconBtn("view", "Open inbox", 'href="inquiries.html"') + "</td></tr>";
+      }).join("") : '<tr><td colspan="6"><p class="dash-empty">No inquiries in this browser yet.</p></td></tr>';
+    }
+    var newsBox = box.querySelector("[data-dash-news]");
+    if (newsBox) {
+      newsBox.innerHTML = news.length ? news.slice(0, 4).map(function (row) {
+        return '<a class="dash-news" href="news-form.html?id=' + esc(row.id) + '"><img src="' + esc(publicSrc(row.cover)) + '" alt="">' +
+          "<span><strong>" + esc(row.title) + "</strong><small>" + esc(dashDate(row.date)) + (row.status ? " · " + esc(row.status) : "") + "</small></span></a>";
+      }).join("") : '<p class="dash-empty">No news in this browser yet.</p>';
+    }
+    var roleBox = box.querySelector("[data-dash-roles]");
+    if (roleBox) {
+      roleBox.innerHTML = jobs.length ? jobs.slice(0, 5).map(function (row) {
+        return '<a class="dash-role" href="career-form.html?id=' + esc(row.id) + '"><span><strong>' + esc(row.title) + "</strong><span>" + esc(row.location || "Narayanganj") + "</span></span><em>" + esc(row.status || "Open") + "</em></a>";
+      }).join("") : '<p class="dash-empty">No open roles in this browser.</p>';
+    }
+    var desk = box.querySelector("[data-dash-desk]");
+    if (desk) {
+      var bits = [settings.hours, "Dhaka · Narayanganj"].filter(Boolean);
+      desk.textContent = bits.join(" · ");
+    }
   }
 
   function bindLists() {
-    document.querySelectorAll("[data-list-search], [data-list-status]").forEach(function (field) {
-      field.addEventListener("input", refreshLists);
-      field.addEventListener("change", refreshLists);
+    document.querySelectorAll("[data-list-search], [data-list-status], [data-list-category], [data-list-album]").forEach(function (field) {
+      function listKind() {
+        return field.getAttribute("data-list-search") || field.getAttribute("data-list-status") || field.getAttribute("data-list-category") || field.getAttribute("data-list-album");
+      }
+      field.addEventListener("input", function () { pagerFor(listKind()).page = 1; refreshLists(); });
+      field.addEventListener("change", function () { pagerFor(listKind()).page = 1; refreshLists(); });
+    });
+    document.querySelectorAll("[data-page-size]").forEach(function (field) {
+      field.addEventListener("change", function () {
+        pagerFor(field.getAttribute("data-page-size")).page = 1;
+        refreshLists();
+      });
+    });
+    document.querySelectorAll("[data-list-reset]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var kind = button.getAttribute("data-list-reset");
+        ["search", "status", "category", "album"].forEach(function (part) {
+          var field = document.querySelector("[data-list-" + part + '="' + kind + '"]');
+          if (field) field.value = "";
+        });
+        pagerFor(kind).page = 1;
+        listPick[kind] = {};
+        refreshLists();
+      });
+    });
+    document.querySelectorAll("[data-list-filter]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        pagerFor(button.getAttribute("data-list-filter")).page = 1;
+        refreshLists();
+      });
+    });
+    document.querySelectorAll("[data-list-bulk-delete]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var kind = button.getAttribute("data-list-bulk-delete");
+        var ids = Object.keys(listPick[kind] || {});
+        if (!ids.length || !window.confirm("Delete the selected items from this list? The public site is not rewritten.")) return;
+        store.set(kind, (store.get(kind) || []).filter(function (row) { return !listPick[kind][row.id]; }));
+        listPick[kind] = {};
+        refreshLists();
+        toast("Removed from this browser list.");
+      });
     });
     document.addEventListener("click", function (event) {
+      var chip = event.target.closest("[data-status-jump]");
+      if (chip) {
+        var jumpKind = chip.getAttribute("data-status-jump");
+        var jumpField = document.querySelector('[data-list-status="' + jumpKind + '"]');
+        if (jumpField) jumpField.value = chip.getAttribute("data-status") || "";
+        pagerFor(jumpKind).page = 1;
+        refreshLists();
+        return;
+      }
+      var pageBtn = event.target.closest("[data-page-go]");
+      if (pageBtn && !pageBtn.disabled) {
+        var kind = pageBtn.getAttribute("data-page-go");
+        pagerFor(kind).page = Number(pageBtn.getAttribute("data-page")) || 1;
+        refreshLists();
+        return;
+      }
       var button = event.target.closest("[data-delete]");
       if (!button) return;
       event.preventDefault();
       deleteRow(button.getAttribute("data-delete"), button.getAttribute("data-id"));
     });
     document.addEventListener("change", function (event) {
+      var check = event.target.closest("[data-row-check]");
+      if (check) {
+        var kind = check.getAttribute("data-row-check");
+        listPick[kind] = listPick[kind] || {};
+        if (check.checked) listPick[kind][check.getAttribute("data-id")] = true;
+        else delete listPick[kind][check.getAttribute("data-id")];
+        refreshLists();
+        return;
+      }
+      var all = event.target.closest("[data-list-all]");
+      if (all) {
+        var kindAll = all.getAttribute("data-list-all");
+        listPick[kindAll] = listPick[kindAll] || {};
+        document.querySelectorAll('[data-row-check="' + kindAll + '"]').forEach(function (box) {
+          if (all.checked) listPick[kindAll][box.getAttribute("data-id")] = true;
+          else delete listPick[kindAll][box.getAttribute("data-id")];
+        });
+        refreshLists();
+        return;
+      }
       var select = event.target.closest("[data-inquiry]");
       if (!select) return;
       var list = store.get("inquiries");
@@ -556,7 +943,7 @@
       });
       store.set("inquiries", list);
       updateBadge();
-      renderDashboard();
+      refreshLists();
       toast("Inquiry status saved in this browser.");
     });
     refreshLists();
@@ -586,7 +973,73 @@
     img.hidden = !input.value;
   }
 
-  function openPicker(target) {
+  function bindProductForm(form, record) {
+    if (!form.classList.contains("product-layout")) return;
+    var editing = !!new URLSearchParams(location.search).get("id");
+    var title = document.querySelector("[data-product-title]");
+    var crumb = document.querySelector("[data-product-crumb]");
+    var addLabel = (title && title.getAttribute("data-add")) || "Add new product";
+    var editLabel = (title && title.getAttribute("data-edit")) || "Edit product";
+    var label = editing ? editLabel : addLabel;
+    if (title) title.textContent = label;
+    if (crumb) crumb.textContent = editing ? (record.title || editLabel) : ((title && title.getAttribute("data-crumb-add")) || "Add new");
+    document.title = label + " | Islam Textile Admin";
+    var statusSelect = form.querySelector('[name="status"]');
+    if (statusSelect && record.status) {
+      var known = Array.prototype.some.call(statusSelect.options, function (opt) { return opt.value === record.status || opt.text === record.status; });
+      if (!known && statusSelect.options[0]) statusSelect.value = statusSelect.options[0].value || statusSelect.options[0].text;
+    }
+    var stamp = form.querySelector("[data-updated]");
+    if (stamp) stamp.textContent = record.updated ? dashDate(record.updated) : "Not saved yet";
+    function paintCounts() {
+      form.querySelectorAll("[data-count-for]").forEach(function (node) {
+        var field = form.querySelector('[name="' + node.getAttribute("data-count-for") + '"]');
+        var max = node.getAttribute("data-max");
+        var length = field ? String(field.value || "").length : 0;
+        node.textContent = length + " / " + max;
+      });
+    }
+    function paintStatus() {
+      var wrap = form.querySelector("[data-status-field]");
+      var select = form.querySelector('[name="status"]');
+      if (wrap && select) wrap.classList.toggle("is-draft", select.value === "Draft" || select.value === "Closed");
+    }
+    paintCounts();
+    paintStatus();
+    form.addEventListener("input", paintCounts);
+    form.addEventListener("change", paintStatus);
+    form.querySelectorAll("[data-format]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var area = form.querySelector('[name="description"]');
+        if (!area) return;
+        var map = { bold: ["<strong>", "</strong>"], italic: ["<em>", "</em>"], quote: ["<blockquote>", "</blockquote>"], list: ["<ul>\n<li>", "</li>\n</ul>"] };
+        var pair = map[button.getAttribute("data-format")];
+        if (!pair) return;
+        var start = area.selectionStart;
+        var end = area.selectionEnd;
+        var picked = area.value.slice(start, end) || "text";
+        area.value = area.value.slice(0, start) + pair[0] + picked + pair[1] + area.value.slice(end);
+        area.focus();
+        markDirty(form);
+      });
+    });
+    var galleryAdd = form.querySelector("[data-add-gallery]");
+    if (galleryAdd) {
+      galleryAdd.addEventListener("click", function () {
+        openPicker(null, function (file) {
+          var box = form.querySelector('[data-repeater="gallery"]');
+          if (!box) return;
+          var row = repeaterRow(["file"], ["file"], { file: file });
+          box.appendChild(row);
+          var field = row.querySelector("[data-image-field]");
+          if (field) syncImagePreview(field);
+          markDirty(form);
+        });
+      });
+    }
+  }
+
+  function openPicker(target, done) {
     var media = store.get("media") || [];
     var back = document.createElement("div");
     back.className = "modal-back";
@@ -600,10 +1053,14 @@
       if (event.target === back || event.target.closest("[data-close]")) back.remove();
       var pick = event.target.closest("[data-file]");
       if (!pick) return;
-      target.value = pick.getAttribute("data-file");
-      target.dispatchEvent(new Event("input", { bubbles: true }));
-      var box = target.closest("[data-image-field]");
-      if (box) syncImagePreview(box);
+      var file = pick.getAttribute("data-file");
+      if (target) {
+        target.value = file;
+        target.dispatchEvent(new Event("input", { bubbles: true }));
+        var box = target.closest("[data-image-field]");
+        if (box) syncImagePreview(box);
+      }
+      if (done) done(file);
       back.remove();
     });
   }
@@ -664,6 +1121,87 @@
       if (field) theme[key] = field.value;
     });
     applyTheme(theme);
+  }
+
+  var LOGO_FILES = {
+    "01": "logo-01-monogram-it-ribbon.png",
+    "02": "logo-02-wordmark-woven.png",
+    "03": "logo-03-loom-abstract.png",
+    "04": "logo-04-thread-spool.png",
+    "05": "logo-05-shield-quality.png",
+    "06": "logo-06-hex-textile.png",
+    "07": "logo-07-leaf-fiber.png",
+    "08": "logo-08-stacked-lockup.png",
+    "09": "logo-09-horizontal-lockup.png",
+    "10": "logo-10-dark-premium.png",
+    "11": "logo-11-light-clean.png",
+    "12": "logo-12-seal-circular.png",
+    "13": "logo-13-minimal-initial.png",
+    "14": "logo-14-fabric-fold.png",
+    "15": "logo-15-yarn-to-cloth.png"
+  };
+
+  function brandFile(file) {
+    if (!file) return "";
+    if (file.indexOf("logo-") === 0 || file === "favicon.png") return "assets/images/brand/" + file;
+    var mapped = LOGO_FILES[file];
+    return mapped ? "assets/images/brand/" + mapped : file;
+  }
+
+  function paintSettingsPreviews(form) {
+    var light = form.querySelector("[data-logo-preview]");
+    var checked = form.querySelector('input[name="logo"]:checked');
+    if (light && checked) light.src = brandFile(LOGO_FILES[checked.value] || checked.value);
+    var dark = form.querySelector("[data-logo-dark-preview]");
+    var darkSelect = form.querySelector('[name="logoDark"]');
+    if (dark && darkSelect) {
+      dark.hidden = !darkSelect.value;
+      dark.src = darkSelect.value ? brandFile(darkSelect.value) : "";
+      var empty = form.querySelector("[data-logo-dark-empty]");
+      if (empty) empty.hidden = !!darkSelect.value;
+    }
+    var favicon = form.querySelector("[data-favicon-preview]");
+    var faviconSelect = form.querySelector('[name="favicon"]');
+    if (favicon && faviconSelect) favicon.src = brandFile(faviconSelect.value);
+  }
+
+  function bindSettingsBoard() {
+    var form = document.getElementById("settings-form");
+    if (!form) return;
+    paintSettingsPreviews(form);
+    form.addEventListener("change", function () { paintSettingsPreviews(form); });
+    form.addEventListener("click", function (event) {
+      var clear = event.target.closest("[data-clear]");
+      if (clear) {
+        var input = clear.parentNode.querySelector("input, textarea");
+        if (input) {
+          input.value = "";
+          markDirty(form);
+        }
+      }
+      var selectClear = event.target.closest("[data-clear-select]");
+      if (selectClear) {
+        var select = form.querySelector('[name="' + selectClear.getAttribute("data-clear-select") + '"]');
+        if (select) {
+          select.value = "favicon.png";
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+          markDirty(form);
+        }
+      }
+      var open = event.target.closest("[data-open-tab]");
+      if (open) {
+        var button = document.querySelector('.set-tabs [data-tab="' + open.getAttribute("data-open-tab") + '"]');
+        if (button) button.click();
+      }
+      if (event.target.closest("[data-logo-reset]")) {
+        var radio = form.querySelector('input[name="logo"][value="01"]');
+        if (radio) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event("change", { bubbles: true }));
+          markDirty(form);
+        }
+      }
+    });
   }
 
   function renderSocialPreview() {
@@ -1041,8 +1579,22 @@
     var box = form.querySelector("[data-category-rows]");
     function paint() {
       var rows = store.get("categories") || [];
+      var products = store.get("products") || [];
       box.innerHTML = rows.map(function (row, index) {
-        return '<div class="repeater-row" data-cat="' + index + '"><div class="field"><label>Image</label><img class="list-thumb" src="' + esc(publicSrc(categoryImage(row))) + '" alt="' + esc(row.name) + '"></div><div class="field"><label>Name</label><input data-key="name" value="' + esc(row.name) + '"></div><div class="field"><label>Short text</label><input data-key="text" value="' + esc(row.text) + '"><span class="hide-note">Hidden on the site when empty</span></div><div class="field"><label>Link</label><input data-key="href" value="' + esc(row.href) + '"></div></div>';
+        var image = categoryImage(row);
+        var count = products.filter(function (item) { return item.category === row.name; }).length;
+        return '<article class="category-card" data-cat="' + index + '">' +
+          '<div class="category-card__media" data-image-field>' +
+            '<img data-preview src="' + esc(publicSrc(image)) + '" alt="' + esc(row.name) + '">' +
+            '<input type="hidden" data-key="image" value="' + esc(image) + '">' +
+            '<button type="button" class="btn btn-outline btn--labeled" data-pick-image>Choose image</button>' +
+          "</div>" +
+          '<div class="category-card__body">' +
+            '<div class="field"><label>Name</label><input data-key="name" value="' + esc(row.name) + '"></div>' +
+            '<div class="field"><label>Short text</label><textarea data-key="text" rows="3">' + esc(row.text || "") + "</textarea></div>" +
+            '<div class="field"><label>Link</label><input data-key="href" value="' + esc(row.href || "") + '"></div>' +
+            '<p class="hint">' + count + (count === 1 ? " product uses" : " products use") + " this category.</p>" +
+          "</div></article>";
       }).join("");
     }
     paint();
@@ -1054,10 +1606,12 @@
         current.name = row.querySelector('[data-key="name"]').value;
         current.text = row.querySelector('[data-key="text"]').value;
         current.href = row.querySelector('[data-key="href"]').value;
-        current.image = categoryImage(current);
+        var image = row.querySelector('[data-key="image"]');
+        current.image = image && image.value ? image.value : categoryImage(current);
         if (current.name.trim()) next.push(current);
       });
       store.set("categories", next);
+      paint();
       toast("Categories saved in this browser. The public site is unchanged.");
     });
   }
@@ -1078,6 +1632,8 @@
       list.push(item);
       store.set("gallery", list);
       form.reset();
+      var preview = form.querySelector("[data-preview]");
+      if (preview) { preview.hidden = true; preview.removeAttribute("src"); }
       refreshLists();
       toast("Gallery item saved in this browser.");
     });
@@ -1089,9 +1645,29 @@
     event.returnValue = "";
   });
 
+  function bindEditorNav() {
+    document.querySelectorAll("[data-editor-nav]").forEach(function (nav) {
+      var scope = nav.parentElement ? nav.parentElement.querySelector(".editor-main") : null;
+      if (!scope) return;
+      var links = [];
+      scope.querySelectorAll(".panel").forEach(function (panel, index) {
+        var heading = panel.querySelector("h2");
+        if (!heading) return;
+        if (!panel.id) panel.id = "block-" + (index + 1);
+        var label = heading.textContent.replace(/^\s*\d+\s*/, "").trim();
+        links.push('<a href="#' + panel.id + '">' + esc(label) + "</a>");
+      });
+      if (!links.length) {
+        nav.hidden = true;
+        return;
+      }
+      nav.innerHTML = "<strong>Sections</strong>" + links.join("");
+    });
+  }
+
   function decorateActions() {
     document.querySelectorAll("a.btn, button.btn").forEach(function (el) {
-      if (el.closest(".login-card") || el.classList.contains("icon-btn") || el.classList.contains("is-iconized")) return;
+      if (el.closest(".login-card") || el.closest(".product-drop") || el.classList.contains("icon-btn") || el.classList.contains("is-iconized") || el.classList.contains("btn--labeled")) return;
       var label = (el.textContent || "").replace(/\s+/g, " ").trim();
       var icon = "";
       var keepText = false;
@@ -1124,10 +1700,12 @@
   bindLists();
   bindPicker();
   bindTheme();
+  bindSettingsBoard();
   bindPins();
   bindMediaSave();
   bindCategories();
   bindGalleryForm();
+  bindEditorNav();
   document.querySelectorAll('[name^="social."]').forEach(function (field) {
     field.addEventListener("input", renderSocialPreview);
   });

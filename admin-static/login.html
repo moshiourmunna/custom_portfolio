@@ -10,19 +10,76 @@
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body class="login-page">
-  <form class="login-card" action="dashboard.html" method="get">
-    <img src="assets/images/brand/logo-02-wordmark-woven.png" alt="Islam Textile">
-    <h1>Admin Panel</h1>
-    <div class="field">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" value="admin@islamtextile.com" required>
-    </div>
-    <div class="field">
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" value="demo" required>
-    </div>
-    <button class="btn btn-primary" type="submit">Sign in</button>
-    <p class="muted" style="margin-top:1rem">Static demo — auth wired in Prompt 3 (Laravel).</p>
-  </form>
+  <div class="login-watermark" aria-hidden="true"></div>
+  <main class="login-stage">
+    <form class="login-card" action="dashboard.html" method="get">
+      <div class="login-brand">
+        <span class="login-brand__mark" aria-hidden="true"></span>
+        <span class="login-brand__word">
+          <strong>Islam Textile</strong>
+          <small>Weaving Tradition, Ensuring Quality</small>
+        </span>
+      </div>
+      <h1>Admin Login</h1>
+      <p class="login-lead">Sign in to access the CMS dashboard</p>
+      <div class="field">
+        <label for="email">Email address</label>
+        <div class="login-input">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="m4 7 8 6 8-6"/></svg>
+          <input id="email" type="email" inputmode="email" autocomplete="username" value="admin@islamtextile.com" placeholder="Enter your email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="login-input">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9" rx="1.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+          <input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+          <button class="login-eye" type="button" data-toggle-password aria-label="Show password" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.4"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="login-row">
+        <label class="login-check"><input type="checkbox" data-remember> Remember me</label>
+        <button class="login-forgot" type="button" data-forgot aria-expanded="false" aria-controls="login-recover">Forgot password?</button>
+      </div>
+      <p class="login-recover" id="login-recover" data-recover hidden>Password reset is not available in this static panel. Write to <a href="mailto:info@islamtextile.com">info@islamtextile.com</a>.</p>
+      <button class="btn btn-primary btn--labeled" type="submit">Sign in</button>
+      <p class="login-note">Any password opens the dashboard. Sign-in is not checked yet.</p>
+      <p class="login-note"><a href="../public-site/index.html">View the public site</a></p>
+    </form>
+  </main>
+  <script>
+    (function () {
+      var form = document.querySelector(".login-card");
+      var email = document.getElementById("email");
+      var password = document.getElementById("password");
+      var remember = form.querySelector("[data-remember]");
+      var key = "it-admin-login-email";
+      try {
+        var saved = localStorage.getItem(key);
+        if (saved) { email.value = saved; remember.checked = true; }
+      } catch (err) {}
+      form.addEventListener("submit", function () {
+        try {
+          if (remember.checked) localStorage.setItem(key, email.value);
+          else localStorage.removeItem(key);
+        } catch (err) {}
+      });
+      var toggle = form.querySelector("[data-toggle-password]");
+      toggle.addEventListener("click", function () {
+        var show = password.type === "password";
+        password.type = show ? "text" : "password";
+        toggle.setAttribute("aria-pressed", show ? "true" : "false");
+        toggle.setAttribute("aria-label", show ? "Hide password" : "Show password");
+      });
+      var forgot = form.querySelector("[data-forgot]");
+      var recover = form.querySelector("[data-recover]");
+      forgot.addEventListener("click", function () {
+        recover.hidden = !recover.hidden;
+        forgot.setAttribute("aria-expanded", recover.hidden ? "false" : "true");
+      });
+    })();
+  </script>
 </body>
 </html>

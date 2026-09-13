@@ -1,0 +1,121 @@
+@extends('layouts.site', ['metaTitle' => $page->title.' | '.$site->site_name, 'metaDescription' => $page->lead])
+@section('content')
+  @php
+    $flowIcons = [
+      '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 3v18M16 3v18"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M8 4h8v16H8z"/><path d="M8 9h8M8 14h8M12 4v16"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5.5L6.2 17.2A2.2 2.2 0 008.2 20.5h7.6a2.2 2.2 0 002-3.3L14 8.5V3"/><path d="M8.2 14.5h7.6"/></svg>',
+      '<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="3"/><circle cx="15" cy="12" r="3"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M3 8h13v8H3z"/><path d="M16 11h3l2 2.5V16h-5"/><circle cx="7" cy="17.5" r="1.1"/><circle cx="17.2" cy="17.5" r="1.1"/></svg>',
+    ];
+    $docIcons = [
+      '<svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5"/><path d="M10 13h6M10 17h4"/></svg>',
+      '<svg viewBox="0 0 24 24"><rect x="4" y="5" width="7" height="7"/><rect x="13" y="5" width="7" height="7"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 10h16M4 15h16M9 5v14M15 5v14"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M4 8h16v11H4z"/><path d="M8 8V6h8v2"/><path d="M9 13h6"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M8 4h8v16H8z"/><path d="M11 8h2M11 12h2M11 16h2"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>',
+    ];
+  @endphp
+  <section class="quality-hero">
+    <div class="quality-hero__media">
+      @if(mill_url($page->image))<img class="quality-hero__bg" src="{{ mill_url($page->image) }}" alt="">@endif
+    </div>
+    <div class="container quality-hero__copy">
+      <div class="quality-hero__text">
+        <h1>Quality and<br> certifications</h1>
+        @if(mill_filled($page->line))<p class="quality-hero__line">{{ $page->line }}</p>@endif
+        @if(mill_filled($page->lead))<p>{{ $page->lead }}</p>@endif
+      </div>
+    </div>
+    <div class="quality-shield" aria-hidden="true">
+      <svg class="quality-shield__plate" viewBox="0 0 160 188" focusable="false">
+        <defs>
+          <linearGradient id="quality-shield-rim" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f7f4ee"/>
+            <stop offset="0.48" stop-color="#d2cbc0"/>
+            <stop offset="1" stop-color="#f3efe6"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#quality-shield-rim)" d="M80 4l66 18c3.2 1 5.4 4 5.4 7.2v64.2c0 38-29 64.6-71.4 80.6C37.6 158 8.6 131.4 8.6 93.4V29.2c0-3.2 2.2-6.2 5.4-7.2z"/>
+        <path fill="currentColor" d="M80 16l54 15.2c2.4.8 3.8 3 3.8 5.4v56.8c0 30.4-23.6 52.6-57.8 66C51.8 146 28.2 123.8 28.2 93.4V36.6c0-2.4 1.4-4.6 3.8-5.4z"/>
+      </svg>
+      <div class="quality-shield__label">
+        <svg viewBox="0 0 24 24"><path d="M5 12.5 9.2 16.8 19 7"/></svg>
+        <strong>Quality</strong>
+        <span>Our promise</span>
+        <span>Your trust</span>
+        <i></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="qa-flow">
+    <div class="container qa-flow__inner">
+      <h2>Our quality assurance process</h2>
+      <ol class="qa-flow__steps">
+        @foreach($page->blocksFor('points') as $point)
+          <li>
+            <div class="qa-flow__icon" aria-hidden="true">{!! $flowIcons[$loop->index % count($flowIcons)] !!}</div>
+            <strong>{{ $loop->iteration }}. {{ $point->title }}</strong>
+            @if(mill_filled($point->text))<span>{{ $point->text }}</span>@endif
+          </li>
+        @endforeach
+      </ol>
+    </div>
+  </section>
+
+  <section class="section qa-docs">
+    <div class="container">
+      <header class="qa-docs__head reveal">
+        <h2>Documents for the lot</h2>
+        <p>What buyers can request with the shipment. Named certification marks are shown only when a current copy is on file.</p>
+      </header>
+      <div class="qa-docs__grid reveal">
+        @foreach($page->blocksFor('documents') as $doc)
+          <article class="qa-doc">
+            <div class="qa-doc__icon" aria-hidden="true">{!! $docIcons[$loop->index % count($docIcons)] !!}</div>
+            <span>{{ $doc->title }}</span>
+          </article>
+        @endforeach
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface qa-lab">
+    <div class="container lab-panel reveal">
+      <div class="lab-panel__media">
+        <img src="{{ mill_url('media/gallery/gallery-4.jpg') }}" alt="Color dispensing laboratory at the Narayanganj mill">
+      </div>
+      <div class="lab-panel__copy">
+        <p class="section__eyebrow">Laboratory</p>
+        <h2 class="section__title">In-house testing</h2>
+        <p>The Narayanganj lab supports spinning, weaving, and finishing with physical and colorfastness checks before the lot is shipped.</p>
+        <ul class="lab-checks">
+          <li>Fabric weight (GSM)</li>
+          <li>Dimensional stability</li>
+          <li>Tensile &amp; tear strength</li>
+          <li>Pilling &amp; abrasion</li>
+          <li>Wash, rub &amp; light fastness</li>
+          <li>Yarn U% &amp; twist</li>
+          <li>Shade &amp; ΔE verification</li>
+        </ul>
+      </div>
+      <div class="lab-seal" aria-hidden="true">
+        <strong>Checked</strong>
+        <span>before dispatch</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="qa-culture">
+    <div class="container qa-culture__inner">
+      <div class="qa-culture__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <p>Quality is a mill practice — not a last-minute gate.</p>
+      <a href="{{ route('contact') }}" class="btn btn--outline-light">Request QA documents</a>
+    </div>
+  </section>
+@endsection
