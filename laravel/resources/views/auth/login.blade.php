@@ -34,7 +34,9 @@
         <label for="password">Password</label>
         <div class="login-input">
           <input id="password" name="password" type="password" required autocomplete="current-password">
-          <button class="login-eye" type="button" data-toggle-password aria-label="Show password">Show</button>
+          <button class="login-eye" type="button" data-toggle-password aria-label="Show password" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.4"/></svg>
+          </button>
         </div>
       </div>
       <div class="login-row">
@@ -48,7 +50,10 @@
   <script>
     document.querySelector('[data-toggle-password]')?.addEventListener('click', function () {
       var input = document.getElementById('password');
-      input.type = input.type === 'password' ? 'text' : 'password';
+      var showing = input.type === 'password';
+      input.type = showing ? 'text' : 'password';
+      this.setAttribute('aria-pressed', showing ? 'true' : 'false');
+      this.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
     });
   </script>
 </body>

@@ -673,6 +673,16 @@ span.sidebar__link { cursor: default; }
 .modal-grid button { border: 1px solid var(--line); background: #fff; padding: .35rem; cursor: pointer; font: inherit; }
 .modal-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
 .modal-grid button.is-selected { border-color: var(--forest); }
+.modal .dash-panel__head { margin-bottom: .75rem; }
+.inquiry-facts { margin: 0 0 .85rem; display: grid; gap: .7rem; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.inquiry-facts div { display: grid; gap: .12rem; min-width: 0; }
+.inquiry-facts dt { font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: #8b9593; font-weight: 700; }
+.inquiry-facts dd { margin: 0; font-weight: 650; word-break: break-word; }
+.modal p { overflow-wrap: anywhere; }
+.modal .save-bar .btn, .modal .btn { flex: 1 1 auto; }
+@media (max-width: 760px) {
+  .catalog-table .row-actions { flex-wrap: wrap; }
+}
 .image-pick { display: flex; gap: .75rem; align-items: center; }
 .image-pick img { width: 72px; height: 72px; object-fit: cover; background: var(--surface); border: 1px solid var(--line); }
 .status-pill { font-size: .75rem; font-weight: 700; padding: .15rem .4rem; border-radius: 2px; background: #e7f3f1; color: var(--forest); }
@@ -1079,6 +1089,7 @@ span.sidebar__link { cursor: default; }
     font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; color: #8b9593; font-weight: 700;
   }
   .catalog-table td[data-label="Select"]::before, .catalog-table td[data-label="Image"]::before { display: none; }
+  .catalog-table td .catalog-select { width: 100%; max-width: 100%; }
   .catalog-foot { align-items: stretch; }
   .catalog-top .admin-top__actions { width: 100%; }
   .catalog-top .admin-top__actions .btn { flex: 1 1 auto; justify-content: center; }

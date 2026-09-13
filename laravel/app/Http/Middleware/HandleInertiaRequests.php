@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Inquiry;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -23,6 +24,9 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'status' => fn () => $request->session()->get('status'),
             ],
+            'inbox' => fn () => $request->user()
+                ? Inquiry::query()->whereIn('status', ['New', 'new'])->count()
+                : 0,
         ];
     }
 }

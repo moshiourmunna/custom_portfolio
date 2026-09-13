@@ -1,5 +1,6 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { Icon } from './icons';
 
 const groups = [
   { label: 'Overview', items: [['dashboard', '/admin', 'Dashboard'], ['home', '/admin/home', 'Home']] },
@@ -9,29 +10,34 @@ const groups = [
 ];
 
 export default function Layout({ children }) {
-  const { auth, flash } = usePage().props;
+  const { auth, flash, inbox } = usePage().props;
   const [open, setOpen] = useState(false);
   const path = typeof window !== 'undefined' ? window.location.pathname : '';
   const active = path.startsWith('/admin/pages') ? 'pages'
     : path.startsWith('/admin/products') ? 'products'
     : path.startsWith('/admin/news') ? 'news'
     : path.startsWith('/admin/careers') ? 'careers'
-    : path.replace('/admin/', '').split('/')[0] || 'dashboard';
+    : path === '/admin' ? 'dashboard'
+    : path.replace('/admin/', '').split('/')[0];
 
   return (
     <>
       <div className="admin-backdrop" hidden={!open} onClick={() => setOpen(false)} />
       <div className="admin-shell">
         <header className="admin-nav">
-          <button className="nav-toggle" type="button" aria-label="Open menu" onClick={() => setOpen((value) => !value)}><span /></button>
-          <Link className="admin-nav__brand" href="/admin">
+          <button className="nav-toggle" type="button" aria-expanded={open} aria-controls="admin-sidebar" aria-label="Open menu" onClick={() => setOpen((value) => !value)}><span /></button>
+          <Link className="admin-nav__brand" href="/admin" aria-label="Islam Textile admin home">
             <span className="admin-nav__mark" aria-hidden="true" />
             <span className="admin-nav__word"><strong>Islam Textile</strong><small>Weaving Tradition, Ensuring Quality</small></span>
           </Link>
           <div className="admin-nav__tools">
-            <Link className="admin-nav__bell" href="/admin/inquiries" aria-label="Inquiries">Inbox</Link>
+            <Link className="admin-nav__bell" href="/admin/inquiries" aria-label={`${inbox || 0} new inquiries`}>
+              <Icon name="bell" />
+              <span className="admin-nav__badge" hidden={!inbox}>{inbox || 0}</span>
+            </Link>
             <div className="admin-nav__user">
               <span className="admin-nav__user-text"><strong>{auth.user?.name}</strong><small>{auth.user?.role}</small></span>
+              <span className="admin-nav__avatar" aria-hidden="true"><Icon name="user" /></span>
             </div>
           </div>
         </header>
@@ -41,7 +47,8 @@ export default function Layout({ children }) {
               <div key={group.label}>
                 <p className="sidebar__label">{group.label}</p>
                 {group.items.filter((item) => item[0] !== 'settings' || auth.user?.role === 'super-admin').map(([id, href, label]) => (
-                  <Link key={id} className={`sidebar__link${active === id || (id === 'dashboard' && path === '/admin') ? ' is-active' : ''}`} href={href}>
+                  <Link key={id} className={`sidebar__link${active === id ? ' is-active' : ''}`} href={href} aria-current={active === id ? 'page' : undefined}>
+                    <span className="sidebar__icon"><Icon name={id} /></span>
                     <span>{label}</span>
                   </Link>
                 ))}
@@ -50,7 +57,10 @@ export default function Layout({ children }) {
           </nav>
           <div className="sidebar__foot">
             <p className="sidebar__mill"><strong>Islam Textile</strong><span>Dhaka · Narayanganj</span></p>
-            <button className="sidebar__link sidebar__link--logout" type="button" onClick={() => router.post('/admin/logout')}>Logout</button>
+            <button className="sidebar__link sidebar__link--logout" type="button" onClick={() => router.post('/admin/logout')}>
+              <span className="sidebar__icon"><Icon name="logout" /></span>
+              <span>Logout</span>
+            </button>
           </div>
         </aside>
         <div className="admin-main">

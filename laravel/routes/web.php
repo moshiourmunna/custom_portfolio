@@ -87,6 +87,8 @@ Route::middleware(['auth', 'role:super-admin|editor'])->prefix('admin')->name('a
 
     Route::get('/inquiries', [LibraryController::class, 'inquiries'])->name('inquiries');
     Route::put('/inquiries/{inquiry}', [LibraryController::class, 'updateInquiry'])->name('inquiries.update');
+    Route::get('/inquiries/{inquiry}/attachment', [LibraryController::class, 'downloadAttachment'])->name('inquiries.attachment');
+    Route::delete('/inquiries/{inquiry}', [LibraryController::class, 'destroyInquiry'])->name('inquiries.destroy');
 
     Route::get('/media', [LibraryController::class, 'media'])->name('media');
     Route::post('/media', [LibraryController::class, 'storeMedia'])->name('media.store');

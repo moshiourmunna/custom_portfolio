@@ -8,10 +8,13 @@ use App\Models\GalleryItem;
 use App\Models\Inquiry;
 use App\Models\Media;
 use App\Models\MediaFolder;
+use App\Models\Page;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -123,8 +126,14 @@ class LibraryController extends Controller
 
     public function inquiries(): Response
     {
+        $pages = Page::query()->whereIn('slug', ['contact', 'privacy'])->get(['id', 'slug'])->keyBy('slug');
+
         return Inertia::render('Inquiries', [
             'inquiries' => Inquiry::query()->latest('received_on')->latest('id')->get(),
+            'links' => [
+                'contact' => $pages->get('contact')?->id,
+                'privacy' => $pages->get('privacy')?->id,
+            ],
         ]);
     }
 
@@ -138,10 +147,28 @@ class LibraryController extends Controller
         return back()->with('status', 'Inquiry updated.');
     }
 
+    public function downloadAttachment(Inquiry $inquiry): StreamedResponse
+    {
+        abort_unless($inquiry->attachment_path && Storage::disk('local')->exists($inquiry->attachment_path), 404);
+
+        return Storage::disk('local')->download($inquiry->attachment_path);
+    }
+
+    public function destroyInquiry(Inquiry $inquiry): RedirectResponse
+    {
+        if ($inquiry->attachment_path) {
+            Storage::disk('local')->delete($inquiry->attachment_path);
+        }
+        $inquiry->delete();
+
+        return back()->with('status', 'Inquiry removed.');
+    }
+
     public function media(): Response
     {
         return Inertia::render('Media', [
-            'items' => Media::query()->latest()->get(),
+            'items' => Media::query()->with('folder:id,name')->latest()->get(),
+            'folders' => MediaFolder::query()->withCount('media')->orderBy('sort')->get(),
         ]);
     }
 
