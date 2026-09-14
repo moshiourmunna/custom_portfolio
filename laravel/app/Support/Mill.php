@@ -66,7 +66,9 @@ class Mill
             'terms.html' => '/terms',
             'quote-success.html' => '/quote-success',
             'products/index.html' => '/products',
+            'products/yarn.html' => '/products/yarn',
             'products/woven-fabric.html' => '/products/woven-fabric',
+            'products/finished-fabric.html' => '/products/finished-fabric',
             'gallery/index.html' => '/gallery',
             'news/index.html' => '/news',
             'careers/index.html' => '/careers',
@@ -81,6 +83,16 @@ class Mill
         $href = ltrim(str_replace('\\', '/', $href), './');
 
         return ($map[$href] ?? (Str::startsWith($href, '/') ? $href : '/'.$href)).$hash;
+    }
+
+    public static function catalogUrl(?string $slug, ?string $fallback = null): string
+    {
+        return match ($slug) {
+            'yarn' => route('products.yarn'),
+            'woven' => route('products.woven'),
+            'finished' => route('products.finished'),
+            default => $fallback ?: route('products'),
+        };
     }
 
     public static function filterCount(?string $count): ?string

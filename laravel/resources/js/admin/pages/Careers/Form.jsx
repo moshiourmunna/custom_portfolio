@@ -1,6 +1,6 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Icon } from '../../icons';
-import { mediaUrl } from '../../ui';
+import { UploadField } from '../../ui';
 
 const empty = { title: '', slug: '', location: '', department: '', employment_type: 'Full-time', summary: '', description: '', image: '', status: 'open' };
 
@@ -40,11 +40,7 @@ export default function Form({ job }) {
           <aside className="product-side">
             <section className="product-card">
               <h2>Role image</h2>
-              <div className="product-drop">
-                {form.data.image ? <img alt="" src={mediaUrl(form.data.image)} /> : null}
-                <input value={form.data.image || ''} onChange={(event) => form.setData('image', event.target.value)} placeholder="media/…" />
-                <span className="product-drop__hit"><Icon name="upload" /><strong>Image path</strong><span>Optional mill photograph</span></span>
-              </div>
+              <UploadField variant="drop" label="Role image" value={form.data.image || ''} onChange={(value) => form.setData('image', value)} hint="Optional mill photograph. JPG, PNG, WEBP, or GIF." />
             </section>
             <section className="product-card">
               <h2>Publish</h2>

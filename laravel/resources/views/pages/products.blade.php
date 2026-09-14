@@ -2,9 +2,9 @@
 @section('content')
   @php
     $cards = [
-      'yarn' => ['Combed and carded ring-spun cotton yarn in counts suited for shirting, sheeting, and industrial woven applications.', 'Explore yarn', '#yarn', '<svg viewBox="0 0 24 24"><path d="M8 7.5c2.2-2.4 5.8-2.4 8 0"/><path d="M7 10.5c2.8-2.6 7.2-2.6 10 0"/><path d="M6.2 13.8c3.4-2.8 8.2-2.8 11.6 0"/><path d="M12 14.2v6.3"/></svg>'],
+      'yarn' => ['Combed and carded ring-spun cotton yarn in counts suited for shirting, sheeting, and industrial woven applications.', 'Explore yarn', route('products.yarn'), '<svg viewBox="0 0 24 24"><path d="M8 7.5c2.2-2.4 5.8-2.4 8 0"/><path d="M7 10.5c2.8-2.6 7.2-2.6 10 0"/><path d="M6.2 13.8c3.4-2.8 8.2-2.8 11.6 0"/><path d="M12 14.2v6.3"/></svg>'],
       'woven' => ['Greige and finished cotton fabrics woven on air-jet and rapier looms — poplin, twill, oxford, and plain constructions.', 'Explore woven fabric', route('products.woven'), '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M8 4v16M16 4v16"/></svg>'],
-      'finished' => ['Reactive and pigment dyeing, mercerization, sanforizing, and soft finishes for export-ready cotton fabric.', 'Request finishing spec', route('contact'), '<svg viewBox="0 0 24 24"><path d="M6 8h12v10H6z"/><path d="M9 8V6.5A3 3 0 0115 6.5V8"/><path d="M8 13h8"/></svg>'],
+      'finished' => ['Reactive and pigment dyeing, mercerization, sanforizing, and soft finishes for export-ready cotton fabric.', 'Explore finished fabric', route('products.finished'), '<svg viewBox="0 0 24 24"><path d="M6 8h12v10H6z"/><path d="M9 8V6.5A3 3 0 0115 6.5V8"/><path d="M8 13h8"/></svg>'],
     ];
   @endphp
   <section class="range-hero">

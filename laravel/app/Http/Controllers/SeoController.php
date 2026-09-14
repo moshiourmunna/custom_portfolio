@@ -13,7 +13,7 @@ class SeoController extends Controller
     public function sitemap(): Response
     {
         $base = rtrim(Setting::current()->canonical_base ?: config('app.url'), '/');
-        $urls = ['/', '/about', '/products', '/products/woven-fabric', '/process', '/facilities', '/quality', '/sustainability', '/gallery', '/news', '/careers', '/contact', '/privacy', '/terms'];
+        $urls = ['/', '/about', '/products', '/products/yarn', '/products/woven-fabric', '/products/finished-fabric', '/process', '/facilities', '/quality', '/sustainability', '/gallery', '/news', '/careers', '/contact', '/privacy', '/terms'];
 
         foreach (Product::query()->where('status', 'published')->pluck('slug') as $slug) {
             $urls[] = '/products/'.$slug;

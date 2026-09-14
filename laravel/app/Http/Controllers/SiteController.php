@@ -81,19 +81,89 @@ class SiteController extends Controller
         ]);
     }
 
+    public function yarn(): View
+    {
+        return $this->catalog('yarn');
+    }
+
     public function woven(): View
+    {
+        return $this->catalog('woven');
+    }
+
+    public function finished(): View
+    {
+        return $this->catalog('finished');
+    }
+
+    private function catalog(string $slug): View
     {
         $products = Product::query()
             ->with('category')
             ->where('status', 'published')
-            ->whereHas('category', fn ($query) => $query->whereIn('slug', ['woven', 'finished']))
+            ->whereHas('category', fn ($query) => $query->where('slug', $slug))
             ->orderBy('sort')
             ->get();
 
-        return view('pages.woven', [
-            'page' => $this->page('products'),
+        return view('pages.catalog', [
+            'catalog' => $this->catalogCopy($slug),
             'products' => $products,
         ]);
+    }
+
+    private function catalogCopy(string $slug): array
+    {
+        return match ($slug) {
+            'yarn' => [
+                'title' => 'Yarn',
+                'meta' => 'Combed and carded cotton yarn for weaving programs.',
+                'hero' => 'media/gallery/gallery-7.jpg',
+                'note' => 'Combed and carded ring-spun cotton yarn in counts suited for shirting, sheeting, and industrial woven applications.',
+                'mark' => 'yarn',
+                'filters' => [
+                    ['key' => 'count', 'label' => 'Count', 'options' => ['fine' => 'Fine (Ne 50+)', 'medium' => 'Medium (Ne 30–40)', 'coarse' => 'Coarse (Ne ≤20)']],
+                ],
+                'action' => 'Request sample',
+                'empty' => 'No yarn counts match these filters. Clear them, or request a count below.',
+                'cta_title' => 'Need another count?',
+                'cta_text' => 'Share the count and end use. The Dhaka team will review a weaving-grade yarn program.',
+                'cta_label' => 'Request a count',
+            ],
+            'finished' => [
+                'title' => 'Finished Fabric',
+                'meta' => 'Dyed and finished cotton fabric for export-ready programs.',
+                'hero' => 'media/gallery/gallery-13.jpg',
+                'note' => 'Reactive and pigment dyeing, mercerization, sanforizing, and soft finishes for export-ready cotton fabric.',
+                'mark' => 'finish',
+                'filters' => [
+                    ['key' => 'finish', 'label' => 'Finish', 'options' => ['dyed' => 'Dyed', 'finished' => 'Soft finished']],
+                    ['key' => 'weave', 'label' => 'Weave', 'options' => ['poplin' => 'Poplin', 'twill' => 'Twill', 'oxford' => 'Oxford', 'plain' => 'Plain']],
+                    ['key' => 'count', 'label' => 'Count', 'options' => ['fine' => 'Fine (Ne 50+)', 'medium' => 'Medium (Ne 30–40)', 'coarse' => 'Coarse (Ne ≤20)']],
+                ],
+                'action' => 'Request swatch',
+                'empty' => 'No finished fabrics match these filters. Clear them, or request a finish below.',
+                'cta_title' => 'Need another finish?',
+                'cta_text' => 'Share the construction and finish. The mill will review feasibility for the program.',
+                'cta_label' => 'Request a finish',
+            ],
+            default => [
+                'title' => 'Woven Fabric',
+                'meta' => 'Greige and finished cotton fabrics woven on air-jet and rapier looms.',
+                'hero' => 'media/products/product-3.jpg',
+                'note' => 'Cotton greige and finished woven fabrics — filter by count, weave, and finish for your next program.',
+                'mark' => 'weave',
+                'filters' => [
+                    ['key' => 'count', 'label' => 'Count (yarn count)', 'options' => ['fine' => 'Fine (Ne 50+)', 'medium' => 'Medium (Ne 30–40)', 'coarse' => 'Coarse (Ne ≤20)']],
+                    ['key' => 'weave', 'label' => 'Weave', 'options' => ['poplin' => 'Poplin', 'twill' => 'Twill', 'oxford' => 'Oxford', 'plain' => 'Plain']],
+                    ['key' => 'finish', 'label' => 'Finish', 'options' => ['greige' => 'Greige', 'rfd' => 'RFD', 'dyed' => 'Dyed', 'finished' => 'Soft finished']],
+                ],
+                'action' => 'Request swatch',
+                'empty' => 'No constructions match these filters. Clear them, or request a custom program below.',
+                'cta_title' => "Can't Find Your Construction?",
+                'cta_text' => 'Share your spec sheet — our Dhaka merchandising team will review feasibility.',
+                'cta_label' => 'Request Custom Program',
+            ],
+        };
     }
 
     public function product(string $slug): View

@@ -1,7 +1,7 @@
 import { Link, router } from '@inertiajs/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Icon, IconBtn } from '../icons';
-import { Actions, Thumb } from '../ui';
+import { Actions, Thumb, UploadField, mediaUrl } from '../ui';
 
 const STATUSES = ['New', 'In progress', 'Closed'];
 
@@ -41,6 +41,9 @@ export default function Inquiries({ inquiries, links = {} }) {
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(1);
   const [openId, setOpenId] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [image, setImage] = useState('');
+  const [attachment, setAttachment] = useState(null);
   const [note, setNote] = useState('');
   const noteRef = useRef(null);
   const open = rows.find((row) => row.id === openId) || null;
@@ -68,6 +71,9 @@ export default function Inquiries({ inquiries, links = {} }) {
 
   function show(row, edit) {
     setNote(row.note || '');
+    setImage(row.image || '');
+    setAttachment(null);
+    setEditing(edit);
     setOpenId(row.id);
     if (edit) window.setTimeout(() => noteRef.current?.focus(), 0);
   }
@@ -85,6 +91,7 @@ export default function Inquiries({ inquiries, links = {} }) {
         </div>
         <div className="admin-top__actions">
           <a className="btn btn-outline btn--labeled" href="/contact" target="_blank" rel="noreferrer">View contact</a>
+          <Link className="btn btn-primary btn--labeled btn--with-icon catalog-add" href="/admin/inquiries/create"><Icon name="plus" /> Add inquiry</Link>
         </div>
       </header>
       <div className="admin-content catalog-page">
@@ -186,6 +193,10 @@ export default function Inquiries({ inquiries, links = {} }) {
                 <h2 id="inquiry-title">{open.company || open.name || 'Inquiry'}</h2>
                 <IconBtn kind="close" label="Close" onClick={() => setOpenId(null)} />
               </div>
+              <img className="inquiry-shot" src={mediaUrl(image || inquiryImage(open))} alt="" />
+              {editing ? (
+                <UploadField variant="drop" label="Inbox image" value={image} onChange={setImage} hint="Replace the image shown on this inquiry." />
+              ) : null}
               <dl className="inquiry-facts">
                 {[['Name', open.name], ['Email', open.email], ['Phone', open.phone], ['Country', open.country], ['Interest', open.interest], ['Date', dashDate(open.received_on)]].filter(([, value]) => value).map(([label, value]) => (
                   <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
@@ -193,18 +204,32 @@ export default function Inquiries({ inquiries, links = {} }) {
               </dl>
               {open.message ? <p>{open.message}</p> : null}
               {open.attachment_path ? <p><a className="btn btn-outline btn--labeled" href={`/admin/inquiries/${open.id}/attachment`}>Download attachment</a></p> : null}
-              {open.email ? <p><a className="btn btn-outline btn--labeled" href={`mailto:${open.email}`}>Reply by email</a></p> : null}
-              <form onSubmit={(event) => { event.preventDefault(); router.put(`/admin/inquiries/${open.id}`, { status: open.label, note }, { preserveScroll: true }); }}>
+              {editing ? (
                 <div className="field">
-                  <label htmlFor="inquiry-note">Internal note</label>
-                  <textarea id="inquiry-note" ref={noteRef} rows={4} value={note} onChange={(event) => setNote(event.target.value)} />
-                  <span className="hide-note">Not shown on the public site</span>
+                  <label htmlFor="inquiry-file">Replace attachment</label>
+                  <input id="inquiry-file" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.webp" onChange={(event) => setAttachment(event.target.files?.[0] || null)} />
+                  <span className="hint">Optional. Stored privately. Max 20MB.</span>
                 </div>
-                <div className="save-bar">
-                  <button className="btn btn-primary btn--labeled btn--with-icon" type="submit"><Icon name="check" /> Save note</button>
-                  <button className="btn btn-outline btn--labeled" type="button" onClick={() => setOpenId(null)}>Close</button>
-                </div>
-              </form>
+              ) : null}
+              {open.email ? <p><a className="btn btn-outline btn--labeled" href={`mailto:${open.email}`}>Reply by email</a></p> : null}
+              {editing ? (
+                <form onSubmit={(event) => {
+                  event.preventDefault();
+                  const payload = { status: open.label, note, image };
+                  if (attachment) payload.attachment = attachment;
+                  router.put(`/admin/inquiries/${open.id}`, payload, { forceFormData: true, preserveScroll: true, onSuccess: () => setAttachment(null) });
+                }}>
+                  <div className="field">
+                    <label htmlFor="inquiry-note">Internal note</label>
+                    <textarea id="inquiry-note" ref={noteRef} rows={4} value={note} onChange={(event) => setNote(event.target.value)} />
+                    <span className="hide-note">Not shown on the public site</span>
+                  </div>
+                  <div className="save-bar">
+                    <button className="btn btn-primary btn--labeled btn--with-icon" type="submit"><Icon name="check" /> Save</button>
+                    <button className="btn btn-outline btn--labeled" type="button" onClick={() => setOpenId(null)}>Close</button>
+                  </div>
+                </form>
+              ) : open.note ? <p>{open.note}</p> : null}
             </div>
           </div>
         ) : null}

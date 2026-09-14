@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('/about', [SiteController::class, 'about'])->name('about');
 Route::get('/products', [SiteController::class, 'products'])->name('products');
+Route::get('/products/yarn', [SiteController::class, 'yarn'])->name('products.yarn');
 Route::get('/products/woven-fabric', [SiteController::class, 'woven'])->name('products.woven');
+Route::get('/products/finished-fabric', [SiteController::class, 'finished'])->name('products.finished');
 Route::get('/products/{slug}', [SiteController::class, 'product'])->name('products.show');
 Route::get('/process', [SiteController::class, 'process'])->name('process');
 Route::get('/facilities', [SiteController::class, 'facilities'])->name('facilities');
@@ -86,11 +88,14 @@ Route::middleware(['auth', 'role:super-admin|editor'])->prefix('admin')->name('a
     Route::delete('/careers/{job}', [LibraryController::class, 'destroyJob'])->name('careers.destroy');
 
     Route::get('/inquiries', [LibraryController::class, 'inquiries'])->name('inquiries');
+    Route::get('/inquiries/create', [LibraryController::class, 'createInquiry'])->name('inquiries.create');
+    Route::post('/inquiries', [LibraryController::class, 'storeInquiry'])->name('inquiries.store');
     Route::put('/inquiries/{inquiry}', [LibraryController::class, 'updateInquiry'])->name('inquiries.update');
     Route::get('/inquiries/{inquiry}/attachment', [LibraryController::class, 'downloadAttachment'])->name('inquiries.attachment');
     Route::delete('/inquiries/{inquiry}', [LibraryController::class, 'destroyInquiry'])->name('inquiries.destroy');
 
     Route::get('/media', [LibraryController::class, 'media'])->name('media');
+    Route::post('/uploads', [LibraryController::class, 'upload'])->name('uploads.store');
     Route::post('/media', [LibraryController::class, 'storeMedia'])->name('media.store');
     Route::delete('/media/{medium}', [LibraryController::class, 'destroyMedia'])->name('media.destroy');
 });

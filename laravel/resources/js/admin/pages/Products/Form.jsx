@@ -1,6 +1,6 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Icon } from '../../icons';
-import { mediaUrl } from '../../ui';
+import { UploadField, mediaUrl } from '../../ui';
 
 const empty = { title: '', slug: '', product_category_id: '', summary: '', description: '', count: '', weave: '', finish: '', construction: '', gsm: '', status: 'published', image: '', meta_title: '', meta_description: '' };
 const specs = [['count', 'Count'], ['weave', 'Weave'], ['finish', 'Finish'], ['construction', 'Construction'], ['gsm', 'GSM']];
@@ -77,12 +77,7 @@ export default function Form({ product, categories }) {
           <aside className="product-side">
             <section className="product-card">
               <h2>Product image</h2>
-              <div className="product-drop">
-                {form.data.image ? <img alt="" src={mediaUrl(form.data.image)} /> : null}
-                <input value={form.data.image || ''} onChange={(event) => form.setData('image', event.target.value)} placeholder="media/products/…" />
-                <span className="product-drop__hit"><Icon name="upload" /><strong>Image path</strong><span>Mill photograph already on the public site</span></span>
-              </div>
-              <p className="hint">An empty image stays off the product page.</p>
+              <UploadField variant="drop" label="Product image" value={form.data.image || ''} onChange={(value) => form.setData('image', value)} hint="JPG, PNG, WEBP, or GIF. An empty image stays off the product page." />
             </section>
             {product?.images?.length ? (
               <section className="product-card">

@@ -32,6 +32,11 @@
     $figures = $page->blocksFor('facility_figures');
     $statIcons = ['stat-looms', 'stat-yarn', 'stat-globe', 'stat-people'];
     $productIcons = ['product-yarn', 'product-weave', 'product-finish'];
+    $productHrefs = [
+      'Yarn' => route('products.yarn'),
+      'Woven Fabric' => route('products.woven'),
+      'Finished Fabric' => route('products.finished'),
+    ];
     $whyIcons = ['trust-shield', 'trust-mill', 'trust-clock', 'trust-export'];
     $stepIcons = ['step-fiber', 'step-spin', 'step-weave', 'step-dye', 'step-finish', 'step-dispatch'];
     $certIcons = ['cert-lab', 'cert-process', 'cert-doc', 'cert-shield'];
@@ -95,7 +100,7 @@
               <div class="home-products__body">
                 @if(mill_filled($item->title))<h3>{{ $item->title }}</h3>@endif
                 @if(mill_filled($item->text))<p>{{ $item->text }}</p>@endif
-                @if(mill_filled($item->href))<a href="{{ $item->href }}" class="link-more link-more--serif">View Products →</a>@endif
+                @if(mill_filled($productHrefs[$item->title] ?? $item->href))<a href="{{ $productHrefs[$item->title] ?? $item->href }}" class="link-more link-more--serif">View Products →</a>@endif
               </div>
             </article>
           @endforeach

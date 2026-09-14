@@ -169,9 +169,9 @@ class ContentSeeder extends Seeder
             ['value' => '800', 'suffix' => '+', 'title' => 'Skilled Employees'],
         ]);
         $this->blocks($home, 'products', [
-            ['title' => 'Yarn', 'text' => 'High-quality cotton yarns for superior strength and consistent performance.', 'href' => '/products#yarn'],
+            ['title' => 'Yarn', 'text' => 'High-quality cotton yarns for superior strength and consistent performance.', 'href' => '/products/yarn'],
             ['title' => 'Woven Fabric', 'text' => 'Durable, versatile fabrics crafted with precision and care.', 'href' => '/products/woven-fabric'],
-            ['title' => 'Finished Fabric', 'text' => 'Ready-to-use fabrics with quality finishing for your exact needs.', 'href' => '/products#finishing'],
+            ['title' => 'Finished Fabric', 'text' => 'Ready-to-use fabrics with quality finishing for your exact needs.', 'href' => '/products/finished-fabric'],
         ]);
         $this->blocks($home, 'insights', [
             ['title' => 'From Fiber to Finish', 'text' => 'An integrated cotton pathway — spinning, weaving, and finishing — under one quality system in Bangladesh.', 'href' => '/process', 'link_label' => 'Discover Our Process', 'image' => $this->img('assets/images/process/step-06.jpg')],
@@ -392,9 +392,9 @@ class ContentSeeder extends Seeder
     private function catalog(): void
     {
         $categories = [
-            ['yarn', 'Yarn', 'High-quality cotton yarns for superior strength and consistent performance.', '/products#yarn', 'assets/images/gallery/gallery-7.jpg'],
+            ['yarn', 'Yarn', 'High-quality cotton yarns for superior strength and consistent performance.', '/products/yarn', 'assets/images/gallery/gallery-7.jpg'],
             ['woven', 'Woven Fabric', 'Durable, versatile fabrics crafted with precision and care.', '/products/woven-fabric', 'assets/images/products/product-0.jpg'],
-            ['finished', 'Finished Fabric', 'Ready-to-use fabrics with quality finishing for your exact needs.', '/products#finishing', 'assets/images/products/product-3.jpg'],
+            ['finished', 'Finished Fabric', 'Ready-to-use fabrics with quality finishing for your exact needs.', '/products/finished-fabric', 'assets/images/products/product-3.jpg'],
         ];
         $categoryIds = [];
         foreach ($categories as $index => [$slug, $name, $text, $href, $image]) {

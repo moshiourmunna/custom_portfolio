@@ -11,7 +11,7 @@
   @endphp
   <section class="section">
     <div class="container">
-      <p class="page-hero__crumb" style="margin-bottom:1.5rem"><a href="{{ route('home') }}">Home</a> / <a href="{{ route('products') }}">Products</a> @if($product->category) / <a href="{{ $product->category->href }}">{{ $product->category->name }}</a> @endif / {{ $product->title }}</p>
+      <p class="page-hero__crumb" style="margin-bottom:1.5rem"><a href="{{ route('home') }}">Home</a> / <a href="{{ route('products') }}">Products</a> @if($product->category) / <a href="{{ \App\Support\Mill::catalogUrl($product->category->slug, $product->category->href) }}">{{ $product->category->name }}</a> @endif / {{ $product->title }}</p>
       <div class="pdp reveal">
         <div class="pdp-gallery">
           <div class="pdp-gallery__main">

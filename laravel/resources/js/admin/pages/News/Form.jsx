@@ -1,6 +1,6 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Icon } from '../../icons';
-import { mediaUrl } from '../../ui';
+import { UploadField } from '../../ui';
 
 const empty = { title: '', slug: '', lead: '', body: '', cover: '', category: '', published_on: '', status: 'published', meta_title: '', meta_description: '' };
 
@@ -32,12 +32,7 @@ export default function Form({ post }) {
           <aside className="product-side">
             <section className="product-card">
               <h2>Cover</h2>
-              <div className="product-drop">
-                {form.data.cover ? <img alt="" src={mediaUrl(form.data.cover)} /> : null}
-                <input value={form.data.cover || ''} onChange={(event) => form.setData('cover', event.target.value)} placeholder="media/news/…" />
-                <span className="product-drop__hit"><Icon name="upload" /><strong>Cover path</strong><span>Mill photograph already on the public site</span></span>
-              </div>
-              <p className="hint">An empty cover stays off the article.</p>
+              <UploadField variant="drop" label="Cover" value={form.data.cover || ''} onChange={(value) => form.setData('cover', value)} hint="JPG, PNG, WEBP, or GIF. An empty cover stays off the article." />
             </section>
             <section className="product-card">
               <h2>Publish</h2>

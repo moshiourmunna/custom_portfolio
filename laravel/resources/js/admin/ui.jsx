@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
-import { Children, cloneElement, isValidElement, useMemo, useState } from 'react';
+import { Children, cloneElement, isValidElement, useMemo, useRef, useState } from 'react';
 import { Icon } from './icons';
+
+export const IMAGE_ACCEPT = 'image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif';
 
 export function mediaUrl(path) {
   if (!path) return '';
@@ -18,16 +20,84 @@ export function Field({ label, children, note = true }) {
   );
 }
 
-export function ImagePick({ label, value, onChange }) {
-  return (
-    <Field label={label}>
-      <div className="image-pick">
-        {value ? <img alt="" src={mediaUrl(value)} /> : <img alt="" hidden />}
-        <input value={value || ''} onChange={(event) => onChange(event.target.value)} placeholder="media/…" />
-        <span className="icon-btn" title="Image path" aria-hidden="true"><Icon name="image" /></span>
-      </div>
-    </Field>
+export function uploadMedia(file, extra = {}) {
+  const body = new FormData();
+  body.append('file', file);
+  Object.entries(extra).forEach(([key, item]) => {
+    if (item) body.append(key, item);
+  });
+  const token = decodeURIComponent((document.cookie.split('; ').find((row) => row.startsWith('XSRF-TOKEN=')) || '').split('=').slice(1).join('='));
+  return fetch('/admin/uploads', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-XSRF-TOKEN': token },
+    body,
+  }).then(async (response) => {
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.errors?.file?.[0] || data.message || 'Upload failed.');
+    return data;
+  });
+}
+
+export function UploadField({ label, value, onChange, variant = 'pick', hint, accept = IMAGE_ACCEPT, bare = false }) {
+  const input = useRef(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  async function pick(file) {
+    if (!file) return;
+    setBusy(true);
+    setError('');
+    try {
+      const saved = await uploadMedia(file);
+      onChange(saved.path);
+    } catch (err) {
+      setError(err.message || 'Upload failed.');
+    } finally {
+      setBusy(false);
+      if (input.current) input.current.value = '';
+    }
+  }
+
+  const fileInput = <input ref={input} type="file" accept={accept} hidden onChange={(event) => pick(event.target.files?.[0])} />;
+  const control = variant === 'drop' ? (
+    <button type="button" className="product-drop__hit" onClick={() => input.current?.click()} disabled={busy}>
+      <Icon name="upload" />
+      <strong>{busy ? 'Uploading…' : (value ? 'Replace image' : 'Upload image')}</strong>
+          <span>{hint || 'JPG, PNG, WEBP, or GIF. Upload, then save.'}</span>
+    </button>
+  ) : (
+    <button type="button" className="btn btn-outline btn--labeled image-pick__btn" onClick={() => input.current?.click()} disabled={busy}>
+      <Icon name="upload" /> {busy ? 'Uploading…' : 'Upload'}
+    </button>
   );
+
+  const body = variant === 'drop' ? (
+    <div className={`product-drop${busy ? ' is-busy' : ''}`}>
+      {value ? <img alt="" src={mediaUrl(value)} /> : null}
+      {fileInput}
+      {control}
+      <input value={value || ''} onChange={(event) => onChange(event.target.value)} placeholder="Or paste an existing path" aria-label={label || 'Image path'} />
+      {value ? <button type="button" className="btn btn-outline btn--labeled" onClick={() => onChange('')}>Remove</button> : null}
+      {error ? <p className="file-field__error">{error}</p> : null}
+    </div>
+  ) : (
+    <div className={`image-pick${busy ? ' is-busy' : ''}`}>
+      {value ? <img alt="" src={mediaUrl(value)} /> : <img alt="" hidden />}
+      <input value={value || ''} onChange={(event) => onChange(event.target.value)} placeholder="media/…" aria-label={label || 'Image path'} />
+      {fileInput}
+      {control}
+      {value ? <button type="button" className="icon-btn" aria-label="Remove image" title="Remove image" onClick={() => onChange('')}><Icon name="close" /></button> : null}
+      {error ? <p className="file-field__error">{error}</p> : null}
+    </div>
+  );
+
+  if (bare || !label) return body;
+  return <Field label={label}>{body}</Field>;
+}
+
+export function ImagePick({ label, value, onChange }) {
+  return <UploadField label={label} value={value} onChange={onChange} />;
 }
 
 export function Status({ value }) {
@@ -207,10 +277,7 @@ export function Repeater({ rows, keys, onChange, onAdd, onRemove, onMove }) {
           {keys.map((key) => (
             <Field key={key} label={key}>
               {key === 'image' ? (
-                <div className="image-pick">
-                  {row[key] ? <img alt="" src={mediaUrl(row[key])} /> : null}
-                  <input value={row[key] || ''} onChange={(event) => onChange(index, key, event.target.value)} />
-                </div>
+                <UploadField bare value={row[key] || ''} onChange={(next) => onChange(index, key, next)} />
               ) : key === 'text' || key === 'note' ? (
                 <textarea rows={3} value={row[key] || ''} onChange={(event) => onChange(index, key, event.target.value)} />
               ) : (

@@ -1,36 +1,84 @@
 import { router, useForm } from '@inertiajs/react';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Icon } from '../icons';
-import { mediaUrl } from '../ui';
+import { mediaUrl, uploadMedia } from '../ui';
+
+const ACCEPT = '.jpg,.jpeg,.png,.webp,.gif,.mp4,.webm,.mov,.pdf,.doc,.docx,.xls,.xlsx';
+
+function kindOf(item) {
+  const mime = item.mime || '';
+  const path = (item.path || '').toLowerCase();
+  if (mime.startsWith('video') || /\.(mp4|webm|mov)$/.test(path)) return 'videos';
+  if (mime.includes('pdf') || mime.includes('word') || mime.includes('sheet') || mime.includes('excel') || /\.(pdf|docx?|xlsx?)$/.test(path)) return 'documents';
+  return 'images';
+}
+
+function Preview({ item, className = 'media-card__preview' }) {
+  const kind = kindOf(item);
+  if (kind === 'videos') return <video className={className} src={mediaUrl(item.path)} controls={className.includes('details')} muted={!className.includes('details')} preload="metadata" />;
+  if (kind === 'documents') {
+    return (
+      <div className={`media-card__file ${className}`}>
+        <Icon name="paper" />
+        <span>{(item.path || '').split('.').pop()?.toUpperCase() || 'File'}</span>
+      </div>
+    );
+  }
+  return <img className={className} src={mediaUrl(item.path)} alt={item.alt || ''} />;
+}
 
 export default function Media({ items, folders = [] }) {
-  const form = useForm({ file: null, alt: '', caption: '' });
+  const form = useForm({ alt: '', caption: '' });
+  const fileRef = useRef(null);
   const [folder, setFolder] = useState('all');
   const [query, setQuery] = useState('');
   const [tab, setTab] = useState('all');
   const [selected, setSelected] = useState(null);
   const [checked, setChecked] = useState([]);
+  const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState('');
+  const [error, setError] = useState('');
   const visible = useMemo(() => items.filter((item) => {
     const inFolder = folder === 'all' || String(item.media_folder_id) === String(folder);
     const needle = query.toLowerCase();
     const text = `${item.caption || ''} ${item.alt || ''} ${item.path || ''}`.toLowerCase();
-    const kind = (item.mime || '').startsWith('video') ? 'videos' : (item.mime || '').includes('pdf') ? 'documents' : 'images';
-    return inFolder && (!needle || text.includes(needle)) && (tab === 'all' || tab === kind);
+    return inFolder && (!needle || text.includes(needle)) && (tab === 'all' || tab === kindOf(item));
   }), [items, folder, query, tab]);
   const active = items.find((item) => item.id === selected) || null;
+
+  async function uploadFiles(list) {
+    const files = [...list].filter(Boolean);
+    if (!files.length || busy) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    const failed = [];
+    for (const file of files) {
+      try {
+        await uploadMedia(file, { alt: form.data.alt, caption: form.data.caption || file.name });
+      } catch (err) {
+        failed.push(`${file.name}: ${err.message || 'Upload failed.'}`);
+      }
+    }
+    setBusy(false);
+    if (fileRef.current) fileRef.current.value = '';
+    if (failed.length) setError(failed.join(' '));
+    else setNotice(files.length === 1 ? 'File uploaded.' : `${files.length} files uploaded.`);
+    router.reload({ preserveScroll: true, only: ['items', 'folders'] });
+  }
 
   return (
     <>
       <header className="admin-top media-page-top">
         <div><h1>Media Gallery</h1></div>
         <div className="admin-top__actions">
-          <button className="btn btn-primary media-btn-solid" type="button" onClick={() => document.getElementById('media-file')?.click()}>
-            <Icon name="upload" /> Upload Media
+          <button className="btn btn-primary media-btn-solid" type="button" disabled={busy} onClick={() => fileRef.current?.click()}>
+            <Icon name="upload" /> {busy ? 'Uploading…' : 'Upload Media'}
           </button>
         </div>
       </header>
       <div className="admin-content media-page">
-        <p className="media-lead">Manage and organize mill photographs used on the public site.</p>
+        <p className="media-lead">Images, videos, and documents used on the public site. Images up to 8MB, documents up to 20MB, video up to 80MB.</p>
         <div className="media-tabs" role="tablist">
           {[['all', 'All Media'], ['images', 'Images'], ['videos', 'Videos'], ['documents', 'Documents']].map(([id, label]) => (
             <button key={id} type="button" className={tab === id ? 'is-active' : ''} onClick={() => setTab(id)}>{label}</button>
@@ -53,16 +101,23 @@ export default function Media({ items, folders = [] }) {
                 </button>
               ))}
             </section>
-            <form className="media-drop" onSubmit={(event) => { event.preventDefault(); form.post('/admin/media', { forceFormData: true }); }}>
+            <form
+              className={`media-drop${busy ? ' is-busy' : ''}`}
+              onSubmit={(event) => event.preventDefault()}
+              onDragOver={(event) => { event.preventDefault(); event.currentTarget.classList.add('is-drag'); }}
+              onDragLeave={(event) => event.currentTarget.classList.remove('is-drag')}
+              onDrop={(event) => { event.preventDefault(); event.currentTarget.classList.remove('is-drag'); uploadFiles(event.dataTransfer.files); }}
+            >
               <Icon name="upload" className="media-drop__icon" />
-              <strong>Upload an image</strong>
-              <span>or</span>
-              <input id="media-file" type="file" accept="image/*" hidden onChange={(event) => form.setData('file', event.target.files[0])} />
-              <button className="btn btn-primary media-btn-solid" type="button" onClick={() => document.getElementById('media-file')?.click()}>Select Files</button>
+              <strong>{busy ? 'Uploading…' : 'Upload a file'}</strong>
+              <span>image, video, or document</span>
+              <input ref={fileRef} type="file" accept={ACCEPT} multiple hidden onChange={(event) => uploadFiles(event.target.files)} />
+              <button className="btn btn-primary media-btn-solid" type="button" disabled={busy} onClick={() => fileRef.current?.click()}>Select Files</button>
               <input value={form.data.alt} onChange={(event) => form.setData('alt', event.target.value)} placeholder="Alt text" aria-label="Alt text" />
               <input value={form.data.caption} onChange={(event) => form.setData('caption', event.target.value)} placeholder="Caption" aria-label="Caption" />
-              <button className="btn btn-outline" type="submit">Upload</button>
-              <p>Images only. Max file size: 8MB.</p>
+              {notice ? <p>{notice}</p> : null}
+              {error ? <p className="file-field__error">{error}</p> : null}
+              <p>JPG, PNG, WEBP, GIF, MP4, WEBM, MOV, PDF, DOC, DOCX, XLS, XLSX.</p>
             </form>
           </aside>
           <div className="media-stage">
@@ -82,18 +137,19 @@ export default function Media({ items, folders = [] }) {
                     event.stopPropagation();
                     setChecked((current) => event.target.checked ? [...current, item.id] : current.filter((id) => id !== item.id));
                   }} />
-                  <img src={mediaUrl(item.path)} alt={item.alt || ''} />
+                  <Preview item={item} />
                   <div className="media-card__meta">
                     <strong>{(item.path || '').split('/').pop()}</strong>
                     <small>{item.caption || item.alt || 'No caption'}</small>
                   </div>
                 </article>
               ))}
+              {!visible.length ? <p className="hint">No files in this view.</p> : null}
             </div>
           </div>
           <aside className="media-details" aria-label="File details">
             <h2>File details</h2>
-            {active ? <img alt={active.alt || ''} src={mediaUrl(active.path)} /> : null}
+            {active ? <Preview item={active} className="media-details__preview" /> : null}
             <dl>
               <div><dt>Filename</dt><dd>{active ? (active.path || '').split('/').pop() : 'Select a file'}</dd></div>
               <div><dt>File type</dt><dd>{active?.mime || '—'}</dd></div>
@@ -102,6 +158,7 @@ export default function Media({ items, folders = [] }) {
             </dl>
             <div className="field"><label>Alt text</label><input value={active?.alt || ''} readOnly /></div>
             <div className="field"><label>Caption</label><input value={active?.caption || ''} readOnly /><span className="hide-note">Hidden on the site when empty</span></div>
+            {active ? <a className="btn btn-outline btn--labeled" href={mediaUrl(active.path)} target="_blank" rel="noreferrer">Open file</a> : null}
             {active ? <button className="btn btn-outline" type="button" onClick={() => router.delete(`/admin/media/${active.id}`)}>Remove record</button> : null}
           </aside>
         </div>
