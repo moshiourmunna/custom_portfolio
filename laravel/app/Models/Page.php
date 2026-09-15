@@ -34,6 +34,57 @@ class Page extends Model
         return $this->blocks->where('group', $group)->values();
     }
 
+    public function sectionActive(string $id): bool
+    {
+        $raw = $this->field('section_status');
+        if ($raw === null || $raw === '') {
+            return true;
+        }
+
+        $status = json_decode($raw, true);
+        if (! is_array($status) || ! array_key_exists($id, $status)) {
+            return true;
+        }
+
+        return (bool) $status[$id];
+    }
+
+    public static function defaultHomeSections(): array
+    {
+        return [
+            'hero', 'stats', 'products', 'insights', 'why', 'integration',
+            'facilities', 'quality', 'markets', 'gallery', 'careers', 'cta',
+        ];
+    }
+
+    public function sectionOrder(): array
+    {
+        $defaults = self::defaultHomeSections();
+        $raw = $this->field('section_order');
+        if ($raw === null || $raw === '') {
+            return $defaults;
+        }
+
+        $order = json_decode($raw, true);
+        if (! is_array($order)) {
+            return $defaults;
+        }
+
+        $allowed = array_flip($defaults);
+        $order = array_values(array_filter(
+            $order,
+            fn ($id) => is_string($id) && isset($allowed[$id])
+        ));
+
+        foreach ($defaults as $id) {
+            if (! in_array($id, $order, true)) {
+                $order[] = $id;
+            }
+        }
+
+        return $order;
+    }
+
     public function published(): bool
     {
         return $this->status === 'published';

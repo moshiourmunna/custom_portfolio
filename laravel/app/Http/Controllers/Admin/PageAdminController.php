@@ -28,6 +28,60 @@ class PageAdminController extends Controller
         return back()->with('status', 'Home saved.');
     }
 
+    public function updateHomeSection(Request $request): RedirectResponse
+    {
+        $page = Page::query()->with('fields')->where('slug', 'home')->firstOrFail();
+        $data = $request->validate([
+            'section' => ['required', 'string', 'max:64'],
+            'active' => ['required', 'boolean'],
+        ]);
+
+        $allowed = Page::defaultHomeSections();
+        abort_unless(in_array($data['section'], $allowed, true), 422);
+
+        $status = json_decode($page->field('section_status') ?: '{}', true);
+        if (! is_array($status)) {
+            $status = [];
+        }
+        $status[$data['section']] = (bool) $data['active'];
+
+        PageField::query()->updateOrCreate(
+            ['page_id' => $page->id, 'key' => 'section_status'],
+            ['value' => json_encode($status)]
+        );
+
+        return back()->with('status', ($data['active'] ? 'Section shown' : 'Section hidden').' on the public home page.');
+    }
+
+    public function updateHomeOrder(Request $request): RedirectResponse
+    {
+        $page = Page::query()->where('slug', 'home')->firstOrFail();
+        $data = $request->validate([
+            'order' => ['required', 'array', 'min:1'],
+            'order.*' => ['required', 'string', 'max:64'],
+        ]);
+
+        $allowed = Page::defaultHomeSections();
+        $order = [];
+        foreach ($data['order'] as $id) {
+            if (in_array($id, $allowed, true) && ! in_array($id, $order, true)) {
+                $order[] = $id;
+            }
+        }
+        foreach ($allowed as $id) {
+            if (! in_array($id, $order, true)) {
+                $order[] = $id;
+            }
+        }
+
+        PageField::query()->updateOrCreate(
+            ['page_id' => $page->id, 'key' => 'section_order'],
+            ['value' => json_encode(array_values($order))]
+        );
+
+        return back()->with('status', 'Section order updated.');
+    }
+
     public function index(): Response
     {
         return Inertia::render('Pages/Index', [
@@ -91,7 +145,7 @@ class PageAdminController extends Controller
         ]));
 
         foreach ($request->input('fields', []) as $field) {
-            if (empty($field['key'])) {
+            if (empty($field['key']) || in_array($field['key'], ['section_status', 'section_order'], true)) {
                 continue;
             }
             PageField::query()->updateOrCreate(

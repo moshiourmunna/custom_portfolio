@@ -6,7 +6,7 @@ const groups = [
   { label: 'Overview', items: [['dashboard', '/admin', 'Dashboard'], ['home', '/admin/home', 'Home']] },
   { label: 'Content', items: [['pages', '/admin/pages', 'Pages'], ['products', '/admin/products', 'Products'], ['categories', '/admin/categories', 'Categories'], ['gallery', '/admin/gallery', 'Gallery'], ['news', '/admin/news', 'News'], ['careers', '/admin/careers', 'Careers']] },
   { label: 'Library', items: [['inquiries', '/admin/inquiries', 'Inquiries'], ['media', '/admin/media', 'Media']] },
-  { label: 'System', items: [['settings', '/admin/settings', 'Settings']] },
+  { label: 'System', items: [['account', '/admin/account', 'Account'], ['settings', '/admin/settings', 'Settings']] },
 ];
 
 export default function Layout({ children }) {
@@ -17,6 +17,7 @@ export default function Layout({ children }) {
     : path.startsWith('/admin/products') ? 'products'
     : path.startsWith('/admin/news') ? 'news'
     : path.startsWith('/admin/careers') ? 'careers'
+    : path.startsWith('/admin/account') ? 'account'
     : path === '/admin' ? 'dashboard'
     : path.replace('/admin/', '').split('/')[0];
 
@@ -35,10 +36,10 @@ export default function Layout({ children }) {
               <Icon name="bell" />
               <span className="admin-nav__badge" hidden={!inbox}>{inbox || 0}</span>
             </Link>
-            <div className="admin-nav__user">
+            <Link className="admin-nav__user" href="/admin/account" aria-label="Account settings">
               <span className="admin-nav__user-text"><strong>{auth.user?.name}</strong><small>{auth.user?.role}</small></span>
               <span className="admin-nav__avatar" aria-hidden="true"><Icon name="user" /></span>
-            </div>
+            </Link>
           </div>
         </header>
         <aside className={`sidebar${open ? ' is-open' : ''}`} id="admin-sidebar">
@@ -48,7 +49,7 @@ export default function Layout({ children }) {
                 <p className="sidebar__label">{group.label}</p>
                 {group.items.filter((item) => item[0] !== 'settings' || auth.user?.role === 'super-admin').map(([id, href, label]) => (
                   <Link key={id} className={`sidebar__link${active === id ? ' is-active' : ''}`} href={href} aria-current={active === id ? 'page' : undefined}>
-                    <span className="sidebar__icon"><Icon name={id} /></span>
+                    <span className="sidebar__icon"><Icon name={id === 'account' ? 'user' : id} /></span>
                     <span>{label}</span>
                   </Link>
                 ))}

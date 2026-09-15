@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LibraryController;
 use App\Http\Controllers\Admin\PageAdminController;
@@ -53,8 +54,12 @@ Route::post('/admin/logout', [LoginController::class, 'destroy'])->middleware('a
 
 Route::middleware(['auth', 'role:super-admin|editor'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/account', [AccountController::class, 'edit'])->name('account');
+    Route::put('/account', [AccountController::class, 'update'])->name('account.update');
     Route::get('/home', [PageAdminController::class, 'home'])->name('home');
     Route::put('/home', [PageAdminController::class, 'updateHome'])->name('home.update');
+    Route::put('/home/sections', [PageAdminController::class, 'updateHomeSection'])->name('home.sections');
+    Route::put('/home/sections/order', [PageAdminController::class, 'updateHomeOrder'])->name('home.sections.order');
     Route::get('/pages', [PageAdminController::class, 'index'])->name('pages');
     Route::get('/pages/{page}', [PageAdminController::class, 'edit'])->name('pages.edit');
     Route::put('/pages/{page}', [PageAdminController::class, 'update'])->name('pages.update');

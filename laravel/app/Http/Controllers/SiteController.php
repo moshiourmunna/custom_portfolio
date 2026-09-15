@@ -16,7 +16,6 @@ class SiteController extends Controller
         return view('pages.home', [
             'page' => $page,
             'posts' => Post::query()->where('status', 'published')->orderByDesc('published_on')->limit(2)->get(),
-            'footer' => 'slim',
         ]);
     }
 

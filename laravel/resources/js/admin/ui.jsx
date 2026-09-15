@@ -101,7 +101,7 @@ export function ImagePick({ label, value, onChange }) {
 }
 
 export function Status({ value }) {
-  const off = /draft|closed/i.test(value || '');
+  const off = /draft|closed|hidden|inactive/i.test(value || '');
   return <span className={`catalog-status${off ? ' is-off' : ''}`}><i aria-hidden="true" />{value}</span>;
 }
 

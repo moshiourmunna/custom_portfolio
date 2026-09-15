@@ -241,13 +241,19 @@ a:hover { color: var(--forest); }
   display: flex;
   align-items: center;
   gap: .65rem;
+  width: 100%;
   min-height: 2.55rem;
   margin-bottom: .18rem;
   padding: .4rem .5rem;
+  border: 0;
   border-radius: 10px;
+  background: transparent;
   color: rgba(255,255,255,.86);
+  font: inherit;
   font-size: .92rem;
   font-weight: 600;
+  text-align: left;
+  cursor: pointer;
 }
 .sidebar__link span:last-child {
   min-width: 0;
@@ -301,6 +307,14 @@ a:hover { color: var(--forest); }
 }
 .sidebar__mill span { font-size: .72rem; color: rgba(255,255,255,.58); }
 .sidebar__link--logout { margin-bottom: 0; }
+.sidebar__link--logout:hover {
+  background: rgba(209, 67, 67, .16);
+  color: #fff;
+}
+.sidebar__link--logout:hover .sidebar__icon {
+  background: rgba(209, 67, 67, .28);
+  color: #fff;
+}
 .admin-backdrop {
   display: none;
 }

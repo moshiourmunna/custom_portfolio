@@ -9,7 +9,7 @@ createInertiaApp({
   resolve: (name) => {
     const page = pages[`./admin/pages/${name}.jsx`];
     if (!page) throw new Error(`Missing admin page ${name}`);
-    page.default.layout = page.default.layout || ((content) => <Layout>{content}</Layout>);
+    page.default.layout ??= Layout;
     return page;
   },
   setup({ el, App, props }) {
